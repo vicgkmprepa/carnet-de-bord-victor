@@ -22,6 +22,22 @@ export async function loadData() {
   return res.json();
 }
 
+// Copie en lecture seule uniquement : petit fichier à part (jamais mis en
+// cache, { cache: "no-store" } force une vraie requête réseau à chaque appel)
+// qui donne l'horodatage de la dernière publication — sert à détecter qu'une
+// version plus récente existe pendant que la page elle-même reste affichée
+// (cf. le sondage périodique dans store.js), sans dépendre d'un rechargement
+// de page qui pourrait lui-même rester bloqué sur une copie en cache.
+export async function fetchSnapshotMeta() {
+  try {
+    const res = await fetch("./meta.json", { cache: "no-store" });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
 export async function saveData(data, { force = false } = {}) {
   const headers = { "Content-Type": "application/json" };
   if (currentVersion != null) headers["X-Data-Version"] = currentVersion;

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "../lib/react.js";
 import { html } from "../lib/htm.js";
-import { loadData, saveData } from "../lib/api.js";
+import { loadData, saveData, fetchSnapshotMeta } from "../lib/api.js";
 import { makeId } from "../lib/id.js";
 import { CB_MATIERES } from "../lib/subjectMapping.js";
 import { todayStr } from "../lib/dateUtils.js";
@@ -101,7 +101,7 @@ const MAX_HISTORY = 30;
 // copie-là (jamais dans l'app locale servie par server.py) — aucune tentative
 // d'enregistrement n'est alors faite, il n'y a pas de serveur à qui écrire.
 const READ_ONLY = typeof window !== "undefined" && window.__CARNET_READONLY__ === true;
-const SNAPSHOT_AT = typeof window !== "undefined" ? window.__CARNET_SNAPSHOT_AT__ || null : null;
+const SNAPSHOT_AT_INITIAL = typeof window !== "undefined" ? window.__CARNET_SNAPSHOT_AT__ || null : null;
 
 export function DataProvider({ children }) {
   const [data, setDataRaw] = useState(null);
@@ -110,6 +110,12 @@ export function DataProvider({ children }) {
   const [loadError, setLoadError] = useState(null);
   const [conflictNotice, setConflictNotice] = useState(null);
   const [canUndo, setCanUndo] = useState(false);
+  // Horodatage affiché dans le bandeau de lecture seule — state (pas une
+  // simple constante lue une fois sur window) car mis à jour par le sondage
+  // périodique ci-dessous, lui-même nécessaire parce que la page HTML elle-
+  // même reste en cache navigateur jusqu'à 10 min (cf. publish_readonly.py).
+  const [snapshotAt, setSnapshotAt] = useState(SNAPSHOT_AT_INITIAL);
+  const snapshotAtRef = useRef(SNAPSHOT_AT_INITIAL);
 
   const saveTimer = useRef(null);
   const isFirstLoad = useRef(true);
@@ -157,6 +163,40 @@ export function DataProvider({ children }) {
         setLoadError(err.message || String(err));
         setStatus("error");
       });
+  }, []);
+
+  // Copie en lecture seule uniquement : sonde régulièrement (et à chaque
+  // retour au premier plan, ex. l'utilisateur rouvre l'onglet sur son
+  // téléphone) si une publication plus récente existe, et recharge les
+  // données SANS recharger la page (la page elle-même pourrait rester bloquée
+  // en cache navigateur jusqu'à 10 min — cf. publish_readonly.py — alors que
+  // ces petites requêtes, en cache: "no-store", touchent toujours le réseau).
+  useEffect(() => {
+    if (!READ_ONLY) return;
+    const INTERVALLE_MS = 30000;
+
+    const sonder = async () => {
+      const meta = await fetchSnapshotMeta();
+      if (!meta || !meta.snapshotAt || meta.snapshotAt === snapshotAtRef.current) return;
+      try {
+        const fresh = await loadData();
+        setDataRaw(normalize(fresh));
+        snapshotAtRef.current = meta.snapshotAt;
+        setSnapshotAt(meta.snapshotAt);
+      } catch {
+        // Tant pis pour cette fois — on retentera à la prochaine sonde.
+      }
+    };
+
+    const timer = setInterval(sonder, INTERVALLE_MS);
+    const onVisible = () => {
+      if (document.visibilityState === "visible") sonder();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, []);
 
   useEffect(() => {
@@ -774,7 +814,7 @@ export function DataProvider({ children }) {
     canUndo,
     undo,
     readOnly: READ_ONLY,
-    snapshotAt: SNAPSHOT_AT,
+    snapshotAt,
     today: todayStr(),
     updateProfil,
     addCB,
