@@ -492,8 +492,9 @@
       "matiere": "Général",
       "titre": "Lolllfzelgrle",
       "deadline": null,
-      "statut": "à faire",
-      "devoir": false
+      "statut": "fait",
+      "devoir": false,
+      "faitLe": "2026-10-13"
     }
   ],
   "emploi_du_temps": {
