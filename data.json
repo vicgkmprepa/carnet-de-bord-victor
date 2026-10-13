@@ -483,8 +483,9 @@
       "matiere": "Général",
       "titre": "Bonjour",
       "deadline": null,
-      "statut": "à faire",
-      "devoir": false
+      "statut": "fait",
+      "devoir": false,
+      "faitLe": "2026-10-13"
     },
     {
       "id": "t-413ef676-d883-4dc2-bb95-b70222ab1f06",
