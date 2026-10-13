@@ -477,6 +477,14 @@
       "titre": "Ajouter https://legrandcontinent.eu/fr/2026/10/05/pascal-lamy-la-chine-est-en-train-de-tuer-le-commerce-mondial-ouvert",
       "deadline": "2026-10-12",
       "statut": "à faire"
+    },
+    {
+      "id": "t-56d98296-ac23-4c0b-9c9b-74bd02eb048b",
+      "matiere": "Général",
+      "titre": "Bonjour",
+      "deadline": null,
+      "statut": "à faire",
+      "devoir": false
     }
   ],
   "emploi_du_temps": {
