@@ -9897,7 +9897,7 @@
       "contenu": "1h pierson et 1h exos de LPA"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "Annale",
       "estCours": false,
       "devoirIds": [],
@@ -9907,7 +9907,7 @@
       "fin": "23:30",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "Annale de l'an dernier CB1 2025"
+      "contenu": "Annale de l'an dernier CB1 2025\nGalère..."
     },
     {
       "statut": "realise",
