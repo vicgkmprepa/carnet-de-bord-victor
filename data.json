@@ -469,15 +469,6 @@
       "titre": "exercices 1,2,6,8 de la fiche 3",
       "deadline": "2026-10-16",
       "statut": "à faire"
-    },
-    {
-      "devoir": false,
-      "id": "t-49707b17-762d-4d63-aa33-4343998a1f98",
-      "matiere": "HGG",
-      "titre": "Ajouter https://legrandcontinent.eu/fr/2026/10/05/pascal-lamy-la-chine-est-en-train-de-tuer-le-commerce-mondial-ouvert",
-      "deadline": "2026-10-12",
-      "statut": "fait",
-      "faitLe": "2026-10-14"
     }
   ],
   "emploi_du_temps": {
