@@ -468,7 +468,8 @@
       "matiere": "Maths",
       "titre": "exercices 1,2,6,8 de la fiche 3",
       "deadline": "2026-10-16",
-      "statut": "à faire"
+      "statut": "fait",
+      "faitLe": "2026-10-16"
     }
   ],
   "emploi_du_temps": {
