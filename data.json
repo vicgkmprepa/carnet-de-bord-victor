@@ -11300,6 +11300,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-fa33660f-3889-43d4-b8b8-d72dd5230727",
+      "date": "2026-10-23",
+      "debut": "20:30",
+      "fin": "23:30",
+      "matiere": "CG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
