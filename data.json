@@ -489,6 +489,13 @@
       "debut": "19:00",
       "fin": "19:45",
       "titre": "Impression du feuillet de Culture Générale"
+    },
+    {
+      "id": "evt-79a3b767-e14a-46af-a185-a77e7b6996e8",
+      "date": "2026-10-14",
+      "debut": "09:20",
+      "fin": "11:10",
+      "titre": "RDV chez le médecin"
     }
   ],
   "colles": [
