@@ -11311,6 +11311,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-790ccfbe-b1ba-4597-8e1b-bfb0cd190db2",
+      "date": "2026-10-24",
+      "debut": "07:00",
+      "fin": "11:00",
+      "matiere": "Maths",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
