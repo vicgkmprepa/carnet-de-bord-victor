@@ -11146,6 +11146,17 @@
       "matiere": "Espagnol",
       "titre": "",
       "contenu": ""
+    },
+    {
+      "id": "sp-487fcd36-a0fd-4e2d-bcae-7bdb8aa2914a",
+      "date": "2026-10-21",
+      "debut": "07:00",
+      "fin": "11:00",
+      "matiere": "Maths",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
