@@ -11311,6 +11311,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-de26db1f-be0e-4c54-97fe-9ffffb073b81",
+      "date": "2026-10-24",
+      "debut": "07:00",
+      "fin": "10:00",
+      "matiere": "HGG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
