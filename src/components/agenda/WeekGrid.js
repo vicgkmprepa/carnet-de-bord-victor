@@ -7,7 +7,7 @@ import { colleDurees } from "../../lib/colleUtils.js";
 const COURS_COLOR = "#94A3B8";
 const EVENEMENT_COLOR = "#7C3AED";
 const CB_COLOR = "#DC2626";
-const DAY_START = 7 * 60;
+const DAY_START = 6 * 60 + 30;
 const DAY_END = 24 * 60;
 const SLOT_MIN = 30;
 const ROW_PX = 22;
@@ -38,7 +38,10 @@ export function WeekGrid({
   onAddAt,
 }) {
   const hours = [];
-  for (let m = DAY_START; m < DAY_END; m += 60) hours.push(m);
+  // Les étiquettes restent calées sur les heures pleines même si la grille
+  // démarre à la demie (6h30) — sinon elles s'afficheraient décalées (7h30,
+  // 8h30…) au lieu de 7h, 8h…
+  for (let m = Math.ceil(DAY_START / 60) * 60; m < DAY_END; m += 60) hours.push(m);
   const todayIndex = days.indexOf(today);
 
   // Glisser-déposer : uniquement pour les sessions ponctuelles et les événements

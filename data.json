@@ -59,10 +59,10 @@
           "causes_erreur": []
         }
       ],
-      "classement_section": null,
-      "effectif_section": null,
-      "classement_promo": null,
-      "effectif_promo": null
+      "classement_section": 22,
+      "effectif_section": 150,
+      "classement_promo": 33,
+      "effectif_promo": 235
     },
     {
       "id": "cb-3596e0d0-f859-4811-8f59-495c33124600",
