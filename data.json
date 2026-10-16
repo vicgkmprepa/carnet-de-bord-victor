@@ -11234,6 +11234,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-ed8b96c0-d896-4fe1-9704-93975b950b4f",
+      "date": "2026-10-22",
+      "debut": "17:10",
+      "fin": "19:10",
+      "matiere": "Espagnol",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
