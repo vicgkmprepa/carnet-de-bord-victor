@@ -11313,17 +11313,6 @@
       "estCours": false
     },
     {
-      "id": "sp-9c27714a-1b5f-4256-9275-3dea2d0087b3",
-      "date": "2026-10-24",
-      "debut": "14:00",
-      "fin": "17:00",
-      "matiere": "HGG",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
-    },
-    {
       "id": "sp-e11e86f4-9b75-4ab0-88b1-2d6390257156",
       "date": "2026-10-24",
       "debut": "17:10",
