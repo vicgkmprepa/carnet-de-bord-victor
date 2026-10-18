@@ -11023,7 +11023,7 @@
       "titre": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11032,7 +11032,8 @@
       "debut": "20:40",
       "fin": "21:50",
       "matiere": "CG",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "realise",
