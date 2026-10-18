@@ -11002,7 +11002,7 @@
       "devoirIds": [],
       "id": "sp-9a2e3051-5320-4381-b896-1a9bd4555951",
       "date": "2026-10-18",
-      "debut": "16:00",
+      "debut": "17:00",
       "fin": "19:00",
       "matiere": "Maths",
       "titre": ""
@@ -11389,15 +11389,16 @@
       "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-52a1ddbd-c9fe-4d6f-830e-e2e27b386bef",
       "date": "2026-10-17",
       "debut": "19:00",
       "fin": "20:00",
       "matiere": "CG",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     }
   ],
   "geopolitique_revisions": [
