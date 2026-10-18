@@ -10998,7 +10998,7 @@
       "contenu": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "Probabilités",
       "estCours": false,
       "devoirIds": [],
@@ -11007,7 +11007,8 @@
       "debut": "18:30",
       "fin": "19:00",
       "matiere": "Maths",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
