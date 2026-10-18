@@ -11011,7 +11011,7 @@
       "contenu": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11020,7 +11020,8 @@
       "debut": "22:30",
       "fin": "23:30",
       "matiere": "Espagnol",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "realise",
