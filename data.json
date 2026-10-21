@@ -11175,7 +11175,7 @@
       "contenu": "https://claude.ai/artifact/7Fn73Kwo2kYEmH7PUnPzVn#99b1426a-8af9.m04sy08pkpm.37024\n\nhttps://claude.ai/artifact/7Fn73Kwo2kYEmH7PUnPzVn#99b1426a-8af9.m04sy08pkpm.75376"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11184,7 +11184,8 @@
       "debut": "14:00",
       "fin": "17:00",
       "matiere": "HGG",
-      "titre": "Géopo"
+      "titre": "Géopo",
+      "contenu": ""
     },
     {
       "statut": "planifie",
