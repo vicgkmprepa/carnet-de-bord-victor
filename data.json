@@ -11276,7 +11276,7 @@
       "contenu": "20h30–20h45 Anki\n20h45–20h50 Chasse aux fautes\n20h50–21h15 Grammaire n°1 : l'hypothèse (si + subjonctif imparfait, aunque + subjonctif)\n21h15–21h40 Thème : la régularisation\n21h40–22h05 Correction\n22h05–22h30 Civi : la inmigración en España + paragraphe"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11285,7 +11285,8 @@
       "debut": "22:30",
       "fin": "23:30",
       "matiere": "CG",
-      "titre": "Culture générale"
+      "titre": "Culture générale",
+      "contenu": ""
     },
     {
       "statut": "planifie",
