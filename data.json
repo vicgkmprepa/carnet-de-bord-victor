@@ -472,12 +472,12 @@
       "faitLe": "2026-10-16"
     },
     {
+      "devoir": true,
       "id": "t-e9601dbb-22d9-4ecc-bf87-c24337d5e244",
       "matiere": "Général",
       "titre": "rapport de jury Mercier LB",
       "deadline": "2026-11-02",
-      "statut": "à faire",
-      "devoir": true
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -12054,7 +12054,7 @@
       "id": "rev-f80bc12e-7e62-4a51-941c-982e303155c7",
       "categorie": "tt",
       "texte": "Puissance",
-      "dernierRevu": null
+      "dernierRevu": "2026-10-21"
     },
     {
       "id": "rev-777d113f-7ad8-4bd1-8ccf-8bd64a8c73a6",
