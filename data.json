@@ -477,7 +477,7 @@
       "titre": "rapport de jury Mercier LB",
       "deadline": "2026-11-02",
       "statut": "à faire",
-      "devoir": false
+      "devoir": true
     }
   ],
   "emploi_du_temps": {
