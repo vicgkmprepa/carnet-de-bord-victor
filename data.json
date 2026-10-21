@@ -11868,7 +11868,7 @@
       "id": "rev-002251e6-86d9-45a1-a555-517f282f67b2",
       "categorie": "aires",
       "texte": "Russie",
-      "dernierRevu": "2026-09-06"
+      "dernierRevu": null
     },
     {
       "id": "rev-9f55c19d-e92d-41c4-b481-6cc7a3ba21b1",
@@ -11898,13 +11898,13 @@
       "id": "rev-4ab07a54-4c6b-4c02-8e60-61f2ba19385c",
       "categorie": "aires",
       "texte": "Espace méditerranéen",
-      "dernierRevu": "2026-09-06"
+      "dernierRevu": null
     },
     {
       "id": "rev-b459e691-24c5-4b30-953a-8209bdf52a8f",
       "categorie": "aires",
       "texte": "Europe et UE",
-      "dernierRevu": "2026-09-06"
+      "dernierRevu": null
     },
     {
       "id": "rev-080a1322-0bd2-42b2-bc32-efee9ffde5aa",
@@ -12006,7 +12006,7 @@
       "id": "rev-9de999c0-164d-4389-bfc5-8a1068c6d885",
       "categorie": "tt",
       "texte": "Guerre",
-      "dernierRevu": "2026-09-06"
+      "dernierRevu": null
     },
     {
       "id": "rev-6f339c4e-8cc9-4d17-988e-596add62a5d7",
@@ -12091,7 +12091,7 @@
       "id": "rev-c642369b-625c-4aab-bca1-4a807e2bad2f",
       "categorie": "edc",
       "texte": "Le Maroc : un territoire gagnant en Afrique ?",
-      "dernierRevu": "2026-10-02",
+      "dernierRevu": null,
       "ping": "Afrique"
     },
     {
@@ -12154,7 +12154,7 @@
       "id": "rev-6a262ee2-fb14-4a94-9163-a836b6d6544c",
       "categorie": "edc",
       "texte": "Accord commercial Union européenne–Inde en janvier 2026",
-      "dernierRevu": "2026-10-09",
+      "dernierRevu": null,
       "ping": "Asie"
     },
     {
@@ -12168,7 +12168,7 @@
       "id": "rev-57e992e4-a6b0-4517-87a7-684aa577bf94",
       "categorie": "edc",
       "texte": "Russie : l'Asie orientale au secours du Kremlin",
-      "dernierRevu": "2026-09-18",
+      "dernierRevu": null,
       "ping": "Asie"
     },
     {
@@ -12203,7 +12203,7 @@
       "id": "rev-6f051be2-a033-46de-a862-94c7a73319f4",
       "categorie": "edc",
       "texte": "Accord Union européenne – Mercosur : un méga-deal commercial, enjeu de puissance et de souveraineté",
-      "dernierRevu": "2026-10-02",
+      "dernierRevu": null,
       "ping": "Amérique Latine"
     },
     {
@@ -12238,42 +12238,42 @@
       "id": "rev-e0dc836a-93eb-4653-a272-2c0b867659f6",
       "categorie": "edc",
       "texte": "Allemagne : du « Zeitenwende » de Scholz au « leadership » de Merz : réarmement accéléré et recomposition des équilibres UE/OTAN",
-      "dernierRevu": "2026-10-09",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-d4aa02f1-1f4b-4a89-b6e3-1d1fce0475cf",
       "categorie": "edc",
       "texte": "RESourceEU : la nouvelle stratégie européenne sur les terres rares (2025)",
-      "dernierRevu": "2026-09-11",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-abf6e616-dd70-49cc-9611-db5f85d3a177",
       "categorie": "edc",
       "texte": "Moldavie : trajectoire européenne sous pression russe",
-      "dernierRevu": "2026-10-09",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-5e636f2b-e363-49bc-942e-8568dc3d0edf",
       "categorie": "edc",
       "texte": "Azerbaïdjan : hydrocarbures, rente autoritaire et partenariat européen",
-      "dernierRevu": "2026-10-09",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-412a6362-7a00-4b2b-bf32-3a3b31193ec0",
       "categorie": "edc",
       "texte": "France–Inde : un partenariat stratégique structurant au service de l'autonomie",
-      "dernierRevu": "2026-09-18",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-65284220-e652-4977-bb91-c9e738148a04",
       "categorie": "edc",
       "texte": "EDIP (2025) : vers une préférence européenne en armement et une économie de préparation",
-      "dernierRevu": "2026-09-11",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
@@ -12287,7 +12287,7 @@
       "id": "rev-15c9c55d-dc5c-4540-826c-664b2d8f258d",
       "categorie": "edc",
       "texte": "Turquie–Grèce en Méditerranée orientale – une « zone grise » durable",
-      "dernierRevu": "2026-09-18",
+      "dernierRevu": null,
       "ping": "Espace méditerranéen"
     },
     {
@@ -12308,7 +12308,7 @@
       "id": "rev-cf9b4075-445a-469d-b3a2-8458137278cd",
       "categorie": "schemas",
       "texte": "Tanger Med : métropolisation, littoralisation des espaces productifs et accroissement des flux",
-      "dernierRevu": "2026-09-25",
+      "dernierRevu": null,
       "ping": "Afrique"
     },
     {
@@ -12322,7 +12322,7 @@
       "id": "rev-87f01761-7209-4fda-8c80-8c26f7e4516c",
       "categorie": "schemas",
       "texte": "Le détroit d'Ormuz",
-      "dernierRevu": "2026-09-04",
+      "dernierRevu": null,
       "ping": "PMO"
     },
     {
@@ -12357,7 +12357,7 @@
       "id": "rev-0f1fd903-8394-4d8d-8cec-e72a22e3e3f0",
       "categorie": "schemas",
       "texte": "La mer Baltique, espace marqué par les rivalités",
-      "dernierRevu": "2026-09-14",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
@@ -12378,28 +12378,28 @@
       "id": "rev-6bffd3e6-262f-40a7-979b-1447998798ce",
       "categorie": "schemas",
       "texte": "La Méditerranée orientale : un cratère en proie à l'implosion",
-      "dernierRevu": "2026-10-09",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-c2fff847-5fc4-49a6-a212-ebcd5eaed3a7",
       "categorie": "schemas",
       "texte": "Paris-Saclay : une « Silicon Valley à la française » ?",
-      "dernierRevu": "2026-09-18",
+      "dernierRevu": null,
       "ping": "Europe"
     },
     {
       "id": "rev-54103719-7723-4c30-b9a1-86f954d449bc",
       "categorie": "schemas",
       "texte": "L'Arctique : un nouvel espace de la puissance maritime et énergétique",
-      "dernierRevu": "2026-09-11",
+      "dernierRevu": null,
       "ping": "Arctique"
     },
     {
       "id": "rev-3751bfc8-be28-44f2-ba96-6366205abe60",
       "categorie": "schemas",
       "texte": "Un retour des empires",
-      "dernierRevu": "2026-09-21",
+      "dernierRevu": null,
       "ping": "Monde"
     },
     {
@@ -12434,11 +12434,11 @@
       "id": "rev-d930ddaa-8375-4c3e-9713-d732b44a209e",
       "categorie": "edc",
       "texte": "Lombardie : la région-archipel qui muscle la puissance économique de l'Italie et de l'Europe",
-      "dernierRevu": "2026-10-02",
+      "dernierRevu": null,
       "ping": "Europe"
     }
   ],
-  "geopolitique_cb_ref": "2026-10-17",
+  "geopolitique_cb_ref": "2026-12-14",
   "notes_bce_reference": [
     {
       "id": "bce-f0a7799b-3230-4e33-8a0d-6232df00ed22",
