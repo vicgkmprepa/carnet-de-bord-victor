@@ -12705,7 +12705,13 @@
       "id": "am-b886d614-4431-461f-b467-8233f843169e",
       "nom": "EDHEC 2026 ECE",
       "categorie": "EDHEC",
-      "tentativesBlanches": []
+      "tentativesBlanches": [
+        {
+          "id": "tb-c787183f-979e-4a41-8444-c0e98e58e422",
+          "date": "2026-10-22",
+          "commentaire": ""
+        }
+      ]
     },
     {
       "exercices": [
