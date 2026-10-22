@@ -11198,7 +11198,7 @@
       "fin": "11:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "Annale : EDHEC 2026 ECE — Exercice 1\nAnnale : EDHEC 2026 ECE — Exercice 2"
+      "contenu": "Annale : EDHEC 2026 ECE — Exercice 1\nAnnale : EDHEC 2026 ECE — Exercice 2\nAnnale : EDHEC 2026 ECE — Exercice 3"
     },
     {
       "statut": "planifie",
@@ -12717,6 +12717,16 @@
           "date": "2026-10-22",
           "difficulte": "Moyen",
           "theme": "Analyse",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
+        },
+        {
+          "id": "ex-e944d557-d38b-4158-9972-0534edd170b9",
+          "nom": "Exercice 3",
+          "date": "2026-10-22",
+          "difficulte": "Moyen",
+          "theme": "Probabilités",
           "tempsMinutes": null,
           "aRevoir": false,
           "commentaire": ""
