@@ -1297,37 +1297,37 @@
       "remarque": "Introduction seulement"
     },
     {
+      "statut": "vu_cb",
+      "correction": "",
+      "typeCorrection": "",
+      "note": null,
       "id": "suj-bb7db43d-514e-4975-b3d4-3438773383ed",
       "sujet": "Une autre humanité",
       "date": "2026-10-22",
       "theme": "",
-      "remarque": "",
-      "statut": "vu_cb",
-      "correction": "",
-      "typeCorrection": "",
-      "note": null
+      "remarque": ""
     },
     {
+      "statut": "traite",
+      "correction": "",
+      "typeCorrection": "Introduction uniquement",
+      "note": null,
       "id": "suj-85515665-7612-4cae-8ba1-5b5ce5e4c723",
       "sujet": "L'humanité se mérite-t-elle ?",
       "date": "2026-10-22",
       "theme": "",
-      "remarque": "",
+      "remarque": ""
+    },
+    {
       "statut": "traite",
       "correction": "",
       "typeCorrection": "Introduction uniquement",
-      "note": null
-    },
-    {
+      "note": null,
       "id": "suj-c173808b-a8e2-445b-bade-790821109f39",
       "sujet": "L'humanité n'est-elle qu'une espèce animale ?",
       "date": "2026-10-22",
       "theme": "",
-      "remarque": "",
-      "statut": "traite",
-      "correction": "",
-      "typeCorrection": "Introduction uniquement",
-      "note": null
+      "remarque": ""
     }
   ],
   "epreuves_cb": [
@@ -11372,7 +11372,8 @@
       "debut": "07:00",
       "fin": "11:00",
       "matiere": "Maths",
-      "titre": ""
+      "titre": "",
+      "contenu": "Cours // Correction // Equa diff"
     },
     {
       "statut": "planifie",
