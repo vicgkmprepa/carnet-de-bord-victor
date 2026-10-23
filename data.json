@@ -11428,7 +11428,7 @@
       "contenu": "20h30–20h45 Anki\n20h45–20h50 Chasse aux fautes\n20h50–22h00 Q1 intégrale : la croissance espagnole, à qui profite-t-elle ?\n22h00–22h25 Correction\n22h25–22h30 Conjugaison flash : passé simple"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11437,7 +11437,8 @@
       "debut": "22:30",
       "fin": "23:30",
       "matiere": "CG",
-      "titre": "Culture générale"
+      "titre": "Culture générale",
+      "contenu": ""
     },
     {
       "statut": "planifie",
