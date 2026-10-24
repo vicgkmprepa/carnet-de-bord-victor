@@ -13183,7 +13183,13 @@
       "nom": "EM 2023 ECE",
       "categorie": "EM",
       "exercices": [],
-      "tentativesBlanches": [],
+      "tentativesBlanches": [
+        {
+          "id": "tb-876d00b1-fc09-4034-96de-40f022452ee8",
+          "date": "2026-10-24",
+          "commentaire": ""
+        }
+      ],
       "avancement": "complet"
     }
   ]
