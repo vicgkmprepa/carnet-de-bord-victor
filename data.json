@@ -11451,7 +11451,7 @@
       "fin": "11:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EM 2023 "
+      "contenu": "EM 2023 \nAnnale : EM 2023 ECE — Exercice 1"
     },
     {
       "statut": "planifie",
@@ -13182,7 +13182,18 @@
       "id": "am-410af45d-53f1-4b47-9b5b-60c469b65dc6",
       "nom": "EM 2023 ECE",
       "categorie": "EM",
-      "exercices": [],
+      "exercices": [
+        {
+          "id": "ex-b81ac329-a96d-424b-b2a3-e02ff1aafb86",
+          "nom": "Exercice 1",
+          "date": "2026-10-24",
+          "difficulte": "Moyen",
+          "theme": "Analyse",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
+        }
+      ],
       "tentativesBlanches": [
         {
           "id": "tb-876d00b1-fc09-4034-96de-40f022452ee8",
