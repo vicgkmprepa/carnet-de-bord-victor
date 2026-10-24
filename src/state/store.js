@@ -71,7 +71,7 @@ function normalize(d) {
     veille_presse: (d.veille_presse || []).map((a) => ({ lien: "", statut: "lu", tags: [], ...a })),
     // sujets créés avant l'ajout du statut/de la correction : considérés "traités"
     // (comportement historique, seul statut qui existait) sans correction saisie.
-    sujets_dissertation: (d.sujets_dissertation || []).map((s) => ({ statut: "traite", correction: "", typeCorrection: "", note: null, ...s })),
+    sujets_dissertation: (d.sujets_dissertation || []).map((s) => ({ statut: "traite", correction: "", typeCorrection: "", note: null, revisions: [], ...s })),
     geopolitique_revisions: d.geopolitique_revisions || [],
     taches_globales: tachesGlobales,
     notes_bce_reference: d.notes_bce_reference || [],
@@ -654,6 +654,7 @@ export function DataProvider({ children }) {
       correction: sujet.correction || "",
       typeCorrection: sujet.typeCorrection || "",
       note: sujet.note ?? null,
+      revisions: [],
     };
     setData((d) => ({ ...d, sujets_dissertation: [...d.sujets_dissertation, s] }));
     return s.id;
@@ -668,6 +669,29 @@ export function DataProvider({ children }) {
 
   const deleteSujet = (id) => {
     setData((d) => ({ ...d, sujets_dissertation: d.sujets_dissertation.filter((s) => s.id !== id) }));
+  };
+
+  // Marque une révision ponctuelle d'un sujet déjà traité (ex. "intro refaite le
+  // 24/10") sans toucher à la correction/au statut d'origine — sert juste à
+  // tracer qu'on y est retourné et à le faire remonter en haut de la liste
+  // (triée sur la révision la plus récente, cf. DissertationBank.js).
+  const addRevisionSujet = (id, type) => {
+    const revision = { id: makeId("rev"), date: todayStr(), type };
+    setData((d) => ({
+      ...d,
+      sujets_dissertation: d.sujets_dissertation.map((s) =>
+        s.id === id ? { ...s, revisions: [...(s.revisions || []), revision] } : s
+      ),
+    }));
+  };
+
+  const deleteRevisionSujet = (sujetId, revisionId) => {
+    setData((d) => ({
+      ...d,
+      sujets_dissertation: d.sujets_dissertation.map((s) =>
+        s.id === sujetId ? { ...s, revisions: (s.revisions || []).filter((r) => r.id !== revisionId) } : s
+      ),
+    }));
   };
 
   // ---- Suivi de révision Géopolitique (HGG) : Schémas / TT / Aires régionales et
@@ -856,6 +880,8 @@ export function DataProvider({ children }) {
     addSujet,
     updateSujet,
     deleteSujet,
+    addRevisionSujet,
+    deleteRevisionSujet,
     addRevisionLigne,
     updateRevisionLigne,
     deleteRevisionLigne,

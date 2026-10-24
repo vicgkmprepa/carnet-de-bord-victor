@@ -15,6 +15,18 @@ const statutInfo = (key) => STATUTS.find((s) => s.key === key) || STATUTS[1];
 
 const TYPES_CORRECTION = ["Introduction uniquement", "Plan uniquement", "Introduction + Plan", "Correction complète"];
 
+// Types de révision rapide : un clic suffit à tracer qu'on est retourné sur un
+// sujet déjà traité (sans toucher à sa correction d'origine) et à le faire
+// remonter en tête de liste (triée sur la révision la plus récente).
+const TYPES_REVISION = ["Introduction", "Plan", "Rédaction complète"];
+
+// Date de la révision la plus récente d'un sujet, ou sa date de traitement
+// initiale s'il n'a jamais été revu — c'est sur cette date que la liste trie.
+function derniereActivite(s) {
+  const dates = [s.date, ...(s.revisions || []).map((r) => r.date)].filter(Boolean);
+  return dates.length ? dates.reduce((max, d) => (d > max ? d : max)) : "";
+}
+
 function normaliseRecherche(s) {
   return (s || "")
     .normalize("NFD")
@@ -69,7 +81,7 @@ function trouveDoublonProbable(nomNouveau, sujetsExistants) {
 }
 
 export function DissertationBank() {
-  const { data, addSujet, updateSujet, deleteSujet } = useCarnet();
+  const { data, addSujet, updateSujet, deleteSujet, addRevisionSujet, deleteRevisionSujet } = useCarnet();
   const [sujet, setSujet] = useState("");
   const [remarque, setRemarque] = useState("");
   const [statutNouveau, setStatutNouveau] = useState("traite");
@@ -82,10 +94,11 @@ export function DissertationBank() {
   const [correctionDraft, setCorrectionDraft] = useState("");
   const [typeCorrectionDraft, setTypeCorrectionDraft] = useState("");
   const [noteDraft, setNoteDraft] = useState("");
+  const [historiqueOpenId, setHistoriqueOpenId] = useState(null);
 
   const sujets = [...data.sujets_dissertation]
     .filter((s) => filtreStatut === TOUT || s.statut === filtreStatut)
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    .sort((a, b) => derniereActivite(b).localeCompare(derniereActivite(a)));
 
   const doublonProbable = sujet.trim() ? trouveDoublonProbable(sujet.trim(), data.sujets_dissertation) : null;
 
@@ -242,8 +255,24 @@ export function DissertationBank() {
                               </span>
                               ${s.note != null && html`<span class="text-[11px] text-slate-400">${s.note}/20</span>`}
                             </div>
-                            <p class="text-xs text-slate-400">${formatDateFr(s.date)}</p>
+                            <p class="text-xs text-slate-400">
+                              ${formatDateFr(s.date)}
+                              ${s.revisions && s.revisions.length > 0 &&
+                              html`<span class="text-indigo-500"> · revu le ${formatDateFr(s.revisions[s.revisions.length - 1].date)} (${s.revisions[s.revisions.length - 1].type})</span>`}
+                            </p>
                             ${s.remarque && html`<p class="text-sm text-slate-600 mt-1">${s.remarque}</p>`}
+                            <div class="flex items-center gap-1.5 flex-wrap mt-1.5">
+                              ${TYPES_REVISION.map(
+                                (t) => html`
+                                  <button
+                                    class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
+                                    onClick=${() => addRevisionSujet(s.id, t)}
+                                  >
+                                    ↻ ${t} faite
+                                  </button>
+                                `
+                              )}
+                            </div>
                             <button
                               class="text-xs text-slate-400 hover:text-slate-700 mt-1.5 underline decoration-dotted"
                               onClick=${() => toggleCorrection(s)}
@@ -251,12 +280,39 @@ export function DissertationBank() {
                               ${s.correction ? "📝 Voir la correction" : "+ Ajouter une correction"}
                             </button>
                             ${s.typeCorrection && html`<span class="ml-2 text-[11px] text-slate-400">(${s.typeCorrection})</span>`}
+                            ${s.revisions && s.revisions.length > 0 &&
+                            html`
+                              <button
+                                class="text-xs text-slate-400 hover:text-slate-700 mt-1.5 ml-2 underline decoration-dotted"
+                                onClick=${() => setHistoriqueOpenId(historiqueOpenId === s.id ? null : s.id)}
+                              >
+                                🕓 Historique (${s.revisions.length})
+                              </button>
+                            `}
                           </div>
                           <div class="flex items-center gap-2 text-xs shrink-0">
                             <button class="text-slate-400 hover:text-slate-700" onClick=${() => openEdit(s)}>Modifier</button>
                             <button class="text-slate-300 hover:text-red-500 text-sm leading-none" onClick=${() => deleteSujet(s.id)}>✕</button>
                           </div>
                         </div>
+                        ${historiqueOpenId === s.id &&
+                        html`
+                          <ul class="mt-2 pl-3 border-l-2 border-indigo-100 space-y-1">
+                            ${[...s.revisions].reverse().map(
+                              (r) => html`
+                                <li key=${r.id} class="flex items-center justify-between gap-2 text-xs text-slate-500">
+                                  <span>${formatDateFr(r.date)} — ${r.type}</span>
+                                  <button
+                                    class="text-slate-300 hover:text-red-500 leading-none"
+                                    onClick=${() => deleteRevisionSujet(s.id, r.id)}
+                                  >
+                                    ✕
+                                  </button>
+                                </li>
+                              `
+                            )}
+                          </ul>
+                        `}
                         ${correctionOpenId === s.id &&
                         html`
                           <div class="mt-2 pt-2">
