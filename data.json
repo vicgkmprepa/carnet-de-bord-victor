@@ -1336,7 +1336,14 @@
       "correction": "",
       "typeCorrection": "",
       "note": null,
-      "revisions": [],
+      "revisions": [
+        {
+          "id": "rev-34555b02-53b4-466a-b5e1-7b2398af0a9f",
+          "date": "2026-10-24",
+          "type": "Introduction",
+          "note": "Note : 13/20, la meilleure de tes introductions jusqu’ici (11, 10,5, 12, puis 13). La correction est dans Correction_intro_Une_seule_humanite.docx.\n\nTon accroche est la bonne : Todorov et Valladolid contiennent déjà le paradoxe du sujet, avec titre, date et positions de Las Casas et Sepúlveda exacts. Ta lecture de « seule » est bonne, et ton plan ne livre plus la thèse.\n\nCe qui coûte :\n\nLa problématique perd le paradoxe de ton accroche : « l’unicité ou autant de façons que d’êtres humains » oppose deux camps. Ton dossier signale ce piège pour ce thème : Todorov montre que les deux échouent symétriquement, assimilation d’un côté, hiérarchie de l’autre.\n« Différences d’essence, de vertus » ≠ autre humanité : l’essence est ce que les hommes ont en commun, donc « différences d’essence » est une contradiction à examiner, pas une prémisse.\nLe dépassement est encore une somme : « la combinaison des humanités individuelles » rejoint la « réunion des humanités des autres » du CB 2.\n\nLe dernier mot de ta phrase finale est illisible avec certitude : je lis « combinaison », mais ce pourrait être « continuation ». L’idée reste la même dans les deux cas. La réécriture garde ton accroche et ta structure, et remplace le dilemme par les deux coûts, puis la troisième voie de Todorov posée en question."
+        }
+      ],
       "id": "suj-bb7db43d-514e-4975-b3d4-3438773383ed",
       "sujet": "Une autre humanité",
       "date": "2026-10-22",
