@@ -13202,6 +13202,16 @@
           "tempsMinutes": null,
           "aRevoir": false,
           "commentaire": ""
+        },
+        {
+          "id": "ex-7c9da626-af95-483d-b61e-634605d88f83",
+          "nom": "Exercice 3",
+          "date": "2026-10-24",
+          "difficulte": "Moyen",
+          "theme": "Probabilités",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
         }
       ],
       "tentativesBlanches": [
