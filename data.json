@@ -11451,7 +11451,7 @@
       "fin": "11:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EM 2023 \nAnnale : EM 2023 ECE — Exercice 1"
+      "contenu": "EM 2023 \nAnnale : EM 2023 ECE — Exercice 1\nAnnale : EM 2023 ECE — Exercice 2"
     },
     {
       "statut": "planifie",
@@ -13189,6 +13189,16 @@
           "date": "2026-10-24",
           "difficulte": "Moyen",
           "theme": "Analyse",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
+        },
+        {
+          "id": "ex-84273f14-d76c-42e0-8ec6-1386a30ce597",
+          "nom": "Exercice 2",
+          "date": "2026-10-24",
+          "difficulte": "Moyen",
+          "theme": "Algèbre",
           "tempsMinutes": null,
           "aRevoir": false,
           "commentaire": ""
