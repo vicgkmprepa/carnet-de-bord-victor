@@ -95,6 +95,18 @@ export function DissertationBank() {
   const [typeCorrectionDraft, setTypeCorrectionDraft] = useState("");
   const [noteDraft, setNoteDraft] = useState("");
   const [historiqueOpenId, setHistoriqueOpenId] = useState(null);
+  const [revisionModal, setRevisionModal] = useState(null); // { sujetId, type } | null
+  const [revisionNoteDraft, setRevisionNoteDraft] = useState("");
+
+  const ouvrirRevisionModal = (sujetId, type) => {
+    setRevisionModal({ sujetId, type });
+    setRevisionNoteDraft("");
+  };
+
+  const validerRevision = () => {
+    addRevisionSujet(revisionModal.sujetId, revisionModal.type, revisionNoteDraft);
+    setRevisionModal(null);
+  };
 
   const sujets = [...data.sujets_dissertation]
     .filter((s) => filtreStatut === TOUT || s.statut === filtreStatut)
@@ -266,7 +278,7 @@ export function DissertationBank() {
                                 (t) => html`
                                   <button
                                     class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
-                                    onClick=${() => addRevisionSujet(s.id, t)}
+                                    onClick=${() => ouvrirRevisionModal(s.id, t)}
                                   >
                                     ↻ ${t} faite
                                   </button>
@@ -292,22 +304,30 @@ export function DissertationBank() {
                           </div>
                           <div class="flex items-center gap-2 text-xs shrink-0">
                             <button class="text-slate-400 hover:text-slate-700" onClick=${() => openEdit(s)}>Modifier</button>
-                            <button class="text-slate-300 hover:text-red-500 text-sm leading-none" onClick=${() => deleteSujet(s.id)}>✕</button>
+                            <button
+                              class="text-slate-300 hover:text-red-500 text-sm leading-none"
+                              onClick=${() => confirm(`Supprimer "${s.sujet}" ?`) && deleteSujet(s.id)}
+                            >
+                              ✕
+                            </button>
                           </div>
                         </div>
                         ${historiqueOpenId === s.id &&
                         html`
-                          <ul class="mt-2 pl-3 border-l-2 border-indigo-100 space-y-1">
+                          <ul class="mt-2 pl-3 border-l-2 border-indigo-100 space-y-1.5">
                             ${[...s.revisions].reverse().map(
                               (r) => html`
-                                <li key=${r.id} class="flex items-center justify-between gap-2 text-xs text-slate-500">
-                                  <span>${formatDateFr(r.date)} — ${r.type}</span>
-                                  <button
-                                    class="text-slate-300 hover:text-red-500 leading-none"
-                                    onClick=${() => deleteRevisionSujet(s.id, r.id)}
-                                  >
-                                    ✕
-                                  </button>
+                                <li key=${r.id} class="text-xs text-slate-500">
+                                  <div class="flex items-center justify-between gap-2">
+                                    <span>${formatDateFr(r.date)} — ${r.type}</span>
+                                    <button
+                                      class="text-slate-300 hover:text-red-500 leading-none"
+                                      onClick=${() => confirm(`Supprimer la révision "${r.type}" du ${formatDateFr(r.date)} ?`) && deleteRevisionSujet(s.id, r.id)}
+                                    >
+                                      ✕
+                                    </button>
+                                  </div>
+                                  ${r.note && html`<p class="text-slate-600 mt-0.5 whitespace-pre-wrap">${r.note}</p>`}
                                 </li>
                               `
                             )}
@@ -365,5 +385,33 @@ export function DissertationBank() {
             </ul>
           `}
     </div>
+    ${revisionModal &&
+    html`
+      <div class="fixed inset-0 bg-slate-900/40 flex items-center justify-center z-50 p-4" onClick=${() => setRevisionModal(null)}>
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-5" onClick=${(e) => e.stopPropagation()}>
+          <p class="text-xs font-medium text-indigo-500 uppercase tracking-wide">${revisionModal.type} faite</p>
+          <h3 class="text-base font-semibold text-slate-800 mb-3">
+            ${data.sujets_dissertation.find((s) => s.id === revisionModal.sujetId)?.sujet}
+          </h3>
+          <textarea
+            autofocus
+            class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-none"
+            rows="4"
+            placeholder="Ce que tu as changé, trouvé, à retravailler… (optionnel)"
+            value=${revisionNoteDraft}
+            onInput=${(e) => setRevisionNoteDraft(e.target.value)}
+          ></textarea>
+          <div class="flex items-center justify-end gap-2 mt-3">
+            <button class="text-xs text-slate-500 hover:text-slate-700" onClick=${() => setRevisionModal(null)}>Annuler</button>
+            <button
+              class="px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+              onClick=${validerRevision}
+            >
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </div>
+    `}
   `;
 }

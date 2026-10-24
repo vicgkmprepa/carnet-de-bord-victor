@@ -675,8 +675,8 @@ export function DataProvider({ children }) {
   // 24/10") sans toucher à la correction/au statut d'origine — sert juste à
   // tracer qu'on y est retourné et à le faire remonter en haut de la liste
   // (triée sur la révision la plus récente, cf. DissertationBank.js).
-  const addRevisionSujet = (id, type) => {
-    const revision = { id: makeId("rev"), date: todayStr(), type };
+  const addRevisionSujet = (id, type, note = "") => {
+    const revision = { id: makeId("rev"), date: todayStr(), type, note: note.trim() };
     setData((d) => ({
       ...d,
       sujets_dissertation: d.sujets_dissertation.map((s) =>
