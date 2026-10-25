@@ -11551,7 +11551,7 @@
       "contenu": "20h30–20h45 Anki\n20h45–20h50 Chasse aux fautes\n20h50–21h00 Bonne copie LVB ELVi 2024\n21h00–21h25 Atelier rédaction sur le sujet IENA 2023 (durabilité du tourisme) : intro, problématique et un paragraphe\n21h25–22h05 Grammaire n°3, gros bloc : subjonctif obligatoire (nada garantiza que, es necesario que, no creo que, cuando + futur) et concordance des temps\n22h05–22h30 Civi : le modèle de croissance espagnol"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11560,7 +11560,8 @@
       "debut": "22:30",
       "fin": "23:30",
       "matiere": "CG",
-      "titre": "Culture générale"
+      "titre": "Culture générale",
+      "contenu": ""
     },
     {
       "statut": "planifie",
