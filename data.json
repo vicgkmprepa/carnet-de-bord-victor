@@ -11629,7 +11629,7 @@
       "contenu": "20h30–20h45 Anki\n20h45–20h50 Chasse aux fautes\n20h50–22h15 Q2 intégrale : « A su parecer, ¿es sostenible el modelo de crecimiento español? »\n22h15–22h30 Grammaire : prépositions (por/para, a personnel, de que, convertirse en, desde hace)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11638,7 +11638,8 @@
       "debut": "22:30",
       "fin": "23:30",
       "matiere": "CG",
-      "titre": "Culture générale"
+      "titre": "Culture générale",
+      "contenu": ""
     },
     {
       "statut": "planifie",
