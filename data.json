@@ -11603,7 +11603,7 @@
       "contenu": "J4 : 10x10 (0h20) + Apprentissage Asie (0h45) + schéma Baltique (0h40) + Apprentissage Espaces maritimes (0h25) + Maj EDC Asie 1 (0h20) + Sp Asie/Correction (0h20 + 0h10)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
