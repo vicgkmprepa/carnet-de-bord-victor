@@ -11681,7 +11681,7 @@
       "contenu": "J6 : 10x10 (0h20) + Apprentissage Etats-Unis/Inde (0h45) + schéma Baltique (0h40) + Apprentissage Matières premières (0h25) + Maj EDC Asie 2 (0h20) + Sp Asie/Correction (0h20 + 0h10)\n= Sp Asie/Correction (0h20 + 0h10) ==> Copie BCE/Rapports de jury"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
