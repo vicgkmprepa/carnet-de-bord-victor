@@ -11652,7 +11652,7 @@
       "fin": "11:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EM 2024"
+      "contenu": "EM 2024\nAnnale : EML 2024 ECE — Exercice 1"
     },
     {
       "statut": "realise",
@@ -13003,6 +13003,16 @@
           "theme": "Algèbre",
           "tempsMinutes": 60,
           "aRevoir": true,
+          "commentaire": ""
+        },
+        {
+          "id": "ex-823a46a0-d712-438f-a8d5-f712456d387d",
+          "nom": "Exercice 1",
+          "date": "2026-10-26",
+          "difficulte": "Facile",
+          "theme": "Analyse",
+          "tempsMinutes": 90,
+          "aRevoir": false,
           "commentaire": ""
         }
       ],
