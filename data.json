@@ -11651,7 +11651,8 @@
       "debut": "07:00",
       "fin": "11:00",
       "matiere": "Maths",
-      "titre": ""
+      "titre": "",
+      "contenu": "EM 2024"
     },
     {
       "statut": "planifie",
