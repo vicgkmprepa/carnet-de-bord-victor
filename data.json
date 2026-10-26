@@ -11668,7 +11668,7 @@
       "contenu": "J6 : 10x10 (0h20) + 6 oeuvres (Voltaire, Kant, Lévinas, Marx, Malraux, Camus) (1h) + Recap des 6 (0h20) + Ajouts oeuvres (0h20) ++ L'humanité a-t-elle un prix ? (0h35/0h25)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -11677,7 +11677,8 @@
       "debut": "14:00",
       "fin": "17:00",
       "matiere": "HGG",
-      "titre": "Géopo"
+      "titre": "Géopo",
+      "contenu": "J6 : 10x10 (0h20) + Apprentissage Etats-Unis/Inde (0h45) + schéma Baltique (0h40) + Apprentissage Matières premières (0h25) + Maj EDC Asie 2 (0h20) + Sp Asie/Correction (0h20 + 0h10)\n= Sp Asie/Correction (0h20 + 0h10) ==> Copie BCE/Rapports de jury"
     },
     {
       "statut": "planifie",
