@@ -13010,7 +13010,13 @@
       "id": "am-5f6f5a9f-510e-45bc-a690-64132b37ccfd",
       "nom": "EML 2024 ECE",
       "categorie": "EM",
-      "tentativesBlanches": []
+      "tentativesBlanches": [
+        {
+          "id": "tb-3e5ea1cb-1b30-45a7-8efb-a4927c7a9109",
+          "date": "2026-10-26",
+          "commentaire": ""
+        }
+      ]
     },
     {
       "exercices": [
