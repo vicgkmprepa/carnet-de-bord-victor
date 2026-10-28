@@ -478,6 +478,14 @@
       "titre": "rapport de jury Mercier LB",
       "deadline": "2026-11-02",
       "statut": "à faire"
+    },
+    {
+      "id": "t-1ae3acfb-731a-467d-a048-4654c22606b5",
+      "matiere": "Espagnol",
+      "titre": "Corriger ma copie de la BCE",
+      "deadline": "2026-11-06",
+      "statut": "à faire",
+      "devoir": false
     }
   ],
   "emploi_du_temps": {
