@@ -428,14 +428,6 @@
       "faitLe": "2026-09-22"
     },
     {
-      "devoir": false,
-      "id": "t-64c7ca26-cb49-4c47-8b7a-5625ec32eeba",
-      "matiere": "Anglais",
-      "titre": "Ficher la fiche Threat to Democracy du 21/09",
-      "deadline": "2026-09-29",
-      "statut": "à faire"
-    },
-    {
       "devoir": true,
       "id": "t-2715f856-1c0b-43ea-8bad-2c1b7c503836",
       "matiere": "Maths",
