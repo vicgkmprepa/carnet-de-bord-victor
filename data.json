@@ -11732,7 +11732,7 @@
       "contenu": "7h-7h30 : Cours en 10x10\n7h30-7h40 : Cours Système diff\n7h40-9h40 : Reprise copie EM 2024 (45 minutes de corrections échange)\n9h40-10h30 : Sujet 8 poly vacances LPA\n10h30-11h : correction"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
