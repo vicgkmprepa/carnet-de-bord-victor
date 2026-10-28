@@ -132,26 +132,54 @@
         {
           "nom": "Maths I",
           "note_objectif": null,
-          "note_obtenue": null,
-          "commentaire": "",
-          "causes_erreur": []
-        },
-        {
-          "nom": "Maths I (bis)",
-          "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 20,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "Maths II",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 18.4,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "HGG",
+          "note_objectif": null,
+          "note_obtenue": 14,
+          "commentaire": "",
+          "causes_erreur": []
+        },
+        {
+          "nom": "Anglais",
+          "note_objectif": null,
+          "note_obtenue": 17,
+          "commentaire": "",
+          "causes_erreur": []
+        },
+        {
+          "nom": "Espagnol",
+          "note_objectif": null,
+          "note_obtenue": 9.35,
+          "commentaire": "",
+          "causes_erreur": []
+        },
+        {
+          "nom": "CG",
+          "note_objectif": null,
+          "note_obtenue": 10,
+          "commentaire": "",
+          "causes_erreur": []
+        },
+        {
+          "nom": "Synthèse",
+          "note_objectif": null,
+          "note_obtenue": 12,
+          "commentaire": "",
+          "causes_erreur": []
+        },
+        {
+          "nom": "Maths I (bis)",
           "note_objectif": null,
           "note_obtenue": null,
           "commentaire": "",
@@ -165,35 +193,7 @@
           "causes_erreur": []
         },
         {
-          "nom": "Anglais",
-          "note_objectif": null,
-          "note_obtenue": null,
-          "commentaire": "",
-          "causes_erreur": []
-        },
-        {
-          "nom": "Espagnol",
-          "note_objectif": null,
-          "note_obtenue": null,
-          "commentaire": "",
-          "causes_erreur": []
-        },
-        {
-          "nom": "CG",
-          "note_objectif": null,
-          "note_obtenue": null,
-          "commentaire": "",
-          "causes_erreur": []
-        },
-        {
           "nom": "CG (bis)",
-          "note_objectif": null,
-          "note_obtenue": null,
-          "commentaire": "",
-          "causes_erreur": []
-        },
-        {
-          "nom": "Synthèse",
           "note_objectif": null,
           "note_obtenue": null,
           "commentaire": "",
