@@ -11835,7 +11835,7 @@
       "contenu": "J8 : Test de connaissances (0h40)+ Apprentissage de la correction (0h20) + Apprentissage UE (0h50) + schéma MEDOR (0h40) + Fin Reprise copie ESSEC (0h30)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
