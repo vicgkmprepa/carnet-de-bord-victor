@@ -13229,14 +13229,6 @@
       ]
     },
     {
-      "exercices": [],
-      "avancement": "",
-      "id": "am-4af5eb72-5bc5-41ff-8819-61d1573b8fcc",
-      "nom": "EDHEC 2023 ECE",
-      "categorie": "EDHEC",
-      "tentativesBlanches": []
-    },
-    {
       "exercices": [
         {
           "id": "ex-e0e77f7d-181c-4d3f-b47a-0c8df5502ebb",
