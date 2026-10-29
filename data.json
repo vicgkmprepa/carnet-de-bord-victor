@@ -472,12 +472,12 @@
       "statut": "à faire"
     },
     {
+      "devoir": false,
       "id": "t-1ae3acfb-731a-467d-a048-4654c22606b5",
       "matiere": "Espagnol",
       "titre": "Corriger ma copie de la BCE",
       "deadline": "2026-11-06",
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -11996,7 +11996,7 @@
       "id": "rev-47359199-bd9f-4b6d-b5f6-880ce22336ca",
       "categorie": "aires",
       "texte": "Amérique latine",
-      "dernierRevu": null
+      "dernierRevu": "2026-10-29"
     },
     {
       "id": "rev-20963372-3e9c-4083-8e65-06c81014e8df",
