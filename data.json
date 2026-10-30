@@ -11949,6 +11949,17 @@
       "matiere": "CG",
       "titre": "Culture générale",
       "contenu": ""
+    },
+    {
+      "id": "sp-7bdaccbe-ad84-4a7b-9584-20b6ce3ed2a7",
+      "date": "2026-11-02",
+      "debut": "07:00",
+      "fin": "08:05",
+      "matiere": "HGG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
