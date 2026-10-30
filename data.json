@@ -12026,6 +12026,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-fd4362fe-c34c-49a6-a668-34578f5da9d2",
+      "date": "2026-11-09",
+      "debut": "10:00",
+      "fin": "14:00",
+      "matiere": "CG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
