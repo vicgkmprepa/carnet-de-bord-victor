@@ -12158,6 +12158,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-a2bdc6a7-83db-446e-a5e2-8e69f8bd7c3d",
+      "date": "2026-11-05",
+      "debut": "17:00",
+      "fin": "19:00",
+      "matiere": "Général",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
