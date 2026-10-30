@@ -11971,6 +11971,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-a2c261b7-1c48-4d8f-bc69-5962a7e0585d",
+      "date": "2026-11-04",
+      "debut": "07:00",
+      "fin": "08:05",
+      "matiere": "HGG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
