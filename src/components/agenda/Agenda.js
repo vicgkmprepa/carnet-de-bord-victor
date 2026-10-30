@@ -12,6 +12,7 @@ import { ColleForm } from "../subject/ColleForm.js";
 import { ColleDetailModal } from "./ColleDetailModal.js";
 import { SeanceModal } from "./SeanceModal.js";
 import { SessionModal } from "./SessionModal.js";
+import { PlanningCoeffCounter } from "./PlanningCoeffCounter.js";
 import {
   mondayOf,
   addDaysStr,
@@ -72,6 +73,7 @@ export function Agenda({ initialDate }) {
   const [modalSession, setModalSession] = useState(null);
   const [editingColle, setEditingColle] = useState(null);
   const [modalColle, setModalColle] = useState(null);
+  const [showPlanningCoeff, setShowPlanningCoeff] = useState(true);
 
   const creneaux = data.emploi_du_temps.creneaux;
 
@@ -346,6 +348,9 @@ export function Agenda({ initialDate }) {
           </button>
         </div>
       </div>
+
+      ${showPlanningCoeff &&
+      html`<${PlanningCoeffCounter} data=${data} weekDays=${weekDays} onClose=${() => setShowPlanningCoeff(false)} />`}
 
       ${showForm &&
       html`

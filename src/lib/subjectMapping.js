@@ -27,6 +27,19 @@ export const SUBJECT_TABS = [
   { key: "Synthèse", label: "Synthèse", accent: "#7C3AED", cbMatieres: ["Synthèse"] },
 ];
 
+// Coefficients Points Saint-Jean (cf. CBList.js), regroupés par onglet matière
+// (Maths I + Maths II -> "Maths") — sert de référence à la part de temps de
+// travail "idéale" par matière (cf. PlanningCoeffCounter.js dans l'agenda).
+// Somme des coefficients = 30.
+export const COEFFS_MATIERES = {
+  Maths: 8,
+  HGG: 8,
+  Anglais: 4.5,
+  Espagnol: 2.5,
+  CG: 4.5,
+  "Synthèse": 2.5,
+};
+
 // Causes d'écart possibles sur une note de CB — permet de transformer un écart brut
 // en diagnostic exploitable plutôt qu'un simple chiffre.
 export const CAUSES_ERREUR = ["Méthode", "Gestion du temps", "Connaissances", "Rédaction"];
