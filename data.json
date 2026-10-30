@@ -12015,6 +12015,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-874a7847-3819-4e7a-bd89-b4901580b458",
+      "date": "2026-11-08",
+      "debut": "08:00",
+      "fin": "11:00",
+      "matiere": "Anglais",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
