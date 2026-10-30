@@ -12225,6 +12225,17 @@
       "fin": "12:00",
       "matiere": "Général",
       "titre": ""
+    },
+    {
+      "id": "sp-75437c39-1c6a-4e11-b5e8-f5bf5457fd95",
+      "date": "2026-11-06",
+      "debut": "17:00",
+      "fin": "19:00",
+      "matiere": "Maths",
+      "titre": "Correction Mercredi",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
