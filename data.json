@@ -12268,6 +12268,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-50fceef2-4cb1-4487-97fe-e260deb37fec",
+      "date": "2026-11-08",
+      "debut": "14:30",
+      "fin": "16:00",
+      "matiere": "Maths",
+      "titre": "DEVOIRS MATHS",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
