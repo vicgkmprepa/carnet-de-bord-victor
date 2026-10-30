@@ -12026,6 +12026,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-b21aed65-94be-40bc-83bc-21c5e6d9f143",
+      "date": "2026-11-08",
+      "debut": "15:30",
+      "fin": "19:00",
+      "matiere": "Maths",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
