@@ -12135,18 +12135,6 @@
       "theme": "",
       "estCours": false,
       "devoirIds": [],
-      "id": "sp-0c5f5b92-bdd8-473e-90b3-4256046e831b",
-      "date": "2026-11-03",
-      "debut": "21:30",
-      "fin": "23:30",
-      "matiere": "Général",
-      "titre": ""
-    },
-    {
-      "statut": "planifie",
-      "theme": "",
-      "estCours": false,
-      "devoirIds": [],
       "id": "sp-c19a3665-f85a-4a69-92a2-7b1cb292c2ec",
       "date": "2026-11-05",
       "debut": "21:30",
