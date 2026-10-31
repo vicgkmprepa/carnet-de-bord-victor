@@ -12215,112 +12215,133 @@
       "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-75437c39-1c6a-4e11-b5e8-f5bf5457fd95",
       "date": "2026-11-07",
       "debut": "16:00",
       "fin": "18:00",
       "matiere": "Maths",
-      "titre": "Devoirs JOULAK",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": "Devoirs JOULAK"
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-23898c27-4533-497f-a2d1-cf65eae7ddb0",
       "date": "2026-11-02",
       "debut": "20:00",
       "fin": "22:00",
       "matiere": "Maths",
-      "titre": "Correction Dimanche",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": "Correction Dimanche"
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-2c51fc48-e2b8-4a7d-a245-e75eb67c2b4b",
       "date": "2026-11-07",
       "debut": "14:30",
       "fin": "16:00",
       "matiere": "Maths",
-      "titre": "DEVOIRS MATHS",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": "DEVOIRS MATHS"
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-5225def3-43f9-4f60-9cec-00f82314f947",
       "date": "2026-11-05",
       "debut": "20:00",
       "fin": "21:30",
       "matiere": "Maths",
-      "titre": "DEVOIRS MATHS",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": "DEVOIRS MATHS"
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-98e64995-9456-4ab7-b7c7-2b7838c15738",
       "date": "2026-11-03",
       "debut": "20:00",
       "fin": "21:30",
       "matiere": "Maths",
-      "titre": "DEVOIRS MATHS",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": "DEVOIRS MATHS"
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-50fceef2-4cb1-4487-97fe-e260deb37fec",
       "date": "2026-11-08",
       "debut": "21:30",
       "fin": "23:00",
       "matiere": "Anglais",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-de038fc3-0230-4442-9a8c-0cd0ecd0c2e8",
       "date": "2026-11-06",
       "debut": "22:00",
       "fin": "23:30",
       "matiere": "Anglais",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-79c04237-e45f-4e06-85d1-8d1819419b24",
       "date": "2026-11-04",
       "debut": "14:50",
       "fin": "15:40",
       "matiere": "Général",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-c465ffea-e5fb-4924-b2ba-07317338a9d4",
       "date": "2026-11-05",
       "debut": "14:00",
       "fin": "14:50",
       "matiere": "HGG",
-      "titre": "Fichage",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": "Fichage"
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-9cca4234-c3a1-4f4d-84db-1342c953f3b3",
       "date": "2026-11-06",
       "debut": "12:15",
       "fin": "13:05",
       "matiere": "HGG",
-      "titre": "Fichage",
-      "theme": "",
+      "titre": "Fichage"
+    },
+    {
+      "id": "sp-9954aaa5-bc5f-43b8-9721-7bf763944bd7",
+      "date": "2026-11-02",
+      "debut": "18:00",
+      "fin": "19:00",
+      "matiere": "Maths",
+      "titre": "",
+      "theme": "Python",
       "statut": "planifie",
       "estCours": false
     }
