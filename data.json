@@ -12336,18 +12336,6 @@
     },
     {
       "statut": "planifie",
-      "theme": "Python",
-      "estCours": false,
-      "devoirIds": [],
-      "id": "sp-9954aaa5-bc5f-43b8-9721-7bf763944bd7",
-      "date": "2026-11-02",
-      "debut": "18:00",
-      "fin": "19:00",
-      "matiere": "Maths",
-      "titre": ""
-    },
-    {
-      "statut": "planifie",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
