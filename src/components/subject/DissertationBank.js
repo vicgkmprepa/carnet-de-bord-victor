@@ -27,6 +27,35 @@ function derniereActivite(s) {
   return dates.length ? dates.reduce((max, d) => (d > max ? d : max)) : "";
 }
 
+// Ce qui a implicitement déjà été fait au moment où le sujet a été ajouté
+// (saisi via le champ "type de correction" historique, avant l'ajout des
+// révisions datées) — sert de point de départ au stepper ci-dessous, pour que
+// les sujets anciens affichent quand même un état correct sans ressaisie.
+const ETAPES_IMPLICITES = {
+  "Introduction uniquement": ["Introduction"],
+  "Plan uniquement": ["Plan"],
+  "Introduction + Plan": ["Introduction", "Plan"],
+  "Correction complète": ["Introduction", "Plan", "Rédaction complète"],
+};
+
+// Pour chaque étape (Introduction / Plan / Rédaction complète), la date la
+// plus récente à laquelle elle a été faite — ou null si jamais faite. Combine
+// l'implicite (typeCorrection + date de création) et les révisions datées
+// explicites, en gardant la plus récente des deux par étape : c'est ce qui
+// alimente le stepper visuel, pour répondre d'un coup d'œil à "qu'est-ce que
+// j'ai déjà fait, et à quelle date".
+function etapesSujet(s) {
+  const dates = { Introduction: null, Plan: null, "Rédaction complète": null };
+  for (const etape of ETAPES_IMPLICITES[s.typeCorrection] || []) {
+    dates[etape] = s.date || null;
+  }
+  for (const r of s.revisions || []) {
+    if (dates[r.type] === undefined) continue;
+    if (!dates[r.type] || r.date > dates[r.type]) dates[r.type] = r.date;
+  }
+  return dates;
+}
+
 function normaliseRecherche(s) {
   return (s || "")
     .normalize("NFD")
@@ -216,172 +245,186 @@ export function DissertationBank() {
       ${sujets.length === 0
         ? html`<${EmptyState} text="Aucun sujet pour l'instant." />`
         : html`
-            <ul class="divide-y divide-slate-100 max-h-96 overflow-y-auto overflow-x-hidden">
-              ${sujets.map((s) =>
-                editingId === s.id
-                  ? html`
-                      <li key=${s.id} class="py-2.5">
-                        <div class="flex flex-col gap-2">
-                          <input
-                            class="border border-slate-300 rounded-lg px-3 py-1.5 text-sm"
-                            value=${editSujet}
-                            onInput=${(e) => setEditSujet(e.target.value)}
-                            onKeyDown=${(e) => e.key === "Enter" && saveEdit()}
-                          />
-                          <input
-                            class="border border-slate-300 rounded-lg px-3 py-1.5 text-sm"
-                            placeholder="Remarque, angle choisi… (optionnel)"
-                            value=${editRemarque}
-                            onInput=${(e) => setEditRemarque(e.target.value)}
-                            onKeyDown=${(e) => e.key === "Enter" && saveEdit()}
-                          />
+            <ul class="space-y-2.5 max-h-96 overflow-y-auto overflow-x-hidden pr-0.5">
+              ${sujets.map((s) => {
+                if (editingId === s.id) {
+                  return html`
+                    <li key=${s.id} class="rounded-xl border border-slate-200 p-3">
+                      <div class="flex flex-col gap-2">
+                        <input
+                          class="border border-slate-300 rounded-lg px-3 py-1.5 text-sm"
+                          value=${editSujet}
+                          onInput=${(e) => setEditSujet(e.target.value)}
+                          onKeyDown=${(e) => e.key === "Enter" && saveEdit()}
+                        />
+                        <input
+                          class="border border-slate-300 rounded-lg px-3 py-1.5 text-sm"
+                          placeholder="Remarque, angle choisi… (optionnel)"
+                          value=${editRemarque}
+                          onInput=${(e) => setEditRemarque(e.target.value)}
+                          onKeyDown=${(e) => e.key === "Enter" && saveEdit()}
+                        />
+                        <select
+                          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
+                          value=${editStatut}
+                          onChange=${(e) => setEditStatut(e.target.value)}
+                        >
+                          ${STATUTS.map((st) => html`<option value=${st.key}>${st.label}</option>`)}
+                        </select>
+                        <div class="flex items-center justify-end gap-3 text-xs">
+                          <button class="text-slate-500 hover:text-slate-700" onClick=${cancelEdit}>Annuler</button>
+                          <button
+                            class="px-3 py-1 rounded-lg text-white font-medium disabled:opacity-50"
+                            style=${{ backgroundColor: "#64748B" }}
+                            onClick=${saveEdit}
+                            disabled=${!editSujet.trim()}
+                          >
+                            Enregistrer
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  `;
+                }
+
+                const etapes = etapesSujet(s);
+                const derniere = derniereActivite(s);
+
+                return html`
+                  <li key=${s.id} class="rounded-xl border border-slate-200 p-3 hover:border-slate-300">
+                    <div class="flex items-start justify-between gap-2">
+                      <div class="min-w-0">
+                        <p class="text-sm font-medium text-slate-800 leading-snug">${s.sujet}</p>
+                        <div class="flex items-center gap-1.5 flex-wrap mt-1">
+                          <span class=${`px-1.5 py-0.5 rounded-full text-[11px] font-medium shrink-0 ${statutInfo(s.statut).badge}`}>
+                            ${statutInfo(s.statut).label}
+                          </span>
+                          ${s.note != null && html`<span class="text-[11px] text-slate-400">${s.note}/20</span>`}
+                          ${derniere && html`<span class="text-[11px] text-slate-400">· dernière activité ${formatDateFr(derniere)}</span>`}
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-2 text-xs shrink-0">
+                        <button class="text-slate-400 hover:text-slate-700" onClick=${() => openEdit(s)}>Modifier</button>
+                        <button
+                          class="text-slate-300 hover:text-red-500 text-sm leading-none"
+                          onClick=${() => confirm(`Supprimer "${s.sujet}" ?`) && deleteSujet(s.id)}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+
+                    ${s.remarque && html`<p class="text-sm text-slate-600 mt-1.5">${s.remarque}</p>`}
+
+                    <div class="flex items-center gap-1.5 mt-2.5">
+                      ${TYPES_REVISION.map((t) => {
+                        const faitLe = etapes[t];
+                        return html`
+                          <button
+                            key=${t}
+                            class=${`flex-1 flex flex-col items-center gap-0.5 rounded-lg border px-2 py-1.5 text-center transition-colors ${
+                              faitLe
+                                ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                                : "bg-slate-50 border-slate-200 text-slate-400 hover:border-slate-300"
+                            }`}
+                            onClick=${() => ouvrirRevisionModal(s.id, t)}
+                            title=${faitLe ? `${t} — dernière fois le ${formatDateFr(faitLe)}. Cliquer pour la refaire.` : `${t} — pas encore faite`}
+                          >
+                            <span class="text-[11px] font-semibold">${faitLe ? "✓ " : ""}${t === "Rédaction complète" ? "Rédaction" : t}</span>
+                            <span class="text-[10px] ${faitLe ? "text-emerald-600" : "text-slate-400"}">${faitLe ? formatDateFr(faitLe) : "à faire"}</span>
+                          </button>
+                        `;
+                      })}
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-2">
+                      <button
+                        class="text-xs text-slate-400 hover:text-slate-700 underline decoration-dotted"
+                        onClick=${() => toggleCorrection(s)}
+                      >
+                        ${s.correction ? "📝 Voir la correction" : "+ Ajouter une correction"}
+                      </button>
+                      ${s.revisions && s.revisions.length > 0 &&
+                      html`
+                        <button
+                          class="text-xs text-slate-400 hover:text-slate-700 underline decoration-dotted"
+                          onClick=${() => setHistoriqueOpenId(historiqueOpenId === s.id ? null : s.id)}
+                        >
+                          🕓 Historique (${s.revisions.length})
+                        </button>
+                      `}
+                    </div>
+
+                    ${historiqueOpenId === s.id &&
+                    html`
+                      <ul class="mt-2 pl-3 border-l-2 border-indigo-100 space-y-1.5">
+                        ${[...s.revisions].reverse().map(
+                          (r) => html`
+                            <li key=${r.id} class="text-xs text-slate-500">
+                              <div class="flex items-center justify-between gap-2">
+                                <span>${formatDateFr(r.date)} — ${r.type}</span>
+                                <button
+                                  class="text-slate-300 hover:text-red-500 leading-none"
+                                  onClick=${() => confirm(`Supprimer la révision "${r.type}" du ${formatDateFr(r.date)} ?`) && deleteRevisionSujet(s.id, r.id)}
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                              ${r.note && html`<p class="text-slate-600 mt-0.5 whitespace-pre-wrap">${r.note}</p>`}
+                            </li>
+                          `
+                        )}
+                      </ul>
+                    `}
+                    ${correctionOpenId === s.id &&
+                    html`
+                      <div class="mt-2 pt-2">
+                        <div class="flex items-center gap-2 mb-2">
                           <select
                             class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-                            value=${editStatut}
-                            onChange=${(e) => setEditStatut(e.target.value)}
+                            value=${typeCorrectionDraft}
+                            onChange=${(e) => setTypeCorrectionDraft(e.target.value)}
                           >
-                            ${STATUTS.map((st) => html`<option value=${st.key}>${st.label}</option>`)}
+                            <option value="">Type de correction…</option>
+                            ${TYPES_CORRECTION.map((t) => html`<option value=${t}>${t}</option>`)}
                           </select>
-                          <div class="flex items-center justify-end gap-3 text-xs">
-                            <button class="text-slate-500 hover:text-slate-700" onClick=${cancelEdit}>Annuler</button>
-                            <button
-                              class="px-3 py-1 rounded-lg text-white font-medium disabled:opacity-50"
-                              style=${{ backgroundColor: "#64748B" }}
-                              onClick=${saveEdit}
-                              disabled=${!editSujet.trim()}
-                            >
-                              Enregistrer
-                            </button>
-                          </div>
+                          <label class="flex items-center gap-1 text-xs text-slate-500 shrink-0">
+                            Note
+                            <input
+                              type="number"
+                              step="0.5"
+                              min="0"
+                              max="20"
+                              class="w-16 border border-slate-300 rounded-lg px-2 py-1.5 text-sm"
+                              placeholder="—/20"
+                              value=${noteDraft}
+                              onInput=${(e) => setNoteDraft(e.target.value)}
+                            />
+                          </label>
                         </div>
-                      </li>
-                    `
-                  : html`
-                      <li key=${s.id} class="py-2.5">
-                        <div class="flex items-start justify-between gap-2">
-                          <div class="min-w-0">
-                            <div class="flex items-center gap-2 flex-wrap">
-                              <p class="text-sm font-medium text-slate-700">${s.sujet}</p>
-                              <span class=${`px-1.5 py-0.5 rounded-full text-[11px] font-medium shrink-0 ${statutInfo(s.statut).badge}`}>
-                                ${statutInfo(s.statut).label}
-                              </span>
-                              ${s.note != null && html`<span class="text-[11px] text-slate-400">${s.note}/20</span>`}
-                            </div>
-                            <p class="text-xs text-slate-400">
-                              ${formatDateFr(s.date)}
-                              ${s.revisions && s.revisions.length > 0 &&
-                              html`<span class="text-indigo-500"> · revu le ${formatDateFr(s.revisions[s.revisions.length - 1].date)} (${s.revisions[s.revisions.length - 1].type})</span>`}
-                            </p>
-                            ${s.remarque && html`<p class="text-sm text-slate-600 mt-1">${s.remarque}</p>`}
-                            <div class="flex items-center gap-1.5 flex-wrap mt-1.5">
-                              ${TYPES_REVISION.map(
-                                (t) => html`
-                                  <button
-                                    class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
-                                    onClick=${() => ouvrirRevisionModal(s.id, t)}
-                                  >
-                                    ↻ ${t} faite
-                                  </button>
-                                `
-                              )}
-                            </div>
-                            <button
-                              class="text-xs text-slate-400 hover:text-slate-700 mt-1.5 underline decoration-dotted"
-                              onClick=${() => toggleCorrection(s)}
-                            >
-                              ${s.correction ? "📝 Voir la correction" : "+ Ajouter une correction"}
-                            </button>
-                            ${s.typeCorrection && html`<span class="ml-2 text-[11px] text-slate-400">(${s.typeCorrection})</span>`}
-                            ${s.revisions && s.revisions.length > 0 &&
-                            html`
-                              <button
-                                class="text-xs text-slate-400 hover:text-slate-700 mt-1.5 ml-2 underline decoration-dotted"
-                                onClick=${() => setHistoriqueOpenId(historiqueOpenId === s.id ? null : s.id)}
-                              >
-                                🕓 Historique (${s.revisions.length})
-                              </button>
-                            `}
-                          </div>
-                          <div class="flex items-center gap-2 text-xs shrink-0">
-                            <button class="text-slate-400 hover:text-slate-700" onClick=${() => openEdit(s)}>Modifier</button>
-                            <button
-                              class="text-slate-300 hover:text-red-500 text-sm leading-none"
-                              onClick=${() => confirm(`Supprimer "${s.sujet}" ?`) && deleteSujet(s.id)}
-                            >
-                              ✕
-                            </button>
-                          </div>
+                        <textarea
+                          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-none"
+                          rows="4"
+                          placeholder="Plan, idées, correction..."
+                          value=${correctionDraft}
+                          onInput=${(e) => setCorrectionDraft(e.target.value)}
+                        ></textarea>
+                        <div class="flex items-center justify-end gap-2 mt-2">
+                          <button class="text-xs text-slate-500 hover:text-slate-700" onClick=${() => setCorrectionOpenId(null)}>
+                            Annuler
+                          </button>
+                          <button
+                            class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800"
+                            onClick=${() => saveCorrection(s.id)}
+                          >
+                            Enregistrer
+                          </button>
                         </div>
-                        ${historiqueOpenId === s.id &&
-                        html`
-                          <ul class="mt-2 pl-3 border-l-2 border-indigo-100 space-y-1.5">
-                            ${[...s.revisions].reverse().map(
-                              (r) => html`
-                                <li key=${r.id} class="text-xs text-slate-500">
-                                  <div class="flex items-center justify-between gap-2">
-                                    <span>${formatDateFr(r.date)} — ${r.type}</span>
-                                    <button
-                                      class="text-slate-300 hover:text-red-500 leading-none"
-                                      onClick=${() => confirm(`Supprimer la révision "${r.type}" du ${formatDateFr(r.date)} ?`) && deleteRevisionSujet(s.id, r.id)}
-                                    >
-                                      ✕
-                                    </button>
-                                  </div>
-                                  ${r.note && html`<p class="text-slate-600 mt-0.5 whitespace-pre-wrap">${r.note}</p>`}
-                                </li>
-                              `
-                            )}
-                          </ul>
-                        `}
-                        ${correctionOpenId === s.id &&
-                        html`
-                          <div class="mt-2 pt-2">
-                            <div class="flex items-center gap-2 mb-2">
-                              <select
-                                class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-                                value=${typeCorrectionDraft}
-                                onChange=${(e) => setTypeCorrectionDraft(e.target.value)}
-                              >
-                                <option value="">Type de correction…</option>
-                                ${TYPES_CORRECTION.map((t) => html`<option value=${t}>${t}</option>`)}
-                              </select>
-                              <label class="flex items-center gap-1 text-xs text-slate-500 shrink-0">
-                                Note
-                                <input
-                                  type="number"
-                                  step="0.5"
-                                  min="0"
-                                  max="20"
-                                  class="w-16 border border-slate-300 rounded-lg px-2 py-1.5 text-sm"
-                                  placeholder="—/20"
-                                  value=${noteDraft}
-                                  onInput=${(e) => setNoteDraft(e.target.value)}
-                                />
-                              </label>
-                            </div>
-                            <textarea
-                              class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-none"
-                              rows="4"
-                              placeholder="Plan, idées, correction..."
-                              value=${correctionDraft}
-                              onInput=${(e) => setCorrectionDraft(e.target.value)}
-                            ></textarea>
-                            <div class="flex items-center justify-end gap-2 mt-2">
-                              <button class="text-xs text-slate-500 hover:text-slate-700" onClick=${() => setCorrectionOpenId(null)}>
-                                Annuler
-                              </button>
-                              <button
-                                class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800"
-                                onClick=${() => saveCorrection(s.id)}
-                              >
-                                Enregistrer
-                              </button>
-                            </div>
-                          </div>
-                        `}
-                      </li>
-                    `
-              )}
+                      </div>
+                    `}
+                  </li>
+                `;
+              })}
             </ul>
           `}
     </div>

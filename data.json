@@ -947,7 +947,14 @@
       "correction": "",
       "typeCorrection": "",
       "note": null,
-      "revisions": [],
+      "revisions": [
+        {
+          "id": "rev-610bcbbb-2add-4e64-8d0d-88656a1d690a",
+          "date": "2026-11-02",
+          "type": "Introduction",
+          "note": ""
+        }
+      ],
       "id": "suj-6bd7868b-4a64-417c-88ca-133566fa110d",
       "sujet": "Faire preuve d'humanité",
       "date": "2026-08-21",
