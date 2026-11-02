@@ -17,7 +17,7 @@ export function TabNav({ active, onChange }) {
   const couleursColleAujourdhui = [
     ...new Set(
       data.colles
-        .filter((c) => daysUntil(c.date) === 0 && colleHoraires(c).finColle > now)
+        .filter((c) => !c.annulee && daysUntil(c.date) === 0 && colleHoraires(c).finColle > now)
         .map((c) => subjectAccent(c.matiere))
     ),
   ];

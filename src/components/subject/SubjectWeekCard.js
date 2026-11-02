@@ -216,6 +216,7 @@ export function SubjectWeekCard({ tab }) {
         skipped: false,
         done: false,
         colle: true,
+        annulee: !!k.annulee,
       });
     }
     // Épreuve de CB — pour Maths, on précise Maths I / Maths II puisque les deux
@@ -290,7 +291,7 @@ export function SubjectWeekCard({ tab }) {
             <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
               ${jours.map((j) => {
                 const hasCB = j.items.some((it) => it.cb);
-                const hasColle = j.items.some((it) => it.colle);
+                const hasColle = j.items.some((it) => it.colle && !it.annulee);
                 const isToday = j.key === todayKey;
                 const boxClass = hasCB
                   ? "bg-red-50 border-2 border-red-400"
@@ -320,9 +321,19 @@ export function SubjectWeekCard({ tab }) {
                                   `
                                 : it.colle
                                   ? html`
-                                      <div key=${it.id} class="rounded bg-amber-100 border border-amber-300 px-1 py-0.5">
-                                        <span class="text-[11px] font-semibold leading-tight block text-amber-800">🎤 ${it.label}</span>
-                                        <span class="text-[10px] leading-tight text-amber-700 block"
+                                      <div
+                                        key=${it.id}
+                                        class=${it.annulee
+                                          ? "rounded bg-slate-100 border border-slate-300 px-1 py-0.5 opacity-70"
+                                          : "rounded bg-amber-100 border border-amber-300 px-1 py-0.5"}
+                                      >
+                                        <span
+                                          class=${`text-[11px] font-semibold leading-tight block ${
+                                            it.annulee ? "text-slate-500 line-through" : "text-amber-800"
+                                          }`}
+                                          >🎤 ${it.label}${it.annulee ? " (annulée)" : ""}</span
+                                        >
+                                        <span class=${`text-[10px] leading-tight block ${it.annulee ? "text-slate-400" : "text-amber-700"}`}
                                           >${it.debut}–${it.fin}${it.debutPrepa ? ` (${it.debutPrepa})` : ""}</span
                                         >
                                       </div>

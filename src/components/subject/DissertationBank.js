@@ -13,6 +13,20 @@ const STATUTS = [
 const TOUT = "tout";
 const statutInfo = (key) => STATUTS.find((s) => s.key === key) || STATUTS[1];
 
+// Filtres d'avancement — classent un sujet d'après EXACTEMENT ce qui a été
+// fait parmi les 3 étapes (Introduction / Plan / Rédaction complète), pour
+// répondre à des questions comme "sur quels sujets je n'ai fait que
+// l'intro ?". Chaque `test` reçoit l'objet { Introduction, Plan, "Rédaction
+// complète" } renvoyé par `etapesSujet` (une date si faite, sinon null).
+const FILTRES_AVANCEMENT = [
+  { key: "tout", label: "Tout avancement", test: () => true },
+  { key: "rien", label: "Rien fait", test: (e) => !e.Introduction && !e.Plan && !e["Rédaction complète"] },
+  { key: "intro_seule", label: "Intro seulement", test: (e) => e.Introduction && !e.Plan && !e["Rédaction complète"] },
+  { key: "plan_seul", label: "Plan seulement", test: (e) => !e.Introduction && e.Plan && !e["Rédaction complète"] },
+  { key: "intro_plan", label: "Intro + Plan (pas de rédaction)", test: (e) => e.Introduction && e.Plan && !e["Rédaction complète"] },
+  { key: "redaction", label: "Rédaction complète déjà faite", test: (e) => !!e["Rédaction complète"] },
+];
+
 const TYPES_CORRECTION = ["Introduction uniquement", "Plan uniquement", "Introduction + Plan", "Correction complète"];
 
 // Types de révision rapide : un clic suffit à tracer qu'on est retourné sur un
@@ -115,6 +129,8 @@ export function DissertationBank() {
   const [remarque, setRemarque] = useState("");
   const [statutNouveau, setStatutNouveau] = useState("traite");
   const [filtreStatut, setFiltreStatut] = useState(TOUT);
+  const [filtreAvancement, setFiltreAvancement] = useState("tout");
+  const [recherche, setRecherche] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editSujet, setEditSujet] = useState("");
   const [editRemarque, setEditRemarque] = useState("");
@@ -137,8 +153,19 @@ export function DissertationBank() {
     setRevisionModal(null);
   };
 
+  const rechercheNorm = normaliseRecherche(recherche.trim());
+  const avancementActif = FILTRES_AVANCEMENT.find((f) => f.key === filtreAvancement) || FILTRES_AVANCEMENT[0];
+
   const sujets = [...data.sujets_dissertation]
     .filter((s) => filtreStatut === TOUT || s.statut === filtreStatut)
+    .filter((s) => avancementActif.test(etapesSujet(s)))
+    .filter(
+      (s) =>
+        !rechercheNorm ||
+        normaliseRecherche(s.sujet).includes(rechercheNorm) ||
+        normaliseRecherche(s.remarque).includes(rechercheNorm) ||
+        normaliseRecherche(s.correction).includes(rechercheNorm)
+    )
     .sort((a, b) => derniereActivite(b).localeCompare(derniereActivite(a)));
 
   const doublonProbable = sujet.trim() ? trouveDoublonProbable(sujet.trim(), data.sujets_dissertation) : null;
@@ -226,24 +253,43 @@ export function DissertationBank() {
 
       ${doublonProbable && html`<p class="mb-3 text-xs text-amber-600">⚠️ Proche de « ${doublonProbable.sujet} » déjà existant — un doublon ?</p>`}
 
-      <div class="flex items-center gap-1 flex-wrap mb-3">
-        ${[{ key: TOUT, label: "Tous" }, ...STATUTS].map((s) => {
-          const isActive = filtreStatut === s.key;
-          return html`
-            <button
-              class=${`px-2.5 py-1 rounded-lg text-xs font-medium ${
-                isActive ? "bg-slate-900 text-white" : "text-slate-500 hover:bg-slate-100"
-              }`}
-              onClick=${() => setFiltreStatut(s.key)}
-            >
-              ${s.label}
-            </button>
-          `;
-        })}
+      <div class="flex flex-col sm:flex-row gap-2 mb-3">
+        <input
+          class="flex-1 border border-slate-300 rounded-lg px-3 py-1.5 text-sm"
+          placeholder="🔍 Rechercher un sujet, une remarque, une correction…"
+          value=${recherche}
+          onInput=${(e) => setRecherche(e.target.value)}
+        />
+        <select
+          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm shrink-0"
+          value=${filtreAvancement}
+          onChange=${(e) => setFiltreAvancement(e.target.value)}
+        >
+          ${FILTRES_AVANCEMENT.map((f) => html`<option value=${f.key}>${f.label}</option>`)}
+        </select>
+      </div>
+
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+        <div class="flex items-center gap-1 flex-wrap">
+          ${[{ key: TOUT, label: "Tous" }, ...STATUTS].map((s) => {
+            const isActive = filtreStatut === s.key;
+            return html`
+              <button
+                class=${`px-2.5 py-1 rounded-lg text-xs font-medium ${
+                  isActive ? "bg-slate-900 text-white" : "text-slate-500 hover:bg-slate-100"
+                }`}
+                onClick=${() => setFiltreStatut(s.key)}
+              >
+                ${s.label}
+              </button>
+            `;
+          })}
+        </div>
+        <span class="text-xs text-slate-400">${sujets.length} sujet${sujets.length > 1 ? "s" : ""}</span>
       </div>
 
       ${sujets.length === 0
-        ? html`<${EmptyState} text="Aucun sujet pour l'instant." />`
+        ? html`<${EmptyState} text=${recherche.trim() || filtreAvancement !== "tout" || filtreStatut !== TOUT ? "Aucun sujet ne correspond à ces filtres." : "Aucun sujet pour l'instant."} />`
         : html`
             <ul class="space-y-2.5 max-h-96 overflow-y-auto overflow-x-hidden pr-0.5">
               ${sujets.map((s) => {

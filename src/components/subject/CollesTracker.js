@@ -67,10 +67,10 @@ export function CollesTracker({ tab }) {
                 const passee = isPast(c.date);
                 const { prepa, debutPrepa, debutColle, finColle } = colleHoraires(c);
                 return html`
-                  <li key=${c.id} class="border border-slate-100 rounded-xl p-3">
+                  <li key=${c.id} class=${`border rounded-xl p-3 ${c.annulee ? "border-slate-200 bg-slate-50" : "border-slate-100"}`}>
                     <div class="flex items-start justify-between gap-2">
                       <div>
-                        <p class="text-sm font-semibold text-slate-800">
+                        <p class=${`text-sm font-semibold ${c.annulee ? "text-slate-400 line-through" : "text-slate-800"}`}>
                           ${formatDateFr(c.date)} · ${debutColle}–${finColle}
                           ${c.note !== null && c.note !== undefined && html`<span class="ml-2 text-emerald-600">${c.note}/20</span>`}
                         </p>
@@ -82,14 +82,21 @@ export function CollesTracker({ tab }) {
                         </p>
                       </div>
                       <div class="flex items-center gap-2 text-xs shrink-0">
+                        <button
+                          class=${c.annulee ? "text-emerald-600 hover:text-emerald-700" : "text-red-500 hover:text-red-600"}
+                          onClick=${() => updateColle(c.id, { annulee: !c.annulee })}
+                        >
+                          ${c.annulee ? "↩ Rétablir" : "🚫 Annuler"}
+                        </button>
                         <button class="text-slate-400 hover:text-slate-700" onClick=${() => openEdit(c)}>Modifier</button>
                         <button class="text-slate-300 hover:text-red-500" onClick=${() => handleDelete(c)}>✕</button>
                       </div>
                     </div>
+                    ${c.annulee && html`<p class="text-xs text-slate-400 mt-2">🚫 Annulée — ne compte pas dans le temps de travail.</p>`}
                     ${c.retour && html`<p class="text-sm text-slate-600 mt-2"><span class="text-slate-400">Retour :</span> ${c.retour}</p>`}
                     ${c.axes_amelioration &&
                     html`<p class="text-sm text-slate-600 mt-1"><span class="text-slate-400">À travailler :</span> ${c.axes_amelioration}</p>`}
-                    ${!passee && !c.retour && html`<p class="text-xs text-slate-400 mt-2 italic">À venir</p>`}
+                    ${!c.annulee && !passee && !c.retour && html`<p class="text-xs text-slate-400 mt-2 italic">À venir</p>`}
                   </li>
                 `;
               })}

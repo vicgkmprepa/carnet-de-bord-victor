@@ -41,7 +41,7 @@ export function TodayWidget({ onChangeTab }) {
     .sort((a, b) => a.debut.localeCompare(b.debut));
 
   const collesJour = data.colles
-    .filter((c) => c.date === displayedDate)
+    .filter((c) => c.date === displayedDate && !c.annulee)
     .filter((c) => !isToday || colleHoraires(c).finColle > now)
     .sort((a, b) => a.heure.localeCompare(b.heure));
 

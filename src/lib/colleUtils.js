@@ -47,8 +47,10 @@ export function colleTerminee(colle, now = new Date()) {
 }
 
 // Les colles terminées, au format { date, matiere, minutes } des stats de temps.
+// Une colle annulée (colle.annulee) ne compte jamais, même si son horaire est
+// passé : elle n'a pas eu lieu, donc pas de temps réalisé.
 export function collesRealisees(data) {
   return (data.colles || [])
-    .filter((k) => k.matiere && k.matiere !== "Général" && colleTerminee(k))
+    .filter((k) => k.matiere && k.matiere !== "Général" && !k.annulee && colleTerminee(k))
     .map((k) => ({ date: k.date, matiere: k.matiere, minutes: colleMinutes(k) }));
 }

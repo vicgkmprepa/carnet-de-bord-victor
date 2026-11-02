@@ -6,18 +6,20 @@ import { colleHoraires } from "../../lib/colleUtils.js";
 // Popup de lecture d'une colle, ouverte au clic depuis l'agenda — les cases de
 // la grille sont trop petites pour bien distinguer heure de prépa / heure de
 // passage / salle / colleur d'un coup d'œil, d'où ce résumé plus posé.
-export function ColleDetailModal({ colle, onClose, onEdit }) {
+export function ColleDetailModal({ colle, onClose, onEdit, onToggleAnnulee }) {
   const { prepa, debutPrepa, debutColle, finColle } = colleHoraires(colle);
-  const color = subjectAccent(colle.matiere);
+  const color = colle.annulee ? "#94A3B8" : subjectAccent(colle.matiere);
 
   return html`
     <div class="fixed inset-0 bg-slate-900/40 flex items-center justify-center z-50 p-4" onClick=${onClose}>
       <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden" onClick=${(e) => e.stopPropagation()}>
         <div class="px-6 py-5" style=${{ backgroundColor: color }}>
-          <p class="text-xs font-medium text-white/80 uppercase tracking-wide">Colle</p>
-          <h3 class="text-lg font-semibold text-white">${subjectLabel(colle.matiere)}</h3>
+          <p class="text-xs font-medium text-white/80 uppercase tracking-wide">Colle${colle.annulee ? " — annulée" : ""}</p>
+          <h3 class=${`text-lg font-semibold text-white ${colle.annulee ? "line-through opacity-80" : ""}`}>${subjectLabel(colle.matiere)}</h3>
           <p class="text-sm text-white/90">${formatDateFr(colle.date)}</p>
         </div>
+        ${colle.annulee &&
+        html`<p class="px-6 pt-3 text-xs text-slate-500">🚫 Colle annulée — ne compte pas dans le temps de travail réalisé.</p>`}
 
         <div class="px-6 py-5 space-y-4">
           <div class="flex items-center gap-3">
@@ -75,9 +77,19 @@ export function ColleDetailModal({ colle, onClose, onEdit }) {
           `}
         </div>
 
-        <div class="px-6 pb-5 flex justify-end gap-2">
-          <button class="px-4 py-1.5 rounded-lg text-sm text-slate-600 hover:bg-slate-100" onClick=${onClose}>Fermer</button>
-          <button class="px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${onEdit}>Modifier</button>
+        <div class="px-6 pb-5 flex justify-between gap-2">
+          <button
+            class=${`px-3 py-1.5 rounded-lg text-sm font-medium ${
+              colle.annulee ? "text-emerald-600 hover:bg-emerald-50" : "text-red-600 hover:bg-red-50"
+            }`}
+            onClick=${onToggleAnnulee}
+          >
+            ${colle.annulee ? "↩ Rétablir" : "🚫 Annuler cette colle"}
+          </button>
+          <div class="flex gap-2">
+            <button class="px-4 py-1.5 rounded-lg text-sm text-slate-600 hover:bg-slate-100" onClick=${onClose}>Fermer</button>
+            <button class="px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${onEdit}>Modifier</button>
+          </div>
         </div>
       </div>
     </div>

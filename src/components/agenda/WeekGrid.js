@@ -305,7 +305,7 @@ export function WeekGrid({
               const { prepa, passage } = colleDurees(k.matiere);
               const start = passageStart - prepa;
               const end = passageStart + passage;
-              const color = subjectAccent(k.matiere);
+              const color = k.annulee ? "#94A3B8" : subjectAccent(k.matiere);
               pushItem(
                 di,
                 start,
@@ -313,14 +313,18 @@ export function WeekGrid({
                 (pos) => html`
                   <button
                     key=${k.id}
-                    class="absolute my-px rounded-md text-left px-1.5 py-0.5 overflow-hidden text-[11px] leading-tight border-2"
+                    class=${`absolute my-px rounded-md text-left px-1.5 py-0.5 overflow-hidden text-[11px] leading-tight border-2 ${
+                      k.annulee ? "opacity-60" : ""
+                    }`}
                     style=${{ ...pos, backgroundColor: color, borderColor: "#fff", color: "#fff" }}
                     onDragOver=${dragOverAnywhere}
                     onDrop=${dropAnywhere}
                     onClick=${() => onOpenColle(k)}
-                    title="Colle — clic pour modifier"
+                    title=${k.annulee ? "Colle annulée — clic pour modifier" : "Colle — clic pour modifier"}
                   >
-                    <span class="font-semibold">🎤 Colle ${subjectLabel(k.matiere)}</span>
+                    <span class=${`font-semibold ${k.annulee ? "line-through" : ""}`}
+                      >🎤 Colle ${subjectLabel(k.matiere)}${k.annulee ? " (annulée)" : ""}</span
+                    >
                     ${!pos.compact &&
                     html`<span class="block opacity-90"
                       >${k.heure}${prepa > 0 ? ` (${minutesToTime(start)})` : ""}${k.salle ? ` · ${k.salle}` : ""}</span

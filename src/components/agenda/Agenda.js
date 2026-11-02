@@ -421,6 +421,10 @@ export function Agenda({ initialDate }) {
             setEditingColle(modalColle);
             setModalColle(null);
           }}
+          onToggleAnnulee=${() => {
+            updateColle(modalColle.id, { annulee: !modalColle.annulee });
+            setModalColle(null);
+          }}
         />
       `}
 

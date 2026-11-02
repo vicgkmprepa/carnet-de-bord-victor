@@ -15,7 +15,9 @@ export function signauxParMatiere(data) {
       (t) => t.matiere === tab.key && t.statut !== "fait" && isPast(t.deadline)
     ).length;
 
-    const collesSansRetour = data.colles.filter((c) => c.matiere === tab.key && isPast(c.date) && !c.retour).length;
+    const collesSansRetour = data.colles.filter(
+      (c) => c.matiere === tab.key && !c.annulee && isPast(c.date) && !c.retour
+    ).length;
 
     const articlesMatiere = data.veille_presse.filter((a) => a.matiere === tab.key);
     let veillePresseJours = null;
