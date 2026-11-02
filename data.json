@@ -12029,7 +12029,7 @@
       "contenu": "15 minutes de cours de Probabilités\n- 1h : échange des copies de CB de math\n- ⁠1h : correction personnelle du sujet ECRICOME 2025"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12038,7 +12038,8 @@
       "debut": "22:00",
       "fin": "23:30",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
