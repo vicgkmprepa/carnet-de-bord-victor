@@ -12279,7 +12279,7 @@
     },
     {
       "statut": "planifie",
-      "theme": "",
+      "theme": "Probabilités",
       "estCours": false,
       "devoirIds": [],
       "id": "sp-df912acb-2827-4bed-bb64-6d4f8d56af20",
@@ -12287,7 +12287,7 @@
       "debut": "13:00",
       "fin": "15:00",
       "matiere": "Maths",
-      "titre": ""
+      "titre": "Devoirs pour Joulak"
     },
     {
       "statut": "planifie",
