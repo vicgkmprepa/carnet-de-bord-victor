@@ -478,6 +478,14 @@
       "titre": "Corriger ma copie de la BCE",
       "deadline": "2026-11-06",
       "statut": "à faire"
+    },
+    {
+      "id": "t-b9e471a8-1c8c-4185-b58e-4f6735ab4b81",
+      "matiere": "Maths",
+      "titre": "Compléter le Anki de Maths",
+      "deadline": "2026-11-04",
+      "statut": "à faire",
+      "devoir": true
     }
   ],
   "emploi_du_temps": {
