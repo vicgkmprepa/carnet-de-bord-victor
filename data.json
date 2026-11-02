@@ -15467,11 +15467,11 @@
         },
         {
           "id": "ex-c96467f8-59c5-4900-ae38-e78c2ae9613c",
-          "nom": "Problème",
+          "nom": "Exercice 2",
           "date": "2026-10-29",
           "difficulte": "Moyen",
-          "theme": "Probabilités",
-          "tempsMinutes": null,
+          "theme": "Analyse",
+          "tempsMinutes": 65,
           "aRevoir": false,
           "commentaire": ""
         }
