@@ -11899,7 +11899,7 @@
       "fin": "11:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "ECRICOME 2025 ECE\nAnnale : ECRICOME 2025 ECE — Exercice"
+      "contenu": "ECRICOME 2025 ECE\nAnnale : ECRICOME 2025 ECE — Exercice\nAnnale : ECRICOME 2025 ECE — Problème"
     },
     {
       "statut": "realise",
@@ -15461,6 +15461,16 @@
           "date": "2026-10-29",
           "difficulte": "Moyen",
           "theme": "Algèbre",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
+        },
+        {
+          "id": "ex-c96467f8-59c5-4900-ae38-e78c2ae9613c",
+          "nom": "Problème",
+          "date": "2026-10-29",
+          "difficulte": "Moyen",
+          "theme": "Probabilités",
           "tempsMinutes": null,
           "aRevoir": false,
           "commentaire": ""
