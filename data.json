@@ -12181,7 +12181,7 @@
       "fin": "19:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "Méthode de Monte Carlo"
+      "contenu": "Méthode de Monte Carlo\nPlt.plot si y a du temps"
     },
     {
       "statut": "planifie",
