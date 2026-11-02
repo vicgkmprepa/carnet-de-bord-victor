@@ -12252,7 +12252,8 @@
       "debut": "20:00",
       "fin": "22:30",
       "matiere": "Maths",
-      "titre": "Correction du DST du mercredi"
+      "titre": "Correction du DST du mercredi",
+      "contenu": "15 minutes de cours d'Algèbre"
     },
     {
       "statut": "planifie",
