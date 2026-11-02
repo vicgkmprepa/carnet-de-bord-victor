@@ -12069,7 +12069,8 @@
       "debut": "20:00",
       "fin": "21:30",
       "matiere": "Maths",
-      "titre": "Devoirs de Maths"
+      "titre": "Devoirs de Maths",
+      "contenu": "15 minutes de cours d'Analyse"
     },
     {
       "statut": "planifie",
