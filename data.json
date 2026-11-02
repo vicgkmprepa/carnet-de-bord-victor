@@ -12121,7 +12121,7 @@
     },
     {
       "statut": "planifie",
-      "theme": "",
+      "theme": "Annale",
       "estCours": false,
       "devoirIds": [],
       "id": "sp-67b44343-92b8-4b5a-879e-f34c1cbb6e4d",
@@ -12129,7 +12129,7 @@
       "debut": "20:00",
       "fin": "23:30",
       "matiere": "Maths",
-      "titre": "DST"
+      "titre": ""
     },
     {
       "statut": "planifie",
