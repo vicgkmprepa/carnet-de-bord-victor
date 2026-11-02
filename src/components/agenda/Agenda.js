@@ -73,7 +73,6 @@ export function Agenda({ initialDate }) {
   const [modalSession, setModalSession] = useState(null);
   const [editingColle, setEditingColle] = useState(null);
   const [modalColle, setModalColle] = useState(null);
-  const [showPlanningCoeff, setShowPlanningCoeff] = useState(true);
 
   const creneaux = data.emploi_du_temps.creneaux;
 
@@ -348,9 +347,6 @@ export function Agenda({ initialDate }) {
           </button>
         </div>
       </div>
-
-      ${showPlanningCoeff &&
-      html`<${PlanningCoeffCounter} data=${data} weekDays=${weekDays} onClose=${() => setShowPlanningCoeff(false)} />`}
 
       ${showForm &&
       html`
@@ -635,6 +631,8 @@ export function Agenda({ initialDate }) {
               })}
             </div>
           `)}
+
+      <${PlanningCoeffCounter} data=${data} weekDays=${weekDays} />
     </div>
   `;
 }
