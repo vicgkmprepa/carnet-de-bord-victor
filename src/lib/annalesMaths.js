@@ -16,3 +16,15 @@ export function dernieresTentativesParExercice(exercices) {
 export function exercicesARevoir(exercices) {
   return dernieresTentativesParExercice(exercices).filter((ex) => ex.aRevoir);
 }
+
+// Dernière date à laquelle l'annale a été travaillée, tous exercices et
+// tentatives blanches confondus — affichée dans la liste des annales (cf.
+// AnnalesMathsTracker.js) pour repérer d'un coup d'œil ce qui dort depuis
+// longtemps.
+export function derniereDateAnnale(annale) {
+  const dates = [
+    ...annale.exercices.map((ex) => ex.date),
+    ...(annale.tentativesBlanches || []).map((t) => t.date),
+  ].filter(Boolean);
+  return dates.length ? dates.reduce((max, d) => (d > max ? d : max)) : null;
+}

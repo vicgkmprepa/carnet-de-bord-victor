@@ -8,7 +8,7 @@ import { FicheRevisionModal } from "./FicheRevisionModal.js";
 import { mondayOf, dayKeyOf } from "../../lib/scheduleUtils.js";
 import { itemLabel, MATHS_THEMES } from "../../lib/subjectMapping.js";
 import { formatDateFr } from "../../lib/dateUtils.js";
-import { exercicesARevoir } from "../../lib/annalesMaths.js";
+import { exercicesARevoir, derniereDateAnnale } from "../../lib/annalesMaths.js";
 
 const CATEGORIES = ["Maths I", "Maths II", "EDHEC", "EM", "Écricome"];
 const TOUT = "tout";
@@ -518,6 +518,7 @@ export function AnnalesMathsTracker() {
               ${annales.map((a) => {
                 const nbARevoir = exercicesARevoir(a.exercices).length;
                 const avancement = a.avancement || "";
+                const derniereDate = derniereDateAnnale(a);
                 return html`
                   <li key=${a.id}>
                     <div class="w-full flex items-center gap-2 py-2 px-2 -mx-2 rounded-lg hover:bg-slate-50">
@@ -541,6 +542,7 @@ export function AnnalesMathsTracker() {
                         <span class="flex items-center gap-2 shrink-0 text-xs text-slate-400">
                           ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
                           <span>${a.exercices.length} exo${a.exercices.length > 1 ? "s" : ""}</span>
+                          ${derniereDate && html`<span class="text-slate-400">· ${formatDateFr(derniereDate)}</span>`}
                           ${nbARevoir > 0 && html`<span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
                       </button>
