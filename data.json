@@ -12009,7 +12009,8 @@
       "debut": "20:00",
       "fin": "22:00",
       "matiere": "Maths",
-      "titre": "Correction du DST du dimanche"
+      "titre": "Correction du DST du dimanche",
+      "contenu": "15 minutes de cours d'Algèbre"
     },
     {
       "statut": "planifie",
