@@ -12044,7 +12044,7 @@
       "contenu": "Anglais : Anki (0h10) + Apprentissage des fautes (0h30) + TLDR New (0h15) + Méthodologie Q1 (0h30)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12053,7 +12053,8 @@
       "debut": "07:00",
       "fin": "08:05",
       "matiere": "CG",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
