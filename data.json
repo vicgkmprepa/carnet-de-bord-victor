@@ -12787,7 +12787,7 @@
       "debut": "20:00",
       "fin": "21:30",
       "matiere": "CG",
-      "titre": ""
+      "titre": "HGG ou CG selon le DST (pas 2 fois la même matière)"
     },
     {
       "statut": "planifie",
