@@ -60,7 +60,7 @@ export function Agenda({ initialDate }) {
   } = useCarnet();
   const [monday, setMonday] = useState(() => mondayOf(initialDate || today));
   const [glissantStart, setGlissantStart] = useState(() => initialDate || today);
-  const [viewMode, setViewMode] = useState("glissant"); // "semaine" | "glissant" | "mois"
+  const [viewMode, setViewMode] = useState("semaine"); // "semaine" | "glissant" | "mois"
   const [moisRef, setMoisRef] = useState(() => firstOfMonth(initialDate || today));
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
