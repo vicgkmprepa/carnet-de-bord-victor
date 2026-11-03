@@ -486,7 +486,8 @@
       "matiere": "Maths",
       "titre": "Compléter le Anki de Maths",
       "deadline": "2026-11-04",
-      "statut": "à faire"
+      "statut": "fait",
+      "faitLe": "2026-11-03"
     }
   ],
   "emploi_du_temps": {
