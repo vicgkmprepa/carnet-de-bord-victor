@@ -12795,8 +12795,8 @@
       "date": "2026-11-15",
       "debut": "20:00",
       "fin": "21:30",
-      "matiere": "Général",
-      "titre": "HGG ou CG selon le DST (pas 2 fois la même matière)"
+      "matiere": "CG",
+      "titre": ""
     },
     {
       "statut": "planifie",
