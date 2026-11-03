@@ -12070,7 +12070,7 @@
       "titre": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12079,7 +12079,8 @@
       "debut": "18:00",
       "fin": "19:00",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
