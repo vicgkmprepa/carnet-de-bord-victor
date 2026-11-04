@@ -490,12 +490,12 @@
       "faitLe": "2026-11-03"
     },
     {
+      "devoir": false,
       "id": "t-85083bbd-ffce-45f1-a153-4c47ab8818fb",
       "matiere": "HGG",
       "titre": "Ranger les concepts Afrique comme ceux de l'UE",
       "deadline": "2026-11-07",
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -12118,7 +12118,7 @@
       "contenu": "4 novembre : Apprentissage Afrique (identité + concepts) (0h45) + 10x10"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12127,7 +12127,8 @@
       "debut": "09:20",
       "fin": "11:05",
       "matiere": "Espagnol",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
