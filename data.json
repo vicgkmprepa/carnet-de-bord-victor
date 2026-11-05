@@ -538,6 +538,13 @@
       "debut": "16:30",
       "fin": "17:30",
       "titre": "Perso LB"
+    },
+    {
+      "id": "evt-4bfbce44-a904-412f-8ba6-cee930823a0c",
+      "date": "2026-11-07",
+      "debut": "09:15",
+      "fin": "10:30",
+      "titre": "ENTRAINEMENT PERSO"
     }
   ],
   "colles": [
