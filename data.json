@@ -531,6 +531,13 @@
       "debut": "10:45",
       "fin": "11:45",
       "titre": "Perso VG"
+    },
+    {
+      "id": "evt-936db631-9fb3-4e9e-92aa-14e040b861ba",
+      "date": "2026-11-08",
+      "debut": "16:30",
+      "fin": "17:30",
+      "titre": "Perso LB"
     }
   ],
   "colles": [
