@@ -12251,7 +12251,7 @@
       "contenu": "Méthode de Monte Carlo\nPlt.plot si y a du temps"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
