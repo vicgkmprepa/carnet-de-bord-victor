@@ -12327,7 +12327,7 @@
       "contenu": "1h DNS 2 EDHEC Joulak"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
