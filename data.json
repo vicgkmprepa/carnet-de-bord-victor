@@ -488,15 +488,6 @@
       "deadline": "2026-11-04",
       "statut": "fait",
       "faitLe": "2026-11-03"
-    },
-    {
-      "devoir": false,
-      "id": "t-85083bbd-ffce-45f1-a153-4c47ab8818fb",
-      "matiere": "HGG",
-      "titre": "Ranger les concepts Afrique comme ceux de l'UE",
-      "deadline": "2026-11-07",
-      "statut": "fait",
-      "faitLe": "2026-11-05"
     }
   ],
   "emploi_du_temps": {
