@@ -213,49 +213,49 @@
         {
           "nom": "Maths I",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 9.5,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "Maths II",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 10,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "HGG",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 15.5,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "Anglais",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 7,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "Espagnol",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 12,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "CG",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 11,
           "commentaire": "",
           "causes_erreur": []
         },
         {
           "nom": "Synthèse",
           "note_objectif": null,
-          "note_obtenue": null,
+          "note_obtenue": 7,
           "commentaire": "",
           "causes_erreur": []
         }
