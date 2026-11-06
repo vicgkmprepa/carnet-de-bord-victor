@@ -496,6 +496,14 @@
       "deadline": null,
       "statut": "à faire",
       "devoir": false
+    },
+    {
+      "id": "t-35e9b4c8-305b-4971-9840-aa0c60640674",
+      "matiere": "CG",
+      "titre": "Ajouter l'étymologie du mot progrès à la fiche progrès voir fiche dans le Drive",
+      "deadline": "2026-11-08",
+      "statut": "à faire",
+      "devoir": false
     }
   ],
   "emploi_du_temps": {
