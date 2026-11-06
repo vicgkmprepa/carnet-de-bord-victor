@@ -14530,8 +14530,9 @@
       "matiere": "Général",
       "titre": "RÉVISION PERSO",
       "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "statut": "realise",
+      "estCours": false,
+      "contenu": ""
     }
   ],
   "geopolitique_revisions": [
