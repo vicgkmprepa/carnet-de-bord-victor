@@ -12268,7 +12268,7 @@
       "contenu": "Lecture des 2 thèmes corrigés et apprentissage de la correction (0h25) + Interrogation (0h15) + Vidéo TLDR (Midterms) (0h10) + Méthodologie Q2/Lecture derniers retour Q2/RECAP (0h45) + Lecture derniers retour Q1/RECAP (0h25)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12277,7 +12277,8 @@
       "debut": "07:00",
       "fin": "08:05",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
