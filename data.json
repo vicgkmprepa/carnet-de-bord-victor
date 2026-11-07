@@ -490,12 +490,12 @@
       "faitLe": "2026-11-03"
     },
     {
+      "devoir": false,
       "id": "t-35e9b4c8-305b-4971-9840-aa0c60640674",
       "matiere": "CG",
       "titre": "Ajouter l'étymologie du mot progrès à la fiche progrès voir fiche dans le Drive",
       "deadline": "2026-11-08",
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -12358,8 +12358,8 @@
       "devoirIds": [],
       "id": "sp-df912acb-2827-4bed-bb64-6d4f8d56af20",
       "date": "2026-11-07",
-      "debut": "13:00",
-      "fin": "15:00",
+      "debut": "13:45",
+      "fin": "14:45",
       "matiere": "Maths",
       "titre": "Devoirs pour Joulak",
       "contenu": "seance-3-couple-de-vad-1.pdf (Devoir 4)"
@@ -14531,15 +14531,16 @@
       "titre": ""
     },
     {
+      "statut": "realise",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-ef4d00cc-5f71-4e5a-a23d-fe2fc7733628",
       "date": "2026-11-06",
       "debut": "18:40",
       "fin": "19:20",
       "matiere": "Général",
       "titre": "RÉVISION PERSO",
-      "theme": "",
-      "statut": "realise",
-      "estCours": false,
       "contenu": ""
     }
   ],
