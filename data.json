@@ -14431,6 +14431,17 @@
       "theme": "Annale",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-22826213-d13f-4443-aace-0d704c153906",
+      "date": "2026-11-11",
+      "debut": "12:15",
+      "fin": "13:15",
+      "matiere": "Espagnol",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
