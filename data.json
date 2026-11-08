@@ -14420,6 +14420,17 @@
       "matiere": "Général",
       "titre": "RÉVISION PERSO",
       "contenu": ""
+    },
+    {
+      "id": "sp-2dfe988b-4f7f-4813-9642-b7eb9b5f164f",
+      "date": "2026-11-11",
+      "debut": "08:00",
+      "fin": "12:00",
+      "matiere": "Maths",
+      "titre": "",
+      "theme": "Annale",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
