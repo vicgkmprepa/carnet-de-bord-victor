@@ -14453,6 +14453,17 @@
       "theme": "",
       "statut": "planifie",
       "estCours": false
+    },
+    {
+      "id": "sp-0e49c65b-965d-4807-b731-2082bed46d45",
+      "date": "2026-11-11",
+      "debut": "16:30",
+      "fin": "18:30",
+      "matiere": "CG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
