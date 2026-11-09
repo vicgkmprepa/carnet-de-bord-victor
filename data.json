@@ -14515,6 +14515,17 @@
       "matiere": "Maths",
       "titre": "",
       "contenu": "Correction "
+    },
+    {
+      "id": "sp-861decea-2f7f-452e-95fe-369f73376a72",
+      "date": "2026-11-09",
+      "debut": "19:20",
+      "fin": "20:00",
+      "matiere": "CG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
