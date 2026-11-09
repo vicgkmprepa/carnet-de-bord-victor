@@ -12448,7 +12448,7 @@
     },
     {
       "statut": "planifie",
-      "theme": "",
+      "theme": "Probabilités",
       "estCours": false,
       "devoirIds": [],
       "id": "sp-ca5a5fa7-fe20-4362-b1f3-573bcfdd68ad",
@@ -12456,7 +12456,7 @@
       "debut": "20:00",
       "fin": "22:00",
       "matiere": "Maths",
-      "titre": "Correction du DST du dimanche",
+      "titre": "",
       "contenu": "15 minutes de cours de Probabilités\n30 min Python : if\n1h15 : devoirs"
     },
     {
