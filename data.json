@@ -12388,7 +12388,8 @@
       "debut": "07:00",
       "fin": "08:05",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": "Apprentissage Afrique (0h45) + 10x10 (0h20)"
     },
     {
       "statut": "planifie",
@@ -14422,70 +14423,76 @@
       "contenu": ""
     },
     {
+      "statut": "planifie",
+      "theme": "Annale",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-2dfe988b-4f7f-4813-9642-b7eb9b5f164f",
       "date": "2026-11-11",
       "debut": "08:00",
       "fin": "12:00",
       "matiere": "Maths",
-      "titre": "",
-      "theme": "Annale",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-22826213-d13f-4443-aace-0d704c153906",
       "date": "2026-11-11",
       "debut": "12:15",
       "fin": "13:15",
       "matiere": "Espagnol",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-3924bb7e-9289-49a1-8aa7-3d03811aea34",
       "date": "2026-11-11",
       "debut": "14:15",
       "fin": "16:00",
       "matiere": "HGG",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-0e49c65b-965d-4807-b731-2082bed46d45",
       "date": "2026-11-11",
       "debut": "16:30",
       "fin": "18:30",
       "matiere": "CG",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-b771565e-ba12-45d5-8812-286c04234778",
       "date": "2026-11-11",
       "debut": "19:30",
       "fin": "21:30",
       "matiere": "Anglais",
-      "titre": "",
-      "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     },
     {
+      "statut": "planifie",
+      "theme": "Annale",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-9600acc8-9cec-4f4e-87af-38ab2de5a691",
       "date": "2026-11-11",
       "debut": "21:30",
       "fin": "23:00",
       "matiere": "Maths",
-      "titre": "",
-      "theme": "Annale",
-      "statut": "planifie",
-      "estCours": false
+      "titre": ""
     }
   ],
   "geopolitique_revisions": [
