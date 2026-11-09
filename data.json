@@ -504,6 +504,14 @@
       "deadline": null,
       "statut": "à faire",
       "devoir": false
+    },
+    {
+      "id": "t-ed2e49d6-029c-49ed-954e-bdd9748ad623",
+      "matiere": "HGG",
+      "titre": "Passer Soudan/Soudan du Sud en exemple",
+      "deadline": "2026-11-11",
+      "statut": "à faire",
+      "devoir": false
     }
   ],
   "emploi_du_temps": {
