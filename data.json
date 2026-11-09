@@ -12550,7 +12550,8 @@
       "debut": "18:00",
       "fin": "19:00",
       "matiere": "Maths",
-      "titre": ""
+      "titre": "",
+      "contenu": "30 minutes : for\n30 minutes : while"
     },
     {
       "statut": "planifie",
