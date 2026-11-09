@@ -12473,7 +12473,7 @@
       "contenu": "15 minutes de cours de Probabilités\n30 min Python : if\n1h15 : devoirs"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12482,7 +12482,8 @@
       "debut": "22:00",
       "fin": "23:30",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
