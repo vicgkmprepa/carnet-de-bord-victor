@@ -496,6 +496,14 @@
       "titre": "Ajouter l'étymologie du mot progrès à la fiche progrès voir fiche dans le Drive",
       "deadline": "2026-11-08",
       "statut": "à faire"
+    },
+    {
+      "id": "t-fb2d20a8-e01f-4e00-a3c4-fcfecdfcb0f3",
+      "matiere": "HGG",
+      "titre": "Vérifier que les schémas et les EDC correspondent aux stocks",
+      "deadline": null,
+      "statut": "à faire",
+      "devoir": false
     }
   ],
   "emploi_du_temps": {
