@@ -14524,8 +14524,9 @@
       "matiere": "CG",
       "titre": "",
       "theme": "",
-      "statut": "planifie",
-      "estCours": false
+      "statut": "realise",
+      "estCours": false,
+      "contenu": ""
     }
   ],
   "geopolitique_revisions": [
