@@ -12392,7 +12392,7 @@
       "contenu": "Apprentissage Afrique (0h45) + 10x10 (0h20)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12401,7 +12401,8 @@
       "debut": "08:10",
       "fin": "10:10",
       "matiere": "Espagnol",
-      "titre": ""
+      "titre": "",
+      "contenu": "test raccourci clavier"
     },
     {
       "statut": "planifie",

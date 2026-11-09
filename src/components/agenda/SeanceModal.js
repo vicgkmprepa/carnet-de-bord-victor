@@ -84,7 +84,20 @@ export function SeanceModal({
               placeholder="Ex : fichage du manuel, chapitre 3, exercices de colle…"
               value=${contenu}
               onInput=${(e) => setContenu(e.target.value)}
+              onKeyDown=${(e) => {
+                if (!e.metaKey) return;
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  onUpdateContenu(contenu);
+                  onClose();
+                } else if (e.key === " " && !estAnnulee) {
+                  e.preventDefault();
+                  onSetTravailRealise(matiereChangee ? matiereReelle : null, contenu);
+                  onClose();
+                }
+              }}
             ></textarea>
+            <span class="text-[11px] text-slate-400 block mt-1">⌘ + Entrée : enregistrer le contenu · ⌘ + Espace : valider la séance et enregistrer</span>
           </label>
           <p class="text-xs text-slate-400 mb-2 mt-2">
             Propre à la séance du ${formatWeekRangeFr(semaine).split("–")[0].trim()} — n'affecte pas les autres semaines de ce créneau.

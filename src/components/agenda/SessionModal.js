@@ -45,7 +45,22 @@ export function SessionModal({
             placeholder="Ex : fichage du manuel, chapitre 3, exercices de colle…"
             value=${contenu}
             onInput=${(e) => setContenu(e.target.value)}
+            onKeyDown=${(e) => {
+              if (!e.metaKey) return;
+              if (e.key === "Enter") {
+                e.preventDefault();
+                onUpdateContenu(contenu);
+                onClose();
+              } else if (e.key === " " && !session.estCours) {
+                e.preventDefault();
+                onToggleRealisee(contenu);
+                onClose();
+              }
+            }}
           ></textarea>
+          <span class="text-[11px] text-slate-400 block mt-1">
+            ⌘ + Entrée : enregistrer le contenu${!session.estCours && html` · ⌘ + Espace : valider la séance et enregistrer`}
+          </span>
         </label>
         <button
           class="w-full px-4 py-1.5 rounded-lg text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50 mb-4"
