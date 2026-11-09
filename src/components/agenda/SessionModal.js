@@ -58,9 +58,6 @@ export function SessionModal({
               }
             }}
           ></textarea>
-          <span class="text-[11px] text-slate-400 block mt-1">
-            ⌘ + Entrée : enregistrer le contenu${!session.estCours && html` · ⌘ + Espace : valider la séance et enregistrer`}
-          </span>
         </label>
         <button
           class="w-full px-4 py-1.5 rounded-lg text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50 mb-4"
