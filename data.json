@@ -354,7 +354,13 @@
     "HGG": {
       "couleur": "#16A34A",
       "taches": [],
-      "objectifs": [],
+      "objectifs": [
+        {
+          "id": "obj-55f316c6-5fba-4125-9797-afc168567386",
+          "texte": "Sujets probables : France, PMO, souveraineté européenne",
+          "atteint": false
+        }
+      ],
       "commentaires": []
     },
     "Anglais": {
