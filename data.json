@@ -498,20 +498,20 @@
       "statut": "à faire"
     },
     {
+      "devoir": false,
       "id": "t-fb2d20a8-e01f-4e00-a3c4-fcfecdfcb0f3",
       "matiere": "HGG",
       "titre": "Vérifier que les schémas et les EDC correspondent aux stocks de suivi",
       "deadline": null,
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     },
     {
+      "devoir": false,
       "id": "t-ed2e49d6-029c-49ed-954e-bdd9748ad623",
       "matiere": "HGG",
       "titre": "Passer Soudan/Soudan du Sud et Bakassi en exemple",
       "deadline": "2026-11-11",
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -975,17 +975,17 @@
       "notes": ""
     },
     {
+      "lien": "https://www.bbc.com/news/articles/cm3r5gnxqz3jo",
+      "statut": "lu",
+      "tags": [
+        "USA"
+      ],
       "id": "art-74892679-89a2-4cac-bd8f-9b88d3de1a76",
       "matiere": "Anglais",
       "date": "2026-11-09",
       "titre": "The Trump coalition is shattered - what will Republicans do now?",
       "source": "BBC",
-      "notes": "",
-      "lien": "https://www.bbc.com/news/articles/cm3r5gnxqz3jo",
-      "statut": "lu",
-      "tags": [
-        "USA"
-      ]
+      "notes": ""
     }
   ],
   "sujets_dissertation": [
@@ -14531,15 +14531,16 @@
       "contenu": "Correction "
     },
     {
+      "statut": "realise",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-861decea-2f7f-452e-95fe-369f73376a72",
       "date": "2026-11-09",
       "debut": "19:20",
       "fin": "20:00",
       "matiere": "CG",
       "titre": "",
-      "theme": "",
-      "statut": "realise",
-      "estCours": false,
       "contenu": ""
     }
   ],
