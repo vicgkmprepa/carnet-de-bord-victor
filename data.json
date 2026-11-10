@@ -862,8 +862,8 @@
       "heure": "09:00",
       "salle": "D314",
       "colleur": "R. Mercier",
-      "note": null,
-      "retour": "",
+      "note": 12,
+      "retour": "Sujet : Attendre",
       "axes_amelioration": ""
     },
     {
