@@ -14465,7 +14465,7 @@
       "fin": "12:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EDHEC 2025\nAnnale : EDHEC 2025 ECE — Exercice 2\nAnnale : EDHEC 2025 ECE — Exercice 1\nAnnale : EDHEC 2025 ECE — Exercice 3"
+      "contenu": "EDHEC 2025\nAnnale : EDHEC 2025 ECE — Exercice 2\nAnnale : EDHEC 2025 ECE — Exercice 1\nAnnale : EDHEC 2025 ECE — Exercice 3\nAnnale : EDHEC 2025 ECE — Problème"
     },
     {
       "statut": "planifie",
@@ -15502,6 +15502,16 @@
           "difficulte": "Moyen",
           "theme": "Analyse",
           "tempsMinutes": 18,
+          "aRevoir": false,
+          "commentaire": ""
+        },
+        {
+          "id": "ex-2549d122-1b6e-4b4f-8c21-b0b5652db3d1",
+          "nom": "Problème",
+          "date": "2026-11-11",
+          "difficulte": "Moyen",
+          "theme": "Probabilités",
+          "tempsMinutes": 74,
           "aRevoir": false,
           "commentaire": ""
         }
