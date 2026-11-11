@@ -14465,7 +14465,7 @@
       "fin": "12:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EDHEC 2025"
+      "contenu": "EDHEC 2025\nAnnale : EDHEC 2025 ECE — Exercice 2"
     },
     {
       "statut": "planifie",
@@ -15482,6 +15482,16 @@
           "difficulte": "Moyen",
           "theme": "Analyse",
           "tempsMinutes": 64,
+          "aRevoir": false,
+          "commentaire": ""
+        },
+        {
+          "id": "ex-35f5dc98-1a74-416c-9f81-94a5a6efefe0",
+          "nom": "Exercice 2",
+          "date": "2026-11-11",
+          "difficulte": "Moyen",
+          "theme": "Algèbre",
+          "tempsMinutes": 63,
           "aRevoir": false,
           "commentaire": ""
         }
