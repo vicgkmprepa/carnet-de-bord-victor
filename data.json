@@ -15500,7 +15500,13 @@
       "id": "am-2ff6ff1e-bfff-4602-a159-1e8ae2ee6161",
       "nom": "EDHEC 2025 ECE",
       "categorie": "EDHEC",
-      "tentativesBlanches": []
+      "tentativesBlanches": [
+        {
+          "id": "tb-b44b96dc-cb54-4bdb-b642-1053f19c9508",
+          "date": "2026-11-11",
+          "commentaire": ""
+        }
+      ]
     },
     {
       "exercices": [
