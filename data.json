@@ -15474,6 +15474,16 @@
           "tempsMinutes": 40,
           "aRevoir": false,
           "commentaire": "Plutôt bon !"
+        },
+        {
+          "id": "ex-71ae4bd5-5b36-4c9d-ab94-fd025726020a",
+          "nom": "Exercice 1",
+          "date": "2026-11-11",
+          "difficulte": "Moyen",
+          "theme": "Analyse",
+          "tempsMinutes": 64,
+          "aRevoir": false,
+          "commentaire": ""
         }
       ],
       "avancement": "complet",
