@@ -510,15 +510,6 @@
       "titre": "Vérifier que les schémas et les EDC correspondent aux stocks de suivi",
       "deadline": null,
       "statut": "à faire"
-    },
-    {
-      "devoir": false,
-      "id": "t-ed2e49d6-029c-49ed-954e-bdd9748ad623",
-      "matiere": "HGG",
-      "titre": "Passer Soudan/Soudan du Sud et Bakassi en exemple",
-      "deadline": "2026-11-11",
-      "statut": "fait",
-      "faitLe": "2026-11-10"
     }
   ],
   "emploi_du_temps": {
