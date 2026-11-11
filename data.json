@@ -14506,7 +14506,7 @@
       "contenu": "1h30 : Plan détaillé + intro\nCette étrange humanité\n30 minutes : reprise\n"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -14515,7 +14515,8 @@
       "debut": "20:10",
       "fin": "21:20",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
