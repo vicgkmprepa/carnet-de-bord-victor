@@ -5473,18 +5473,6 @@
       "theme": "",
       "estCours": true,
       "devoirIds": [],
-      "id": "sp-39d7c805-efc3-4939-9d54-d746e12c4783",
-      "date": "2026-11-13",
-      "debut": "08:15",
-      "fin": "10:05",
-      "matiere": "Maths",
-      "titre": "Maths - Joulak"
-    },
-    {
-      "statut": "planifie",
-      "theme": "",
-      "estCours": true,
-      "devoirIds": [],
       "id": "sp-636d43db-a19e-47f2-b6ee-f65847adcdd4",
       "date": "2026-11-13",
       "debut": "10:20",
