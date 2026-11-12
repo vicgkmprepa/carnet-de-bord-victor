@@ -565,6 +565,13 @@
       "debut": "15:00",
       "fin": "16:15",
       "titre": "ENTRAINEMENT PERSO"
+    },
+    {
+      "id": "evt-6a470da4-895d-4c17-9a38-327871728954",
+      "date": "2026-11-14",
+      "debut": "16:00",
+      "fin": "17:30",
+      "titre": "Triptyque HEC"
     }
   ],
   "colles": [
