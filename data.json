@@ -12535,7 +12535,7 @@
       "contenu": "15 minutes de cours d'Analyse"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
