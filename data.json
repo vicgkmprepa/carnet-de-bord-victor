@@ -1458,11 +1458,6 @@
       "remarque": ""
     },
     {
-      "id": "suj-5313d1be-2fa6-4ab3-bae2-4eda771ab0cd",
-      "sujet": "Cette étrange humanité",
-      "date": "2026-11-12",
-      "theme": "",
-      "remarque": "",
       "statut": "traite",
       "correction": "",
       "typeCorrection": "",
@@ -1474,7 +1469,12 @@
           "type": "Introduction",
           "note": "Intro rendue à Tenaillon"
         }
-      ]
+      ],
+      "id": "suj-5313d1be-2fa6-4ab3-bae2-4eda771ab0cd",
+      "sujet": "Cette étrange humanité",
+      "date": "2026-11-12",
+      "theme": "",
+      "remarque": ""
     }
   ],
   "epreuves_cb": [
@@ -12579,7 +12579,7 @@
       "titre": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "Python",
       "estCours": false,
       "devoirIds": [],
