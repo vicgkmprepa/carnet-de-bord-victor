@@ -12567,7 +12567,7 @@
       "titre": "Fichage"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12576,7 +12576,8 @@
       "debut": "17:00",
       "fin": "18:00",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "realise",
