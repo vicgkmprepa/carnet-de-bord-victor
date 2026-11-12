@@ -1467,7 +1467,14 @@
       "correction": "",
       "typeCorrection": "",
       "note": null,
-      "revisions": []
+      "revisions": [
+        {
+          "id": "rev-74305d85-37d3-45ec-b976-be43f7d6f7be",
+          "date": "2026-11-12",
+          "type": "Introduction",
+          "note": "Intro rendue à Tenaillon"
+        }
+      ]
     }
   ],
   "epreuves_cb": [
