@@ -86,7 +86,7 @@
         {
           "nom": "HGG",
           "note_objectif": 13,
-          "note_obtenue": 19,
+          "note_obtenue": 16,
           "commentaire": "",
           "causes_erreur": []
         },
@@ -1491,16 +1491,16 @@
       "remarque": ""
     },
     {
-      "id": "suj-75daa40d-d997-41d3-8bff-c9bbf8f518f3",
-      "sujet": "Sauvons l'humanité",
-      "date": "2026-11-13",
-      "theme": "",
-      "remarque": "",
       "statut": "a_faire",
       "correction": "",
       "typeCorrection": "",
       "note": null,
-      "revisions": []
+      "revisions": [],
+      "id": "suj-75daa40d-d997-41d3-8bff-c9bbf8f518f3",
+      "sujet": "Sauvons l'humanité",
+      "date": "2026-11-13",
+      "theme": "",
+      "remarque": ""
     }
   ],
   "epreuves_cb": [
