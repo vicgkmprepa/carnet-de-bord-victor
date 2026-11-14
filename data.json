@@ -12756,7 +12756,7 @@
       "contenu": "15 minutes de cours d'Algèbre"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
