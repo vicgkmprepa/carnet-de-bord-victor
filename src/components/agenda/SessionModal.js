@@ -51,7 +51,7 @@ export function SessionModal({
                 e.preventDefault();
                 onUpdateContenu(contenu);
                 onClose();
-              } else if (e.key === " " && !session.estCours) {
+              } else if (e.key === "k" && !session.estCours) {
                 e.preventDefault();
                 onToggleRealisee(contenu);
                 onClose();

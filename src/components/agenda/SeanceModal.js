@@ -90,7 +90,7 @@ export function SeanceModal({
                   e.preventDefault();
                   onUpdateContenu(contenu);
                   onClose();
-                } else if (e.key === " " && !estAnnulee) {
+                } else if (e.key === "k" && !estAnnulee) {
                   e.preventDefault();
                   onSetTravailRealise(matiereChangee ? matiereReelle : null, contenu);
                   onClose();
