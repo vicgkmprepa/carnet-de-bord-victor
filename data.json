@@ -12719,7 +12719,7 @@
       "titre": "DST"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "Probabilités",
       "estCours": false,
       "devoirIds": [],
@@ -12728,7 +12728,8 @@
       "debut": "19:30",
       "fin": "21:00",
       "matiere": "Maths",
-      "titre": "Devoirs pour Joulak"
+      "titre": "Devoirs pour Joulak",
+      "contenu": ""
     },
     {
       "statut": "planifie",
