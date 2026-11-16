@@ -12707,7 +12707,7 @@
       "contenu": "40 min : apprentissage B1\n20 min : mise en commun ou 8x8"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12716,7 +12716,8 @@
       "debut": "10:30",
       "fin": "14:00",
       "matiere": "Espagnol",
-      "titre": "DST"
+      "titre": "DST",
+      "contenu": ""
     },
     {
       "statut": "realise",
