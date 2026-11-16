@@ -12808,7 +12808,7 @@
       "titre": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12817,7 +12817,8 @@
       "debut": "07:00",
       "fin": "08:05",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": "Lundi 16 novembre : PMO (0h45) + 10x10"
     },
     {
       "statut": "planifie",
