@@ -12892,7 +12892,7 @@
       "contenu": "15 minutes de cours de Probabilités\nLB : ex 1 et 3 plus correction."
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12901,7 +12901,8 @@
       "debut": "22:00",
       "fin": "23:30",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": "Thème (0h30) + Anki (0h10) + Correction (0h20) + Lecture/Apprentissage Devolution (0h20) + TLDR News (0h10)"
     },
     {
       "statut": "planifie",
