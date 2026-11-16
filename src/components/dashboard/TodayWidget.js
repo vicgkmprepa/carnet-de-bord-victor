@@ -9,7 +9,8 @@ import { subjectAccent, subjectLabel, SUBJECT_TABS } from "../../lib/subjectMapp
 const SUBJECT_TAB_KEYS = new Set(SUBJECT_TABS.map((t) => t.key));
 import { dayKeyOf, mondayOf, addDaysStr, durationMinutes, formatDuration } from "../../lib/scheduleUtils.js";
 import { formatDateFr, daysUntil, isPast } from "../../lib/dateUtils.js";
-import { colleHoraires, collesRealisees } from "../../lib/colleUtils.js";
+import { colleHoraires } from "../../lib/colleUtils.js";
+import { minutesRealiseesParMatiere } from "../../lib/workTimeStats.js";
 
 const COURS_COLOR = "#94A3B8";
 
@@ -77,17 +78,9 @@ export function TodayWidget({ onChangeTab }) {
   const minutesPlanifiees =
     creneauxTravailAujourdhui.reduce((acc, c) => acc + durationMinutes(c.debut, c.fin), 0) +
     sessionsAujourdhui.reduce((acc, s) => acc + durationMinutes(s.debut, s.fin), 0);
-  const minutesRealisees =
-    creneauxTravailAujourdhui
-      .filter((c) => seancesAujourdhui.get(c.id)?.statut === "realise")
-      .reduce((acc, c) => acc + durationMinutes(c.debut, c.fin), 0) +
-    sessionsAujourdhui
-      .filter((s) => s.statut === "realise")
-      .reduce((acc, s) => acc + durationMinutes(s.debut, s.fin), 0) +
-    // Colles terminées (préparation + passage) : réalisé seulement, jamais planifié.
-    collesRealisees(data)
-      .filter((k) => k.date === today)
-      .reduce((acc, k) => acc + k.minutes, 0);
+  // Dédoublonné (cf. workTimeStats) : une colle qui chevauche un créneau de
+  // travail ne compte que l'horaire commun une seule fois.
+  const minutesRealisees = Object.values(minutesRealiseesParMatiere(data, [today])).reduce((a, b) => a + b, 0);
   const comparatifJour =
     isToday && minutesPlanifiees > 0 ? ` · ${formatDuration(minutesRealisees)} / ${formatDuration(minutesPlanifiees)} travaillées` : "";
 

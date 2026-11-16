@@ -13,7 +13,8 @@ import {
   formatWeekRangeFr,
 } from "../../lib/scheduleUtils.js";
 import { itemLabel } from "../../lib/subjectMapping.js";
-import { colleHoraires, collesRealisees } from "../../lib/colleUtils.js";
+import { colleHoraires } from "../../lib/colleUtils.js";
+import { minutesRealiseesParMatiere } from "../../lib/workTimeStats.js";
 
 const COURS_COLOR = "#94A3B8";
 
@@ -106,8 +107,6 @@ export function SubjectWeekCard({ tab }) {
         if (seance?.statut !== "annule") minutesCours += mins;
       } else {
         minutesTravailPlanifie += mins;
-        const effective = seance?.matiereReelle || c.matiere;
-        if (seance?.statut === "realise" && effective === tab.key) minutesTravailRealise += mins;
       }
     }
   }
@@ -117,13 +116,12 @@ export function SubjectWeekCard({ tab }) {
       minutesCours += mins;
     } else {
       minutesTravailPlanifie += mins;
-      if (s.statut === "realise") minutesTravailRealise += mins;
     }
   }
-  // Colles : réalisé uniquement, le planifié ne bouge pas.
-  for (const k of collesRealisees(data)) {
-    if (k.matiere === tab.key && weekDays.includes(k.date)) minutesTravailRealise += k.minutes;
-  }
+  // Réalisé (créneaux + sessions + colles) dédoublonné par chevauchement
+  // horaire (cf. workTimeStats) : une colle qui tombe sur un créneau de travail
+  // ne compte l'horaire commun qu'une fois.
+  minutesTravailRealise = minutesRealiseesParMatiere(data, weekDays)[tab.key] || 0;
   const minutesTotal = minutesCours + minutesTravailRealise;
 
   const actions = html`

@@ -3,8 +3,8 @@ import { useCarnet } from "../../state/store.js";
 import { Card } from "../common/Card.js";
 import { EmptyState } from "../common/EmptyState.js";
 import { subjectAccent, subjectLabel } from "../../lib/subjectMapping.js";
-import { durationMinutes, formatDuration, mondayOf } from "../../lib/scheduleUtils.js";
-import { collesRealisees } from "../../lib/colleUtils.js";
+import { durationMinutes, formatDuration, mondayOf, addDaysStr } from "../../lib/scheduleUtils.js";
+import { minutesRealiseesParMatiere } from "../../lib/workTimeStats.js";
 
 export function TimeTrackingCard() {
   const { data, today } = useCarnet();
@@ -22,33 +22,25 @@ export function TimeTrackingCard() {
   }
 
   const monday = mondayOf(today);
-  const seancesByCreneauId = new Map(data.seances.filter((s) => s.semaine === monday).map((s) => [s.creneauId, s]));
   const sessionsSemaine = data.sessions_ponctuelles.filter(
     (s) => mondayOf(s.date) === monday && s.matiere !== "Général"
   );
 
   const planifie = {};
-  const realise = {};
   for (const c of creneaux) {
     const mins = durationMinutes(c.debut, c.fin);
     planifie[c.matiere] = (planifie[c.matiere] || 0) + mins;
-    const seance = seancesByCreneauId.get(c.id);
-    if (seance?.statut === "realise") {
-      const cible = seance.matiereReelle || c.matiere;
-      realise[cible] = (realise[cible] || 0) + mins;
-    }
   }
   for (const s of sessionsSemaine) {
     if (s.estCours) continue;
     const mins = durationMinutes(s.debut, s.fin);
     planifie[s.matiere] = (planifie[s.matiere] || 0) + mins;
-    if (s.statut === "realise") realise[s.matiere] = (realise[s.matiere] || 0) + mins;
   }
-  // Une colle (préparation + passage) s'ajoute au réalisé sans toucher au
-  // planifié : 6h de CG prévues + une colle = 7h / 6h.
-  for (const k of collesRealisees(data)) {
-    if (mondayOf(k.date) === monday) realise[k.matiere] = (realise[k.matiere] || 0) + k.minutes;
-  }
+  // Réalisé (créneaux + sessions + colles), dédoublonné par chevauchement
+  // horaire : une colle qui tombe sur un créneau de travail ne compte l'horaire
+  // commun qu'une fois (cf. workTimeStats).
+  const weekDays = Array.from({ length: 7 }, (_, i) => addDaysStr(monday, i));
+  const realise = minutesRealiseesParMatiere(data, weekDays);
 
   const keys = [...new Set([...Object.keys(planifie), ...Object.keys(realise)])];
   const stats = keys

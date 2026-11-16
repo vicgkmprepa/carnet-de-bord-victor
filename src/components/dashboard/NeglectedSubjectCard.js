@@ -6,6 +6,7 @@ import { daysUntil } from "../../lib/dateUtils.js";
 import { mondayOf, addDaysStr, durationMinutes, formatDuration, dayKeyOf } from "../../lib/scheduleUtils.js";
 import { cbsWithNotes } from "../../lib/weightedAverage.js";
 import { collesRealisees } from "../../lib/colleUtils.js";
+import { minutesRealiseesParMatiere } from "../../lib/workTimeStats.js";
 import { coefficientBalanceRows } from "../../lib/coefficientBalance.js";
 import { diagnosticParMatiere, ECOLE_CIBLE_DEFAUT } from "../../lib/notesCibles.js";
 import { signauxParMatiere, dissertationBankStale } from "../../lib/crossTabSignals.js";
@@ -167,30 +168,25 @@ export function NeglectedSubjectCard({ onChangeTab }) {
   // croisement Agenda × réalisé que AlertsCard (Temps de travail).
   const semainePrecedente = addDaysStr(mondayOf(today), -7);
   const creneauxTravail = data.emploi_du_temps.creneaux.filter((c) => c.type === "travail");
-  const seancesSemainePrecedente = new Map(
-    data.seances.filter((s) => s.semaine === semainePrecedente).map((s) => [s.creneauId, s])
-  );
   const sessionsSemainePrecedente = data.sessions_ponctuelles.filter((s) => mondayOf(s.date) === semainePrecedente);
 
   const planifieParMatiere = {};
-  const realiseParMatiere = {};
   for (const c of creneauxTravail) {
     const mins = durationMinutes(c.debut, c.fin);
     planifieParMatiere[c.matiere] = (planifieParMatiere[c.matiere] || 0) + mins;
-    if (seancesSemainePrecedente.get(c.id)?.statut === "realise") {
-      realiseParMatiere[c.matiere] = (realiseParMatiere[c.matiere] || 0) + mins;
-    }
   }
   for (const s of sessionsSemainePrecedente) {
     if (s.estCours) continue;
     const mins = durationMinutes(s.debut, s.fin);
     planifieParMatiere[s.matiere] = (planifieParMatiere[s.matiere] || 0) + mins;
-    if (s.statut === "realise") realiseParMatiere[s.matiere] = (realiseParMatiere[s.matiere] || 0) + mins;
   }
-  // Colles : comptées en réalisé uniquement, jamais en planifié.
-  for (const k of collesRealisees(data)) {
-    if (mondayOf(k.date) === semainePrecedente) realiseParMatiere[k.matiere] = (realiseParMatiere[k.matiere] || 0) + k.minutes;
-  }
+  // Réalisé (créneaux + sessions + colles), dédoublonné par chevauchement
+  // horaire (cf. workTimeStats) — une colle qui tombe sur un créneau de travail
+  // ne compte l'horaire commun qu'une fois.
+  const realiseParMatiere = minutesRealiseesParMatiere(
+    data,
+    Array.from({ length: 7 }, (_, i) => addDaysStr(semainePrecedente, i))
+  );
   const travailNonHonore = Object.keys(planifieParMatiere)
     .map((matiere) => {
       const planifie = planifieParMatiere[matiere];

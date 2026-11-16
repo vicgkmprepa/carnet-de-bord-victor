@@ -1,5 +1,5 @@
-import { mondayOf, addDaysStr, durationMinutes, JOURS, dayKeyOf } from "./scheduleUtils.js";
-import { collesRealisees } from "./colleUtils.js";
+import { mondayOf, addDaysStr, timeToMinutes, JOURS, dayKeyOf } from "./scheduleUtils.js";
+import { colleHoraires, colleTerminee } from "./colleUtils.js";
 
 // Une entrée = du temps de travail perso réellement effectué : soit un créneau
 // récurrent "travail" marqué réalisé une semaine donnée, soit une session
@@ -7,8 +7,13 @@ import { collesRealisees } from "./colleUtils.js";
 // Les cours ne comptent jamais (cf. store.js). "Général" (tâches/temps
 // non rattachés à une matière précise) est exclu de toutes les statistiques par
 // matière — il n'a pas sa place dans les graphiques ni les comparaisons.
-export function workEntries(data) {
-  const entries = [];
+
+// Les créneaux récurrents réalisés, les sessions ponctuelles réalisées et les
+// colles terminées, avec leurs horaires en minutes — matière première avant
+// dédoublonnage des chevauchements (ex. une colle 16h30-17h pendant un créneau
+// HGG 16h-17h ne doit pas compter 1h30 mais 1h).
+function entreesBrutes(data) {
+  const items = [];
   const creneauxTravail = data.emploi_du_temps.creneaux.filter((c) => c.type === "travail");
   const creneauxById = new Map(creneauxTravail.map((c) => [c.id, c]));
   for (const s of data.seances) {
@@ -17,14 +22,74 @@ export function workEntries(data) {
     if (!c) continue;
     const matiere = s.matiereReelle || c.matiere;
     if (matiere === "Général") continue;
-    entries.push({ semaine: s.semaine, matiere, minutes: durationMinutes(c.debut, c.fin) });
+    const jourIndex = JOURS.findIndex((j) => j.key === c.jour);
+    if (jourIndex === -1) continue;
+    items.push({
+      date: addDaysStr(s.semaine, jourIndex),
+      matiere,
+      debut: timeToMinutes(c.debut),
+      fin: timeToMinutes(c.fin),
+    });
   }
   for (const s of data.sessions_ponctuelles) {
     if (s.statut !== "realise" || s.matiere === "Général" || s.estCours) continue;
-    entries.push({ semaine: mondayOf(s.date), matiere: s.matiere, minutes: durationMinutes(s.debut, s.fin) });
+    items.push({ date: s.date, matiere: s.matiere, debut: timeToMinutes(s.debut), fin: timeToMinutes(s.fin) });
   }
-  for (const k of collesRealisees(data)) entries.push({ semaine: mondayOf(k.date), matiere: k.matiere, minutes: k.minutes });
+  for (const k of data.colles || []) {
+    if (!k.matiere || k.matiere === "Général" || k.annulee || !colleTerminee(k)) continue;
+    const h = colleHoraires(k);
+    items.push({ date: k.date, matiere: k.matiere, debut: timeToMinutes(h.debutPrepa), fin: timeToMinutes(h.finColle) });
+  }
+  return items;
+}
+
+// Fusionne les créneaux qui se chevauchent sur une même plage horaire : le
+// premier (par heure de début) garde ses minutes, les suivants ne comptent que
+// la portion non déjà couverte — deux événements sur le même créneau ne doivent
+// pas compter double dans le temps de travail.
+function dedupeChevauchements(items) {
+  const sorted = [...items].sort((a, b) => a.debut - b.debut || a.fin - b.fin);
+  let couvertJusqua = -Infinity;
+  const out = [];
+  for (const it of sorted) {
+    const debutEffectif = Math.max(it.debut, couvertJusqua);
+    const minutes = Math.max(0, it.fin - debutEffectif);
+    if (it.fin > couvertJusqua) couvertJusqua = it.fin;
+    if (minutes > 0) out.push({ date: it.date, matiere: it.matiere, minutes });
+  }
+  return out;
+}
+
+// Les créneaux/sessions/colles réalisés, dédoublonnés par date — la liste
+// complète de "temps de travail" avec date exacte.
+export function dailyEntries(data) {
+  const parDate = new Map();
+  for (const it of entreesBrutes(data)) {
+    if (!parDate.has(it.date)) parDate.set(it.date, []);
+    parDate.get(it.date).push(it);
+  }
+  const entries = [];
+  for (const items of parDate.values()) entries.push(...dedupeChevauchements(items));
   return entries;
+}
+
+// Une entrée par (semaine, matière) — dérivé de dailyEntries pour bénéficier du
+// même dédoublonnage des chevauchements.
+export function workEntries(data) {
+  return dailyEntries(data).map((e) => ({ semaine: mondayOf(e.date), matiere: e.matiere, minutes: e.minutes }));
+}
+
+// Minutes réalisées par matière sur un ensemble de dates données, dédoublonnées —
+// à utiliser à la place d'une somme manuelle "créneaux + sessions + colles" dès
+// qu'un écran a besoin d'un total réalisé (jour, semaine...).
+export function minutesRealiseesParMatiere(data, dates) {
+  const datesSet = new Set(dates);
+  const out = {};
+  for (const e of dailyEntries(data)) {
+    if (!datesSet.has(e.date)) continue;
+    out[e.matiere] = (out[e.matiere] || 0) + e.minutes;
+  }
+  return out;
 }
 
 // Une ligne par semaine ayant eu au moins une minute de travail, triées du plus
@@ -39,32 +104,6 @@ export function weeklySeries(data) {
   return [...byWeek.entries()]
     .map(([semaine, byMatiere]) => ({ semaine, byMatiere, total: Object.values(byMatiere).reduce((a, b) => a + b, 0) }))
     .sort((a, b) => a.semaine.localeCompare(b.semaine));
-}
-
-// Comme workEntries, mais avec la date exacte de chaque entrée (au lieu du seul
-// lundi de la semaine) — nécessaire pour attribuer correctement une semaine à
-// cheval sur deux mois calendaires (ex. semaine du 31 août : le 31 août compte
-// pour août, le 1er-6 septembre pour septembre).
-export function dailyEntries(data) {
-  const entries = [];
-  const creneauxTravail = data.emploi_du_temps.creneaux.filter((c) => c.type === "travail");
-  const creneauxById = new Map(creneauxTravail.map((c) => [c.id, c]));
-  for (const s of data.seances) {
-    if (s.statut !== "realise") continue;
-    const c = creneauxById.get(s.creneauId);
-    if (!c) continue;
-    const matiere = s.matiereReelle || c.matiere;
-    if (matiere === "Général") continue;
-    const jourIndex = JOURS.findIndex((j) => j.key === c.jour);
-    if (jourIndex === -1) continue;
-    entries.push({ date: addDaysStr(s.semaine, jourIndex), matiere, minutes: durationMinutes(c.debut, c.fin) });
-  }
-  for (const s of data.sessions_ponctuelles) {
-    if (s.statut !== "realise" || s.matiere === "Général" || s.estCours) continue;
-    entries.push({ date: s.date, matiere: s.matiere, minutes: durationMinutes(s.debut, s.fin) });
-  }
-  entries.push(...collesRealisees(data));
-  return entries;
 }
 
 // Une ligne par mois (YYYY-MM) — attribution jour par jour (via dailyEntries),
@@ -87,28 +126,15 @@ export function monthlySeries(data) {
 // contrairement à weeklySeries, on a besoin de la date exacte de chaque créneau
 // récurrent (déduite de son jour + de la semaine), pas seulement de la semaine.
 export function dailySeriesForWeek(data, monday) {
-  const creneauxTravail = data.emploi_du_temps.creneaux.filter((c) => c.type === "travail");
-  const seancesByCreneauId = new Map(
-    data.seances.filter((s) => s.semaine === monday).map((s) => [s.creneauId, s])
-  );
+  const dates = JOURS.map((_, i) => addDaysStr(monday, i));
+  const datesSet = new Set(dates);
   const byDate = {};
   const add = (date, matiere, minutes) => {
     if (matiere === "Général") return;
     if (!byDate[date]) byDate[date] = {};
     byDate[date][matiere] = (byDate[date][matiere] || 0) + minutes;
   };
-  for (const c of creneauxTravail) {
-    const seance = seancesByCreneauId.get(c.id);
-    if (seance?.statut !== "realise") continue;
-    const jourIndex = JOURS.findIndex((j) => j.key === c.jour);
-    if (jourIndex === -1) continue;
-    add(addDaysStr(monday, jourIndex), seance.matiereReelle || c.matiere, durationMinutes(c.debut, c.fin));
-  }
-  for (const s of data.sessions_ponctuelles) {
-    if (s.statut !== "realise" || mondayOf(s.date) !== monday || s.estCours) continue;
-    add(s.date, s.matiere, durationMinutes(s.debut, s.fin));
-  }
-  for (const k of collesRealisees(data)) if (mondayOf(k.date) === monday) add(k.date, k.matiere, k.minutes);
+  for (const e of dailyEntries(data)) if (datesSet.has(e.date)) add(e.date, e.matiere, e.minutes);
   return JOURS.map((j, i) => {
     const date = addDaysStr(monday, i);
     const byMatiere = byDate[date] || {};
@@ -117,21 +143,11 @@ export function dailySeriesForWeek(data, monday) {
 }
 
 // Le détail jour par jour en fenêtre glissante (les nbJours derniers jours se
-// terminant à endDate inclus) — contrairement à dailySeriesForWeek, ignore les
-// limites de semaine calendaire ; peut donc chevaucher deux semaines ISO
-// différentes, d'où le regroupement des créneaux récurrents par jour de semaine
-// puis la recherche de la séance exacte via sa propre semaine (lundi).
+// terminant à endDate inclus).
 export function dailySeriesRolling(data, endDate, nbJours = 7) {
   const dates = [];
   for (let i = nbJours - 1; i >= 0; i--) dates.push(addDaysStr(endDate, -i));
   const datesSet = new Set(dates);
-
-  const creneauxTravail = data.emploi_du_temps.creneaux.filter((c) => c.type === "travail");
-  const creneauxByJour = new Map();
-  for (const c of creneauxTravail) {
-    if (!creneauxByJour.has(c.jour)) creneauxByJour.set(c.jour, []);
-    creneauxByJour.get(c.jour).push(c);
-  }
 
   const byDate = {};
   const add = (date, matiere, minutes) => {
@@ -139,20 +155,7 @@ export function dailySeriesRolling(data, endDate, nbJours = 7) {
     if (!byDate[date]) byDate[date] = {};
     byDate[date][matiere] = (byDate[date][matiere] || 0) + minutes;
   };
-
-  for (const date of dates) {
-    const semaine = mondayOf(date);
-    for (const c of creneauxByJour.get(dayKeyOf(date)) || []) {
-      const seance = data.seances.find((s) => s.creneauId === c.id && s.semaine === semaine);
-      if (seance?.statut !== "realise") continue;
-      add(date, seance.matiereReelle || c.matiere, durationMinutes(c.debut, c.fin));
-    }
-  }
-  for (const s of data.sessions_ponctuelles) {
-    if (s.statut !== "realise" || !datesSet.has(s.date) || s.estCours) continue;
-    add(s.date, s.matiere, durationMinutes(s.debut, s.fin));
-  }
-  for (const k of collesRealisees(data)) if (datesSet.has(k.date)) add(k.date, k.matiere, k.minutes);
+  for (const e of dailyEntries(data)) if (datesSet.has(e.date)) add(e.date, e.matiere, e.minutes);
 
   return dates.map((date) => {
     const j = JOURS.find((jj) => jj.key === dayKeyOf(date));

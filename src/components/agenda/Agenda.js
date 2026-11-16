@@ -26,7 +26,7 @@ import {
   formatDuration,
 } from "../../lib/scheduleUtils.js";
 import { subjectAccent, subjectLabel, itemLabel } from "../../lib/subjectMapping.js";
-import { collesRealisees } from "../../lib/colleUtils.js";
+import { minutesRealiseesParMatiere } from "../../lib/workTimeStats.js";
 
 const COURS_COLOR = "#94A3B8";
 const EVENEMENT_COLOR = "#7C3AED";
@@ -127,32 +127,14 @@ export function Agenda({ initialDate }) {
   // (lundi-dimanche, pilotée par `monday`), jamais sur la fenêtre glissante :
   // en vue "Jours glissants", ce chiffre ne doit pas bouger quand on navigue
   // jour par jour.
-  const seancesByCreneauIdSemaineFixe = new Map();
-  for (const d of weekDays) {
-    const semaine = mondayOf(d);
-    const jour = dayKeyOf(d);
-    for (const s of data.seances) {
-      if (s.semaine !== semaine) continue;
-      const c = creneaux.find((cc) => cc.id === s.creneauId);
-      if (c && c.jour === jour) seancesByCreneauIdSemaineFixe.set(s.creneauId, s);
-    }
-  }
   const sessionsTravailSemaineFixe = data.sessions_ponctuelles.filter((s) => !s.estCours && weekDays.includes(s.date));
   const creneauxTravail = creneaux.filter((c) => c.type === "travail");
   const totalPlanifie =
     creneauxTravail.reduce((acc, c) => acc + durationMinutes(c.debut, c.fin), 0) +
     sessionsTravailSemaineFixe.reduce((acc, s) => acc + durationMinutes(s.debut, s.fin), 0);
-  const totalRealise =
-    creneauxTravail
-      .filter((c) => seancesByCreneauIdSemaineFixe.get(c.id)?.statut === "realise")
-      .reduce((acc, c) => acc + durationMinutes(c.debut, c.fin), 0) +
-    sessionsTravailSemaineFixe
-      .filter((s) => s.statut === "realise")
-      .reduce((acc, s) => acc + durationMinutes(s.debut, s.fin), 0) +
-    // Colles terminées (préparation + passage) : réalisé seulement, jamais planifié.
-    collesRealisees(data)
-      .filter((k) => weekDays.includes(k.date))
-      .reduce((acc, k) => acc + k.minutes, 0);
+  // Dédoublonné par chevauchement horaire (cf. workTimeStats) : une colle qui
+  // tombe sur un créneau de travail ne compte l'horaire commun qu'une fois.
+  const totalRealise = Object.values(minutesRealiseesParMatiere(data, weekDays)).reduce((a, b) => a + b, 0);
 
   const openAdd = () => {
     setEditing(null);
