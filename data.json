@@ -12993,7 +12993,8 @@
       "debut": "20:00",
       "fin": "23:30",
       "matiere": "Maths",
-      "titre": ""
+      "titre": "",
+      "contenu": "DNS HEC Joulak"
     },
     {
       "statut": "planifie",
