@@ -417,14 +417,6 @@
       "faitLe": "2026-09-09"
     },
     {
-      "devoir": false,
-      "id": "t-a23fa1b6-3da0-4e2c-bfad-21128dfe3d98",
-      "matiere": "Maths",
-      "titre": "Sur Exercice 2 : remise à 0 des compteurs - fiche 1 : faire question 2 déterminer an question HEC",
-      "deadline": null,
-      "statut": "à faire"
-    },
-    {
       "devoir": true,
       "id": "t-a1fd2092-238c-4372-8b9d-a8fc968f7a12",
       "matiere": "Maths",
