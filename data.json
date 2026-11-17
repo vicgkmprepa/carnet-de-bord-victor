@@ -510,6 +510,14 @@
       "titre": "Vérifier que les schémas et les EDC correspondent aux stocks de suivi",
       "deadline": null,
       "statut": "à faire"
+    },
+    {
+      "id": "t-521f87e5-732b-4c7c-bd77-eb098ecd74b4",
+      "matiere": "Maths",
+      "titre": "Programmer les annales des prochaines semaines",
+      "deadline": null,
+      "statut": "à faire",
+      "devoir": false
     }
   ],
   "emploi_du_temps": {
