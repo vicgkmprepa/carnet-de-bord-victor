@@ -504,12 +504,12 @@
       "statut": "à faire"
     },
     {
+      "devoir": false,
       "id": "t-521f87e5-732b-4c7c-bd77-eb098ecd74b4",
       "matiere": "Maths",
       "titre": "Programmer les annales des prochaines semaines",
       "deadline": null,
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -12931,7 +12931,7 @@
       "contenu": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12940,7 +12940,8 @@
       "debut": "18:00",
       "fin": "19:00",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
