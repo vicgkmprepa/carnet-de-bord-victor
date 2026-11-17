@@ -1503,11 +1503,6 @@
       "remarque": ""
     },
     {
-      "id": "suj-aa5b0096-a496-4b33-a31c-02c57123689f",
-      "sujet": "Liberté et humanité",
-      "date": "2026-11-16",
-      "theme": "",
-      "remarque": "",
       "statut": "traite",
       "correction": "",
       "typeCorrection": "",
@@ -1519,7 +1514,12 @@
           "type": "Introduction",
           "note": ""
         }
-      ]
+      ],
+      "id": "suj-aa5b0096-a496-4b33-a31c-02c57123689f",
+      "sujet": "Liberté et humanité",
+      "date": "2026-11-16",
+      "theme": "",
+      "remarque": ""
     }
   ],
   "epreuves_cb": [
@@ -12918,7 +12918,7 @@
       "contenu": "10x10 sur tout\n30 minutes : 6 nouveaux auteurs (Renan/Bergson/Glissant/Durer/Médée/Ota Benga)\n10 minutes : reprise à l'oral"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -12927,7 +12927,8 @@
       "debut": "09:45",
       "fin": "12:00",
       "matiere": "Espagnol",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
