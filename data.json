@@ -16053,6 +16053,13 @@
           "commentaire": ""
         }
       ]
+    },
+    {
+      "id": "am-c20ff292-654e-447d-88df-d705e4743bfc",
+      "nom": "EDHEC 2023 ECE",
+      "categorie": "EDHEC",
+      "exercices": [],
+      "tentativesBlanches": []
     }
   ]
 }
