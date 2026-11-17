@@ -15358,7 +15358,13 @@
       "id": "am-7a8b4d80-7e40-4198-81bc-5e517f0462b3",
       "nom": "EML 2022 ECE",
       "categorie": "EM",
-      "tentativesBlanches": []
+      "tentativesBlanches": [
+        {
+          "id": "tb-f95ebc9f-eb6e-4e16-8805-d616879f6ef7",
+          "date": "2026-11-18",
+          "commentaire": "NUL"
+        }
+      ]
     },
     {
       "exercices": [
