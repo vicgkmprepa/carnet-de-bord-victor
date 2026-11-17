@@ -12800,7 +12800,7 @@
       "fin": "19:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EDHEC 2023"
+      "contenu": "EDHEC 2023\nAnnale : EDHEC 2023 ECE — Exercice 1"
     },
     {
       "statut": "planifie",
@@ -16058,7 +16058,18 @@
       "id": "am-c20ff292-654e-447d-88df-d705e4743bfc",
       "nom": "EDHEC 2023 ECE",
       "categorie": "EDHEC",
-      "exercices": [],
+      "exercices": [
+        {
+          "id": "ex-17714cb2-a3b1-427d-bfb0-59ffbeda715a",
+          "nom": "Exercice 1",
+          "date": "2026-11-15",
+          "difficulte": "Moyen",
+          "theme": "Algèbre",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
+        }
+      ],
       "tentativesBlanches": [
         {
           "id": "tb-13c9e9f3-a9b9-4091-ae2c-def2d2e7faa0",
