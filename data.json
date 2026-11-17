@@ -16059,7 +16059,13 @@
       "nom": "EDHEC 2023 ECE",
       "categorie": "EDHEC",
       "exercices": [],
-      "tentativesBlanches": [],
+      "tentativesBlanches": [
+        {
+          "id": "tb-13c9e9f3-a9b9-4091-ae2c-def2d2e7faa0",
+          "date": "2026-11-15",
+          "commentaire": ""
+        }
+      ],
       "avancement": "complet"
     }
   ]
