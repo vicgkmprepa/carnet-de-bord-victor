@@ -510,7 +510,8 @@
       "matiere": "Maths",
       "titre": "Programmer les annales des prochaines semaines",
       "deadline": null,
-      "statut": "à faire"
+      "statut": "fait",
+      "faitLe": "2026-11-19"
     }
   ],
   "emploi_du_temps": {
