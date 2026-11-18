@@ -1,4 +1,4 @@
-import { useState } from "../../lib/react.js";
+import { useState, useEffect } from "../../lib/react.js";
 import { html } from "../../lib/htm.js";
 import { useCarnet } from "../../state/store.js";
 import { Card } from "../common/Card.js";
@@ -83,6 +83,46 @@ export function Agenda({ initialDate }) {
   const weekDays = Array.from({ length: 7 }, (_, i) => addDaysStr(monday, i));
   const glissantDays = Array.from({ length: 7 }, (_, i) => addDaysStr(glissantStart, i));
   const displayDays = viewMode === "glissant" ? glissantDays : weekDays;
+
+  const allerPrecedent = () => {
+    if (viewMode === "mois") setMoisRef(addMonths(moisRef, -1));
+    else if (viewMode === "glissant") setGlissantStart(addDaysStr(glissantStart, -1));
+    else setMonday(addDaysStr(monday, -7));
+  };
+  const allerSuivant = () => {
+    if (viewMode === "mois") setMoisRef(addMonths(moisRef, 1));
+    else if (viewMode === "glissant") setGlissantStart(addDaysStr(glissantStart, 1));
+    else setMonday(addDaysStr(monday, 7));
+  };
+  const allerAujourdhui = () => {
+    setMonday(mondayOf(today));
+    setGlissantStart(today);
+    setMoisRef(firstOfMonth(today));
+  };
+
+  // Raccourcis clavier : ← → navigation période précédente/suivante, A retour à
+  // aujourd'hui, S/J/M changement de vue (semaine/jours glissants/mois) —
+  // désactivé si une saisie de texte a le focus (pour ne pas voler les touches
+  // d'un champ texte/textarea) ou si une modale/un formulaire est ouvert
+  // par-dessus l'agenda.
+  const uneModaleEstOuverte =
+    showForm || showEvtForm || showSessionForm || modalSession || modalColle || modalCreneau;
+  useEffect(() => {
+    if (uneModaleEstOuverte) return;
+    const onKeyDown = (e) => {
+      const tag = document.activeElement?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || document.activeElement?.isContentEditable) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "ArrowLeft") allerPrecedent();
+      else if (e.key === "ArrowRight") allerSuivant();
+      else if (e.key === "a" || e.key === "A") allerAujourdhui();
+      else if (e.key === "s" || e.key === "S") setViewMode("semaine");
+      else if (e.key === "j" || e.key === "J") setViewMode("glissant");
+      else if (e.key === "m" || e.key === "M") setViewMode("mois");
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [uneModaleEstOuverte, viewMode, monday, glissantStart, moisRef, today]);
 
   // Une fenêtre de 7 jours consécutifs contient chaque jour de la semaine
   // (lundi..dimanche) exactement une fois, même si elle chevauche deux
@@ -276,11 +316,8 @@ export function Agenda({ initialDate }) {
           </div>
           <button
             class="h-8 w-8 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 flex items-center justify-center"
-            onClick=${() => {
-              if (viewMode === "mois") setMoisRef(addMonths(moisRef, -1));
-              else if (viewMode === "glissant") setGlissantStart(addDaysStr(glissantStart, -1));
-              else setMonday(addDaysStr(monday, -7));
-            }}
+            onClick=${allerPrecedent}
+            title="Période précédente (← du clavier)"
           >
             ←
           </button>
@@ -291,21 +328,15 @@ export function Agenda({ initialDate }) {
           </div>
           <button
             class="h-8 w-8 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 flex items-center justify-center"
-            onClick=${() => {
-              if (viewMode === "mois") setMoisRef(addMonths(moisRef, 1));
-              else if (viewMode === "glissant") setGlissantStart(addDaysStr(glissantStart, 1));
-              else setMonday(addDaysStr(monday, 7));
-            }}
+            onClick=${allerSuivant}
+            title="Période suivante (→ du clavier)"
           >
             →
           </button>
           <button
             class="px-3 py-1.5 rounded-lg border border-slate-300 text-sm text-slate-600 hover:bg-slate-100"
-            onClick=${() => {
-              setMonday(mondayOf(today));
-              setGlissantStart(today);
-              setMoisRef(firstOfMonth(today));
-            }}
+            onClick=${allerAujourdhui}
+            title="Revenir à aujourd'hui (A du clavier)"
           >
             Aujourd'hui
           </button>

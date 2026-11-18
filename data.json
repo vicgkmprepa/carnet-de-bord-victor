@@ -12966,7 +12966,8 @@
       "debut": "07:00",
       "fin": "08:05",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": "18 novembre 2026 : Apprentissage Afrique (0h45) + 10x10 (0h20) + test Afrique"
     },
     {
       "statut": "planifie",
@@ -16066,9 +16067,6 @@
       ]
     },
     {
-      "id": "am-c20ff292-654e-447d-88df-d705e4743bfc",
-      "nom": "EDHEC 2023 ECE",
-      "categorie": "EDHEC",
       "exercices": [
         {
           "id": "ex-17714cb2-a3b1-427d-bfb0-59ffbeda715a",
@@ -16111,14 +16109,17 @@
           "commentaire": ""
         }
       ],
+      "avancement": "complet",
+      "id": "am-c20ff292-654e-447d-88df-d705e4743bfc",
+      "nom": "EDHEC 2023 ECE",
+      "categorie": "EDHEC",
       "tentativesBlanches": [
         {
           "id": "tb-13c9e9f3-a9b9-4091-ae2c-def2d2e7faa0",
           "date": "2026-11-15",
           "commentaire": ""
         }
-      ],
-      "avancement": "complet"
+      ]
     }
   ]
 }
