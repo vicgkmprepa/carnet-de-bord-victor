@@ -13008,7 +13008,7 @@
       "contenu": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "Annale",
       "estCours": false,
       "devoirIds": [],
@@ -13018,7 +13018,7 @@
       "fin": "23:30",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "Sujet LPA CB2"
+      "contenu": "Sujet LPA CB2 dur..."
     },
     {
       "statut": "planifie",
