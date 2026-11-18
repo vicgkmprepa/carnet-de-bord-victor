@@ -476,7 +476,8 @@
       "matiere": "Espagnol",
       "titre": "Corriger ma copie de la BCE",
       "deadline": "2026-11-06",
-      "statut": "à faire"
+      "statut": "en cours",
+      "faitLe": null
     },
     {
       "devoir": true,
