@@ -12995,7 +12995,7 @@
       "contenu": "35 min : révisions 6 auteurs dont ceux de la veille\n25 minutes : apprentissage d'un thème annexe \"Animal\""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13004,7 +13004,8 @@
       "debut": "18:00",
       "fin": "19:00",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
