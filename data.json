@@ -514,12 +514,12 @@
       "faitLe": "2026-11-19"
     },
     {
+      "devoir": false,
       "id": "t-fc10dafc-0089-445a-a67d-ca718f30bcbd",
       "matiere": "Général",
       "titre": "Vérifier que toutes les copies de CB ont été reprises",
       "deadline": null,
-      "statut": "à faire",
-      "devoir": false
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
@@ -13031,7 +13031,7 @@
       "contenu": "Sujet LPA CB2 dur..."
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
