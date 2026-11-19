@@ -1,4 +1,4 @@
-import { useState } from "../../lib/react.js";
+import { useState, useRef } from "../../lib/react.js";
 import { html } from "../../lib/htm.js";
 import { SUBJECT_TABS, subjectLabel, itemLabel } from "../../lib/subjectMapping.js";
 import { formatWeekRangeFr } from "../../lib/scheduleUtils.js";
@@ -27,6 +27,10 @@ export function SeanceModal({
     seance?.statut === "annule" ? ANNULE : seance?.matiereReelle || creneau.matiere
   );
   const [contenu, setContenu] = useState(seance?.contenu || "");
+  // ⌘+Entrée seul enregistre le contenu ; un second ⌘+Entrée dans la foulée
+  // (même principe de désambiguïsation que le simple/double-clic sur une case
+  // de l'agenda, cf. WeekGrid) valide la séance à la place.
+  const cmdEnterTimer = useRef(null);
 
   const titre = itemLabel(creneau.matiere, creneau.theme, creneau.titre);
   const quand = `${creneau.jour.charAt(0).toUpperCase()}${creneau.jour.slice(1)} ${creneau.debut}–${creneau.fin} · semaine du ${formatWeekRangeFr(semaine).split("–")[0].trim()}`;
@@ -85,15 +89,21 @@ export function SeanceModal({
               value=${contenu}
               onInput=${(e) => setContenu(e.target.value)}
               onKeyDown=${(e) => {
-                if (!e.metaKey) return;
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  onUpdateContenu(contenu);
-                  onClose();
-                } else if (e.key === "k" && !estAnnulee) {
-                  e.preventDefault();
-                  onSetTravailRealise(matiereChangee ? matiereReelle : null, contenu);
-                  onClose();
+                if (!e.metaKey || e.key !== "Enter") return;
+                e.preventDefault();
+                if (cmdEnterTimer.current) {
+                  clearTimeout(cmdEnterTimer.current);
+                  cmdEnterTimer.current = null;
+                  if (!estAnnulee) {
+                    onSetTravailRealise(matiereChangee ? matiereReelle : null, contenu);
+                    onClose();
+                  }
+                } else {
+                  cmdEnterTimer.current = setTimeout(() => {
+                    cmdEnterTimer.current = null;
+                    onUpdateContenu(contenu);
+                    onClose();
+                  }, 170);
                 }
               }}
             ></textarea>

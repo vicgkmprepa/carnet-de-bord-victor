@@ -1,4 +1,4 @@
-import { useState } from "../../lib/react.js";
+import { useState, useRef } from "../../lib/react.js";
 import { html } from "../../lib/htm.js";
 import { itemLabel } from "../../lib/subjectMapping.js";
 import { formatDateFr } from "../../lib/dateUtils.js";
@@ -22,6 +22,10 @@ export function SessionModal({
   const [contenu, setContenu] = useState(session.contenu || "");
   const [devoirInput, setDevoirInput] = useState("");
   const [devoirsAjoutes, setDevoirsAjoutes] = useState([]);
+  // ⌘+Entrée seul enregistre le contenu ; un second ⌘+Entrée dans la foulée
+  // (même principe de désambiguïsation que le simple/double-clic sur une case
+  // de l'agenda, cf. WeekGrid) valide la séance à la place.
+  const cmdEnterTimer = useRef(null);
 
   const ajouterDevoir = () => {
     const t = devoirInput.trim();
@@ -46,15 +50,21 @@ export function SessionModal({
             value=${contenu}
             onInput=${(e) => setContenu(e.target.value)}
             onKeyDown=${(e) => {
-              if (!e.metaKey) return;
-              if (e.key === "Enter") {
-                e.preventDefault();
-                onUpdateContenu(contenu);
-                onClose();
-              } else if (e.key === "k" && !session.estCours) {
-                e.preventDefault();
-                onToggleRealisee(contenu);
-                onClose();
+              if (!e.metaKey || e.key !== "Enter") return;
+              e.preventDefault();
+              if (cmdEnterTimer.current) {
+                clearTimeout(cmdEnterTimer.current);
+                cmdEnterTimer.current = null;
+                if (!session.estCours) {
+                  onToggleRealisee(contenu);
+                  onClose();
+                }
+              } else {
+                cmdEnterTimer.current = setTimeout(() => {
+                  cmdEnterTimer.current = null;
+                  onUpdateContenu(contenu);
+                  onClose();
+                }, 170);
               }
             }}
           ></textarea>
