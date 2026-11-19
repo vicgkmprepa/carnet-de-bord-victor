@@ -13095,7 +13095,7 @@
       "fin": "19:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "30 min : Monte Carlo\n30 min : np.random"
+      "contenu": "30 min : Monte Carlo\n30 min : rd.random"
     },
     {
       "statut": "planifie",
