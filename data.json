@@ -528,6 +528,14 @@
       "deadline": "2026-11-21",
       "statut": "à faire",
       "devoir": true
+    },
+    {
+      "id": "t-b5069335-0406-44a3-949c-9ddf0bc4cadb",
+      "matiere": "HGG",
+      "titre": "Ce soir fichage // Maj Afrique",
+      "deadline": "2026-11-19",
+      "statut": "à faire",
+      "devoir": true
     }
   ],
   "emploi_du_temps": {
