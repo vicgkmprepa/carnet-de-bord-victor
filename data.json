@@ -520,6 +520,14 @@
       "titre": "Vérifier que toutes les copies de CB ont été reprises",
       "deadline": null,
       "statut": "à faire"
+    },
+    {
+      "id": "t-6b852b28-255e-4c5e-b8de-186a9df48234",
+      "matiere": "HGG",
+      "titre": "MàJ Afrique !!",
+      "deadline": "2026-11-21",
+      "statut": "à faire",
+      "devoir": true
     }
   ],
   "emploi_du_temps": {
