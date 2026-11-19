@@ -13145,7 +13145,8 @@
       "debut": "12:15",
       "fin": "13:05",
       "matiere": "HGG",
-      "titre": "Fichage"
+      "titre": "Fichage",
+      "contenu": ""
     },
     {
       "statut": "planifie",
