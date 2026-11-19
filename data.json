@@ -13149,7 +13149,7 @@
       "contenu": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13158,7 +13158,8 @@
       "debut": "17:00",
       "fin": "19:00",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
