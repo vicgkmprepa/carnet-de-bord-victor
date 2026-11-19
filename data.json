@@ -13098,7 +13098,7 @@
       "contenu": "30 min : Monte Carlo\n30 min : rd.random"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
