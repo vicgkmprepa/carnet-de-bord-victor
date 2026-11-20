@@ -13115,7 +13115,7 @@
       "titre": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13125,7 +13125,7 @@
       "fin": "08:05",
       "matiere": "HGG",
       "titre": "",
-      "contenu": ""
+      "contenu": "Apprentissage Partie historique PMO (0h25) + Schéma régional MO (schéma) (0h40)"
     },
     {
       "statut": "planifie",
