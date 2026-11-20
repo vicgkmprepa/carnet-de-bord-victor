@@ -14637,6 +14637,17 @@
       "matiere": "CG",
       "titre": "",
       "contenu": ""
+    },
+    {
+      "id": "sp-ef2fbef4-7168-416f-a468-580ed4ae9630",
+      "date": "2026-11-21",
+      "debut": "18:00",
+      "fin": "19:30",
+      "matiere": "Maths",
+      "titre": "Rattrapage",
+      "theme": "Probabilités",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
