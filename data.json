@@ -14654,7 +14654,8 @@
       "titre": "Rattrapage",
       "theme": "Probabilités",
       "statut": "planifie",
-      "estCours": false
+      "estCours": false,
+      "contenu": "Correction du CB2 LPA"
     }
   ],
   "geopolitique_revisions": [
