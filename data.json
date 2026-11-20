@@ -506,15 +506,6 @@
     },
     {
       "devoir": false,
-      "id": "t-521f87e5-732b-4c7c-bd77-eb098ecd74b4",
-      "matiere": "Maths",
-      "titre": "Programmer les annales des prochaines semaines",
-      "deadline": null,
-      "statut": "fait",
-      "faitLe": "2026-11-19"
-    },
-    {
-      "devoir": false,
       "id": "t-fc10dafc-0089-445a-a67d-ca718f30bcbd",
       "matiere": "Général",
       "titre": "Vérifier que toutes les copies de CB ont été reprises",
