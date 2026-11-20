@@ -13155,13 +13155,13 @@
     },
     {
       "statut": "planifie",
-      "theme": "",
+      "theme": "Probabilités",
       "estCours": false,
       "devoirIds": [],
       "id": "sp-ac7e698b-0390-4a7e-9080-44b63554a126",
       "date": "2026-11-20",
       "debut": "21:00",
-      "fin": "23:30",
+      "fin": "22:00",
       "matiere": "Maths",
       "titre": "Correction du DST du mercredi",
       "contenu": "15 minutes de cours d'Algèbre"
