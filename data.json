@@ -13200,19 +13200,6 @@
     },
     {
       "statut": "planifie",
-      "theme": "Probabilités",
-      "estCours": false,
-      "devoirIds": [],
-      "id": "sp-64b6817e-caa3-4712-91eb-2fe35f3859a4",
-      "date": "2026-11-21",
-      "debut": "13:00",
-      "fin": "15:00",
-      "matiere": "Maths",
-      "titre": "Devoirs pour Joulak",
-      "contenu": "Devoirs Joulak - Devoir 3 et 4 - VARAD\n"
-    },
-    {
-      "statut": "planifie",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
