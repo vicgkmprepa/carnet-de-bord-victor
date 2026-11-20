@@ -14645,6 +14645,17 @@
       "matiere": "Maths",
       "titre": "Rattrapage",
       "contenu": "Correction CB2 LPA"
+    },
+    {
+      "id": "sp-93df6509-3464-493c-9fc0-f9a39a48b69c",
+      "date": "2026-11-21",
+      "debut": "20:00",
+      "fin": "21:00",
+      "matiere": "CG",
+      "titre": "",
+      "theme": "",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
