@@ -13187,7 +13187,7 @@
       "contenu": "PRÉPARATION DST :\n- rappel de tous les auteurs (20 minutes)\n- rappel des 3 thèmes (15 minutes)\n- rappel de la méthodologie (10) et reprise copies (15) (25 minutes)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13196,7 +13196,8 @@
       "debut": "09:00",
       "fin": "13:00",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": "Midterms"
     },
     {
       "statut": "planifie",
