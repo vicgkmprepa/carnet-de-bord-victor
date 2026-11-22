@@ -13226,7 +13226,7 @@
       "contenu": "Devoirs de Maths ou Cours de probabilités si pas de devoirs\n"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13235,7 +13235,8 @@
       "debut": "10:00",
       "fin": "14:00",
       "matiere": "CG",
-      "titre": ""
+      "titre": "",
+      "contenu": "L'individu contre l'humanité"
     },
     {
       "statut": "planifie",
