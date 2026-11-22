@@ -1567,6 +1567,12 @@
           "date": "2026-11-22",
           "type": "Plan",
           "note": ""
+        },
+        {
+          "id": "rev-af830fc3-64fd-4eeb-9d9c-5ca58964be3f",
+          "date": "2026-11-22",
+          "type": "Rédaction complète",
+          "note": ""
         }
       ]
     }
