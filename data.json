@@ -13295,7 +13295,7 @@
       "titre": "HGG/CG"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13304,7 +13304,8 @@
       "debut": "21:30",
       "fin": "23:00",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": "Correction DS (1h15) + TLDR Nexs (0h15)"
     },
     {
       "statut": "planifie",
