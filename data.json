@@ -13200,7 +13200,7 @@
       "contenu": "Midterms"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -14649,15 +14649,16 @@
       "contenu": "Correction CB2 LPA"
     },
     {
+      "statut": "realise",
+      "theme": "",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-93df6509-3464-493c-9fc0-f9a39a48b69c",
       "date": "2026-11-21",
       "debut": "14:00",
       "fin": "15:00",
       "matiere": "CG",
       "titre": "",
-      "theme": "",
-      "statut": "realise",
-      "estCours": false,
       "contenu": "PRÉPARATION DST :\n- rappel de tous les auteurs (20 minutes)\n- rappel des 3 thèmes (15 minutes)\n- rappel de la méthodologie (10) et reprise copies (15) (25 minutes)"
     }
   ],
