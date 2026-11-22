@@ -13283,7 +13283,7 @@
       "contenu": "EDHEC 2024"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13292,7 +13292,8 @@
       "debut": "20:00",
       "fin": "21:30",
       "matiere": "HGG",
-      "titre": "HGG/CG"
+      "titre": "HGG/CG",
+      "contenu": ""
     },
     {
       "statut": "planifie",
