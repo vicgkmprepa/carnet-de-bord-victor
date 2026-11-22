@@ -1555,7 +1555,14 @@
       "correction": "",
       "typeCorrection": "",
       "note": null,
-      "revisions": []
+      "revisions": [
+        {
+          "id": "rev-34deae7c-91c4-4159-9411-eb1608670265",
+          "date": "2026-11-22",
+          "type": "Introduction",
+          "note": ""
+        }
+      ]
     }
   ],
   "epreuves_cb": [
