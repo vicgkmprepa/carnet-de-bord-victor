@@ -265,6 +265,8 @@ export function AnnaleDetailModal({
   const [filtreTheme, setFiltreTheme] = useState("");
   const [attachOpenId, setAttachOpenId] = useState(null);
   const [attachChoice, setAttachChoice] = useState("");
+  const [attachSeanceOpenId, setAttachSeanceOpenId] = useState(null);
+  const [attachSeanceChoice, setAttachSeanceChoice] = useState("");
   const [showBlancheForm, setShowBlancheForm] = useState(false);
   const [tentativeOpenId, setTentativeOpenId] = useState(null);
 
@@ -282,7 +284,6 @@ export function AnnaleDetailModal({
   // Calculé automatiquement par somme des temps saisis exercice par exercice —
   // jamais ressaisi à la main.
   const tempsTotal = annale.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
-  const derniereNote = tentatives.find((t) => t.note != null);
 
   const saveNom = () => {
     if (nomDraft.trim()) onRename(nomDraft.trim());
@@ -304,9 +305,33 @@ export function AnnaleDetailModal({
     setAttachOpenId(null);
   };
 
+  const toggleAttachSeance = (tentativeId) => {
+    if (attachSeanceOpenId === tentativeId) {
+      setAttachSeanceOpenId(null);
+    } else {
+      setAttachSeanceOpenId(tentativeId);
+      setAttachSeanceChoice("");
+    }
+  };
+
+  // Rattache en un seul geste TOUS les exercices d'une tentative (l'annale
+  // entière faite en conditions d'examen) à la séance choisie, plutôt que de
+  // devoir rattacher chaque exercice un par un.
+  const confirmAttachSeance = (groupe, seances) => {
+    const cible = seances.find((s) => s.key === attachSeanceChoice);
+    if (cible) {
+      const liste = groupe.items.map((ex) => ex.nom).join(", ");
+      cible.attach(`Annale : ${annale.nom} (complète) — ${liste}`);
+    }
+    setAttachSeanceOpenId(null);
+  };
+
   // Ligne compacte (une seule ligne, commentaire replié en dessous seulement
-  // s'il y en a un) — plus de "kilomètres" de contenu par exercice.
-  const renderRow = (ex, tentativePrecedente) => {
+  // s'il y en a un) — plus de "kilomètres" de contenu par exercice. Le bouton
+  // de rattachement individuel ne s'affiche que pour les exercices faits hors
+  // d'une tentative groupée : dans un groupe, le rattachement se fait en un
+  // coup pour toute l'annale (cf. confirmAttachSeance).
+  const renderRow = (ex, tentativePrecedente, individualAttach = true) => {
     if (editingId === ex.id) {
       return html`
         <li key=${ex.id}>
@@ -348,14 +373,16 @@ export function AnnaleDetailModal({
             <span class="text-xs text-slate-400">${formatDateFr(ex.date)}${ex.tempsMinutes ? ` · ${formatDuration(ex.tempsMinutes)}` : ""}</span>
           </div>
           <div class="flex items-center gap-1.5 shrink-0">
-            ${seancesDuJour.length > 0 &&
+            ${individualAttach &&
+            seancesDuJour.length > 0 &&
             html`<button class="text-slate-400 hover:text-slate-700 text-xs" title="Rattacher à une séance" onClick=${() => toggleAttach(ex)}>🔗</button>`}
             <button class="text-slate-400 hover:text-slate-700 text-xs" onClick=${() => setEditingId(ex.id)}>✎</button>
             <button class="text-slate-300 hover:text-red-500 text-sm leading-none" onClick=${() => onDeleteExercice(ex.id)}>✕</button>
           </div>
         </div>
         ${ex.commentaire && html`<p class="text-xs text-slate-500 mt-0.5">${ex.commentaire}</p>`}
-        ${attachOpenId === ex.id &&
+        ${individualAttach &&
+        attachOpenId === ex.id &&
         html`
           <div class="flex items-center gap-2 mt-1.5 pt-1.5 border-t border-slate-100">
             <select
@@ -407,17 +434,9 @@ export function AnnaleDetailModal({
               `}
           <button class="text-slate-400 hover:text-slate-700 text-lg leading-none shrink-0" onClick=${onClose}>✕</button>
         </div>
-        <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
-          <p class="text-xs text-slate-500">
-            ${annale.categorie}${tempsTotal > 0 ? ` · ⏳ ${formatDuration(tempsTotal)} au total` : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
-          </p>
-          ${derniereNote &&
-          html`
-            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-600 text-white" title=${`Dernière note enregistrée (${formatDateFr(derniereNote.date)})`}>
-              📝 ${derniereNote.note}/20
-            </span>
-          `}
-        </div>
+        <p class="text-xs text-slate-500 mb-3">
+          ${annale.categorie}${tempsTotal > 0 ? ` · ⏳ ${formatDuration(tempsTotal)} au total` : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
+        </p>
 
         ${exosARevoir.length > 0 &&
         html`
@@ -559,16 +578,52 @@ export function AnnaleDetailModal({
             `
           : html`
               <div class="space-y-3">
-                ${seances.map(
-                  (g) => html`
+                ${seances.map((g) => {
+                  const seancesDuJour = getSeancesForDate && g.tentative.date ? getSeancesForDate(g.tentative.date) : [];
+                  return html`
                     <div key=${g.tentative.id} class="border border-indigo-100 bg-indigo-50/30 rounded-xl p-2">
-                      <p class="text-[11px] font-medium text-indigo-700 mb-1">
-                        ⏱️ Faite en conditions d'examen le ${g.tentative.date ? formatDateFr(g.tentative.date) : "date inconnue"}${g.tentative.note != null ? ` · ${g.tentative.note}/20` : ""}
-                      </p>
-                      <ul class="space-y-0.5">${g.items.map((ex) => renderRow(ex))}</ul>
+                      <div class="flex items-start justify-between gap-2 mb-1">
+                        <div class="min-w-0">
+                          <p class="text-[11px] font-medium text-indigo-700">
+                            ⏱️ Faite en conditions d'examen le ${g.tentative.date ? formatDateFr(g.tentative.date) : "date inconnue"}${g.tentative.note != null ? ` · ${g.tentative.note}/20` : ""}
+                          </p>
+                          ${g.tentative.commentaire && html`<p class="text-[11px] text-indigo-600 italic mt-0.5">${g.tentative.commentaire}</p>`}
+                        </div>
+                        ${seancesDuJour.length > 0 &&
+                        html`
+                          <button
+                            class="shrink-0 text-indigo-400 hover:text-indigo-700 text-xs"
+                            title="Rattacher tous les exercices de cette annale à une séance"
+                            onClick=${() => toggleAttachSeance(g.tentative.id)}
+                          >
+                            🔗
+                          </button>
+                        `}
+                      </div>
+                      ${attachSeanceOpenId === g.tentative.id &&
+                      html`
+                        <div class="flex items-center gap-2 mb-1.5">
+                          <select
+                            class="flex-1 border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-600"
+                            value=${attachSeanceChoice}
+                            onChange=${(e) => setAttachSeanceChoice(e.target.value)}
+                          >
+                            <option value="">Choisir une séance de ce jour…</option>
+                            ${seancesDuJour.map((s) => html`<option value=${s.key}>${s.debut}–${s.fin} · ${s.label}</option>`)}
+                          </select>
+                          <button
+                            class=${`px-2.5 py-1 rounded-lg text-xs font-medium text-white ${attachSeanceChoice ? "bg-slate-900 hover:bg-slate-800" : "bg-slate-300 cursor-not-allowed"}`}
+                            disabled=${!attachSeanceChoice}
+                            onClick=${() => confirmAttachSeance(g, seancesDuJour)}
+                          >
+                            Rattacher toute l'annale
+                          </button>
+                        </div>
+                      `}
+                      <ul class="space-y-0.5">${g.items.map((ex) => renderRow(ex, null, false))}</ul>
                     </div>
-                  `
-                )}
+                  `;
+                })}
                 ${horsSeance.length > 0 &&
                 html`
                   <div key="hors-seance">

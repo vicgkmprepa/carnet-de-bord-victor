@@ -16181,7 +16181,7 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
-          "note": null,
+          "note": 13,
           "tempsMinutes": null,
           "id": "tb-08871e99-7ab0-4044-ae00-e0d8c14b68c7",
           "date": "2026-09-22",
