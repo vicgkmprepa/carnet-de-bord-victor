@@ -127,35 +127,28 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
   `;
 }
 
-// Formulaire compact (ajout ou édition) d'une tentative en conditions d'examen :
-// date, note sur 20 (si la copie a été corrigée) et temps passé, qui vivent au
-// niveau de LA TENTATIVE — c'est l'unité pertinente pour le temps (une annale
-// entière chronométrée), contrairement au temps par exercice qui n'apportait
-// rien de plus.
+// Formulaire d'une tentative en conditions d'examen : juste la date et, si la
+// copie a été corrigée, la note et un commentaire. Le temps n'est PLUS saisi
+// ici — il est calculé automatiquement en sommant le temps des exercices
+// rattachés à cette tentative (cf. tempsGroupe dans le rendu des groupes).
 function TentativeForm({ initial, onSubmit, onCancel, onDelete }) {
   const [date, setDate] = useState(initial?.date || todayStr());
   const [note, setNote] = useState(initial?.note != null ? String(initial.note) : "");
-  const [tempsMinutes, setTempsMinutes] = useState(initial?.tempsMinutes != null ? String(initial.tempsMinutes) : "");
   const [commentaire, setCommentaire] = useState(initial?.commentaire || "");
 
   const handleSubmit = () => {
     const n = note.trim() === "" ? null : Number(note.replace(",", "."));
-    const t = tempsMinutes.trim() === "" ? null : Math.max(0, Math.round(Number(tempsMinutes)));
-    onSubmit({
-      date: date || null,
-      note: Number.isFinite(n) ? n : null,
-      tempsMinutes: Number.isFinite(t) ? t : null,
-      commentaire: commentaire.trim(),
-    });
+    onSubmit({ date: date || null, note: Number.isFinite(n) ? n : null, commentaire: commentaire.trim() });
   };
 
   return html`
-    <div class="border border-slate-200 rounded-xl p-3 bg-slate-50 mb-3">
-      <div class="grid grid-cols-3 gap-2 mb-2">
+    <div class="border border-indigo-200 rounded-xl p-3 bg-white">
+      <div class="grid grid-cols-2 gap-2 mb-2">
         <input
           type="date"
           class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
           value=${date}
+          autoFocus
           onChange=${(e) => setDate(e.target.value)}
         />
         <input
@@ -164,17 +157,9 @@ function TentativeForm({ initial, onSubmit, onCancel, onDelete }) {
           max="20"
           step="0.5"
           class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-          placeholder="Note /20"
+          placeholder="Note /20 (si corrigée)"
           value=${note}
           onInput=${(e) => setNote(e.target.value)}
-        />
-        <input
-          type="number"
-          min="0"
-          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-          placeholder="Temps (min)"
-          value=${tempsMinutes}
-          onInput=${(e) => setTempsMinutes(e.target.value)}
         />
       </div>
       <textarea
@@ -185,7 +170,7 @@ function TentativeForm({ initial, onSubmit, onCancel, onDelete }) {
         onInput=${(e) => setCommentaire(e.target.value)}
       ></textarea>
       <div class="flex items-center justify-between mt-2">
-        ${onDelete ? html`<button class="text-xs text-red-500 hover:text-red-700" onClick=${onDelete}>Supprimer</button>` : html`<span></span>`}
+        ${onDelete ? html`<button class="text-xs text-red-500 hover:text-red-700" onClick=${onDelete}>Supprimer la tentative</button>` : html`<span></span>`}
         <div class="flex gap-2">
           <button class="px-3 py-1 rounded-lg text-xs text-slate-600 hover:bg-slate-100" onClick=${onCancel}>Annuler</button>
           <button class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${handleSubmit}>
@@ -216,34 +201,34 @@ function groupByNom(exercices) {
     .sort((a, b) => b.attempts[0].date.localeCompare(a.attempts[0].date));
 }
 
-// Regroupe les exercices par tentative en blanche (même date qu'une tentative
-// enregistrée) — c'est la distinction qui compte réellement dans une annale :
-// quels exercices ont été faits dans le cadre d'une vraie mise en conditions
-// d'examen, et lesquels ont été repris isolément à un autre moment.
-function groupBySeance(exercices, tentativesBlanches) {
+// Un groupe par tentative enregistrée (même une tentative sans exercice encore
+// logué dessus — elle apparaît alors vide, prête à recevoir des exercices de
+// cette date). Les exercices dont la date ne correspond à aucune tentative
+// vont dans "horsSeance" : faits isolément, hors mise en conditions.
+function groupBySeance(tentativesBlanches, exercices) {
   const parDate = new Map();
-  for (const t of tentativesBlanches) if (t.date) parDate.set(t.date, t);
-  const groupes = new Map();
+  const sansDate = [];
+  for (const t of tentativesBlanches) {
+    const groupe = { tentative: t, items: [] };
+    if (t.date) parDate.set(t.date, groupe);
+    else sansDate.push(groupe);
+  }
   const horsSeance = [];
   for (const ex of exercices) {
-    const t = parDate.get(ex.date);
-    if (t) {
-      if (!groupes.has(t.id)) groupes.set(t.id, { tentative: t, items: [] });
-      groupes.get(t.id).items.push(ex);
-    } else {
-      horsSeance.push(ex);
-    }
+    const g = parDate.get(ex.date);
+    if (g) g.items.push(ex);
+    else horsSeance.push(ex);
   }
-  return {
-    seances: Array.from(groupes.values()).sort((a, b) => (b.tentative.date || "").localeCompare(a.tentative.date || "")),
-    horsSeance,
-  };
+  const seances = [...parDate.values(), ...sansDate].sort((a, b) => (b.tentative.date || "").localeCompare(a.tentative.date || ""));
+  return { seances, horsSeance };
 }
 
-// Page de détail d'une annale : journal des exercices travaillés dedans. Un même
-// exercice peut être retravaillé et logué plusieurs fois à des dates différentes
-// — volontairement pas de déduplication, chaque tentative garde sa propre ligne
-// (date, difficulté ressentie ce jour-là, commentaire), pour voir l'évolution.
+// Page de détail d'une annale, organisée autour d'une seule idée : un bloc =
+// une tentative en conditions d'examen (date, note si corrigée, temps total
+// calculé automatiquement, commentaire), avec ses exercices à l'intérieur. Les
+// exercices faits isolément (hors mise en conditions) sont listés à part, en
+// bas. Un même exercice peut être retravaillé à des dates différentes —
+// volontairement pas de déduplication, chaque tentative garde sa ligne.
 export function AnnaleDetailModal({
   annale,
   getSeancesForDate,
@@ -258,6 +243,7 @@ export function AnnaleDetailModal({
   onDeleteTentativeBlanche,
 }) {
   const [showForm, setShowForm] = useState(false);
+  const [showNewTentative, setShowNewTentative] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editingNom, setEditingNom] = useState(false);
   const [nomDraft, setNomDraft] = useState(annale.nom);
@@ -267,7 +253,6 @@ export function AnnaleDetailModal({
   const [attachChoice, setAttachChoice] = useState("");
   const [attachSeanceOpenId, setAttachSeanceOpenId] = useState(null);
   const [attachSeanceChoice, setAttachSeanceChoice] = useState("");
-  const [showBlancheForm, setShowBlancheForm] = useState(false);
   const [tentativeOpenId, setTentativeOpenId] = useState(null);
 
   const exercices = [...annale.exercices]
@@ -280,9 +265,8 @@ export function AnnaleDetailModal({
   const exosARevoir = exercicesARevoir(annale.exercices);
   const idsARevoirEffectif = new Set(exosARevoir.map((ex) => ex.id));
   const nbARevoir = exosARevoir.length;
-  const tentatives = [...annale.tentativesBlanches].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   // Calculé automatiquement par somme des temps saisis exercice par exercice —
-  // jamais ressaisi à la main.
+  // jamais ressaisi à la main, ni au niveau annale ni au niveau tentative.
   const tempsTotal = annale.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
 
   const saveNom = () => {
@@ -327,10 +311,9 @@ export function AnnaleDetailModal({
   };
 
   // Ligne compacte (une seule ligne, commentaire replié en dessous seulement
-  // s'il y en a un) — plus de "kilomètres" de contenu par exercice. Le bouton
-  // de rattachement individuel ne s'affiche que pour les exercices faits hors
-  // d'une tentative groupée : dans un groupe, le rattachement se fait en un
-  // coup pour toute l'annale (cf. confirmAttachSeance).
+  // s'il y en a un). Le bouton de rattachement individuel ne s'affiche que
+  // pour les exercices faits hors d'une tentative groupée : dans un groupe, le
+  // rattachement se fait en un coup pour toute l'annale (confirmAttachSeance).
   const renderRow = (ex, tentativePrecedente, individualAttach = true) => {
     if (editingId === ex.id) {
       return html`
@@ -406,7 +389,7 @@ export function AnnaleDetailModal({
     `;
   };
 
-  const { seances, horsSeance } = groupBySeance(exercices, annale.tentativesBlanches);
+  const { seances, horsSeance } = groupBySeance(annale.tentativesBlanches, exercices);
 
   return html`
     <div class="fixed inset-0 bg-slate-900/40 flex items-center justify-center z-50 p-4" onClick=${onClose}>
@@ -445,77 +428,42 @@ export function AnnaleDetailModal({
           </div>
         `}
 
-        <div class="mb-3">
-          <div class="flex items-center justify-between gap-2 mb-1.5">
-            <p class="text-xs font-medium text-slate-500">⏱️ Tentatives en conditions d'examen (historique des notes)</p>
-            <button
-              class="shrink-0 text-xs font-medium text-indigo-600 hover:text-indigo-800"
-              onClick=${() => setShowBlancheForm((v) => !v)}
-            >
-              + Ajouter
-            </button>
-          </div>
-          ${tentatives.length === 0 && !showBlancheForm && html`<p class="text-xs text-slate-400 italic">Aucune tentative enregistrée.</p>`}
-          ${tentatives.length > 0 &&
-          html`
-            <div class="flex items-center gap-1.5 flex-wrap">
-              ${tentatives.map(
-                (t) => html`
-                  <button
-                    key=${t.id}
-                    class=${`px-2 py-0.5 rounded-full text-[11px] font-medium ${
-                      t.note != null ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
-                    }`}
-                    title=${t.commentaire || ""}
-                    onClick=${() => setTentativeOpenId(tentativeOpenId === t.id ? null : t.id)}
-                  >
-                    ${t.date ? formatDateFr(t.date) : "date inconnue"}${t.note != null ? ` · ${t.note}/20` : ""}${t.tempsMinutes ? ` · ${formatDuration(t.tempsMinutes)}` : ""}
-                  </button>
-                `
-              )}
-            </div>
-          `}
-          ${tentativeOpenId &&
-          html`
-            <div class="mt-2">
-              <${TentativeForm}
-                initial=${tentatives.find((t) => t.id === tentativeOpenId)}
-                onSubmit=${(patch) => {
-                  onUpdateTentativeBlanche(tentativeOpenId, patch);
-                  setTentativeOpenId(null);
-                }}
-                onCancel=${() => setTentativeOpenId(null)}
-                onDelete=${() => {
-                  onDeleteTentativeBlanche(tentativeOpenId);
-                  setTentativeOpenId(null);
-                }}
-              />
-            </div>
-          `}
-          ${showBlancheForm &&
-          html`
-            <div class="mt-2">
-              <${TentativeForm}
-                onSubmit=${(t) => {
-                  onAddTentativeBlanche(t);
-                  setShowBlancheForm(false);
-                }}
-                onCancel=${() => setShowBlancheForm(false)}
-              />
-            </div>
-          `}
+        <div class="flex gap-2 mb-3">
+          ${showForm
+            ? html`<div class="flex-1"><${ExerciceForm} annaleNom=${annale.nom} getSeancesForDate=${getSeancesForDate} onSubmit=${(ex) => { onAddExercice(ex); setShowForm(false); }} onCancel=${() => setShowForm(false)} /></div>`
+            : html`
+                <button
+                  class="flex-1 px-3 py-2 rounded-lg text-sm font-medium border border-dashed border-slate-300 text-slate-500 hover:bg-slate-50"
+                  onClick=${() => setShowForm(true)}
+                >
+                  + Exercice
+                </button>
+              `}
+          ${!showForm &&
+          (showNewTentative
+            ? null
+            : html`
+                <button
+                  class="flex-1 px-3 py-2 rounded-lg text-sm font-medium border border-dashed border-indigo-200 text-indigo-500 hover:bg-indigo-50"
+                  onClick=${() => setShowNewTentative(true)}
+                >
+                  + Tentative (annale blanche)
+                </button>
+              `)}
         </div>
-
-        ${showForm
-          ? html`<div class="mb-4"><${ExerciceForm} annaleNom=${annale.nom} getSeancesForDate=${getSeancesForDate} onSubmit=${(ex) => { onAddExercice(ex); setShowForm(false); }} onCancel=${() => setShowForm(false)} /></div>`
-          : html`
-              <button
-                class="w-full mb-3 px-3 py-2 rounded-lg text-sm font-medium border border-dashed border-slate-300 text-slate-500 hover:bg-slate-50"
-                onClick=${() => setShowForm(true)}
-              >
-                + Ajouter un exercice travaillé
-              </button>
-            `}
+        ${showNewTentative &&
+        !showForm &&
+        html`
+          <div class="mb-3">
+            <${TentativeForm}
+              onSubmit=${(t) => {
+                onAddTentativeBlanche(t);
+                setShowNewTentative(false);
+              }}
+              onCancel=${() => setShowNewTentative(false)}
+            />
+          </div>
+        `}
 
         ${(exercices.length > 1 || themesPresents.length > 0) &&
         html`
@@ -578,29 +526,54 @@ export function AnnaleDetailModal({
             `
           : html`
               <div class="space-y-3">
+                ${seances.length > 0 &&
+                html`<p class="text-[11px] text-slate-400">⏱️ Chaque bloc = une tentative en conditions d'examen (note et temps calculés automatiquement).</p>`}
                 ${seances.map((g) => {
+                  const isEditing = tentativeOpenId === g.tentative.id;
+                  const tempsGroupe = g.items.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
                   const seancesDuJour = getSeancesForDate && g.tentative.date ? getSeancesForDate(g.tentative.date) : [];
                   return html`
-                    <div key=${g.tentative.id} class="border border-indigo-100 bg-indigo-50/30 rounded-xl p-2">
-                      <div class="flex items-start justify-between gap-2 mb-1">
-                        <div class="min-w-0">
-                          <p class="text-[11px] font-medium text-indigo-700">
-                            ⏱️ Faite en conditions d'examen le ${g.tentative.date ? formatDateFr(g.tentative.date) : "date inconnue"}${g.tentative.note != null ? ` · ${g.tentative.note}/20` : ""}
-                          </p>
-                          ${g.tentative.commentaire && html`<p class="text-[11px] text-indigo-600 italic mt-0.5">${g.tentative.commentaire}</p>`}
-                        </div>
-                        ${seancesDuJour.length > 0 &&
-                        html`
-                          <button
-                            class="shrink-0 text-indigo-400 hover:text-indigo-700 text-xs"
-                            title="Rattacher tous les exercices de cette annale à une séance"
-                            onClick=${() => toggleAttachSeance(g.tentative.id)}
-                          >
-                            🔗
-                          </button>
-                        `}
-                      </div>
+                    <div key=${g.tentative.id} class="border border-indigo-100 bg-indigo-50/30 rounded-xl p-2.5">
+                      ${isEditing
+                        ? html`
+                            <${TentativeForm}
+                              initial=${g.tentative}
+                              onSubmit=${(patch) => {
+                                onUpdateTentativeBlanche(g.tentative.id, patch);
+                                setTentativeOpenId(null);
+                              }}
+                              onCancel=${() => setTentativeOpenId(null)}
+                              onDelete=${() => {
+                                onDeleteTentativeBlanche(g.tentative.id);
+                                setTentativeOpenId(null);
+                              }}
+                            />
+                          `
+                        : html`
+                            <div class="flex items-start justify-between gap-2 mb-1.5">
+                              <button class="min-w-0 text-left flex-1" onClick=${() => setTentativeOpenId(g.tentative.id)} title="Modifier la date, la note ou le commentaire">
+                                <p class="text-[11px] font-medium text-indigo-700 flex items-center gap-1.5 flex-wrap">
+                                  ⏱️ ${g.tentative.date ? formatDateFr(g.tentative.date) : "Date à préciser"}
+                                  ${g.tentative.note != null &&
+                                  html`<span class="px-1.5 py-0 rounded-full bg-indigo-600 text-white font-semibold">${g.tentative.note}/20</span>`}
+                                  ${tempsGroupe > 0 && html`<span class="text-indigo-400 font-normal">${formatDuration(tempsGroupe)}</span>`}
+                                </p>
+                                ${g.tentative.commentaire && html`<p class="text-[11px] text-indigo-600 italic mt-0.5">${g.tentative.commentaire}</p>`}
+                              </button>
+                              ${seancesDuJour.length > 0 &&
+                              html`
+                                <button
+                                  class="shrink-0 text-indigo-400 hover:text-indigo-700 text-xs"
+                                  title="Rattacher tous les exercices de cette tentative à une séance"
+                                  onClick=${() => toggleAttachSeance(g.tentative.id)}
+                                >
+                                  🔗
+                                </button>
+                              `}
+                            </div>
+                          `}
                       ${attachSeanceOpenId === g.tentative.id &&
+                      !isEditing &&
                       html`
                         <div class="flex items-center gap-2 mb-1.5">
                           <select
@@ -620,7 +593,10 @@ export function AnnaleDetailModal({
                           </button>
                         </div>
                       `}
-                      <ul class="space-y-0.5">${g.items.map((ex) => renderRow(ex, null, false))}</ul>
+                      ${!isEditing &&
+                      (g.items.length === 0
+                        ? html`<p class="text-[11px] text-indigo-400 italic">Aucun exercice encore ajouté pour cette date.</p>`
+                        : html`<ul class="space-y-0.5">${g.items.map((ex) => renderRow(ex, null, false))}</ul>`)}
                     </div>
                   `;
                 })}

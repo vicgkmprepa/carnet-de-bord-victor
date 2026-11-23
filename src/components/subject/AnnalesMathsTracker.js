@@ -5,7 +5,7 @@ import { Card } from "../common/Card.js";
 import { EmptyState } from "../common/EmptyState.js";
 import { AnnaleDetailModal } from "./AnnaleDetailModal.js";
 import { FicheRevisionModal } from "./FicheRevisionModal.js";
-import { mondayOf, dayKeyOf, formatDuration } from "../../lib/scheduleUtils.js";
+import { mondayOf, dayKeyOf } from "../../lib/scheduleUtils.js";
 import { itemLabel, MATHS_THEMES } from "../../lib/subjectMapping.js";
 import { formatDateFr } from "../../lib/dateUtils.js";
 import { exercicesARevoir, derniereDateAnnale } from "../../lib/annalesMaths.js";
@@ -527,12 +527,10 @@ export function AnnalesMathsTracker() {
                 const nbARevoir = exercicesARevoir(a.exercices).length;
                 const avancement = a.avancement || "";
                 const derniereDate = derniereDateAnnale(a);
-                const nbTentatives = a.tentativesBlanches.length;
-                // Calculé automatiquement (somme des temps saisis exercice par
-                // exercice), jamais ressaisi à la main.
-                const tempsTotal = a.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
                 // Note la plus récente parmi les tentatives — rattachée directement
-                // à la ligne de l'annale plutôt que reléguée dans son détail.
+                // à la ligne de l'annale plutôt que reléguée dans son détail. Le
+                // détail (temps, nombre de tentatives) reste dans la fiche de
+                // l'annale : pas de doublon ici, la liste reste simple.
                 const derniereNote = [...a.tentativesBlanches]
                   .sort((x, y) => (y.date || "").localeCompare(x.date || ""))
                   .find((t) => t.note != null);
@@ -555,20 +553,11 @@ export function AnnalesMathsTracker() {
                           ${avancement === "complet" && html`<span title="Tous les exercices faits au moins une fois">✅</span>`}
                           ${a.nom}
                         </span>
-                        <span class="flex items-center gap-2.5 shrink-0 text-xs text-slate-400">
-                          <span
-                            class="grid items-center gap-x-2 tabular-nums"
-                            style=${{ gridTemplateColumns: `${active === TOUT ? "4rem " : ""}3.5rem 2.25rem 5.5rem 3rem` }}
-                          >
-                            ${active === TOUT && html`<span class="truncate text-right">${a.categorie}</span>`}
-                            <span class="text-right">${tempsTotal > 0 ? `⏳ ${formatDuration(tempsTotal)}` : ""}</span>
-                            <span class="text-right" title="Nombre de fois faite en conditions d'examen">${nbTentatives > 0 ? `⏱️ ${nbTentatives}` : ""}</span>
-                            <span class="text-right">${derniereDate ? formatDateFr(derniereDate) : ""}</span>
-                            <span class="text-right">
-                              ${derniereNote != null &&
-                              html`<span class="px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold" title="Dernière note enregistrée">${derniereNote.note}/20</span>`}
-                            </span>
-                          </span>
+                        <span class="flex items-center gap-2 shrink-0 text-xs text-slate-400">
+                          ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
+                          ${derniereDate && html`<span class="text-slate-400">${formatDateFr(derniereDate)}</span>`}
+                          ${derniereNote != null &&
+                          html`<span class="shrink-0 px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold" title="Dernière note enregistrée">${derniereNote.note}/20</span>`}
                           ${nbARevoir > 0 &&
                           html`<span class="shrink-0 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
