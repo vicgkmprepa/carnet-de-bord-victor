@@ -15653,8 +15653,8 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
-          "note": 12.5,
-          "tempsMinutes": 210,
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-c787183f-979e-4a41-8444-c0e98e58e422",
           "date": "2026-10-22",
           "commentaire": ""
