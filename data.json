@@ -13282,7 +13282,7 @@
       "fin": "19:00",
       "matiere": "Maths",
       "titre": "",
-      "contenu": "EDHEC 2024"
+      "contenu": "EDHEC 2024\nAnnale : EDHEC 2024 ECE — Exercice 1"
     },
     {
       "statut": "realise",
@@ -16057,6 +16057,16 @@
           "tempsMinutes": null,
           "aRevoir": false,
           "commentaire": "XXX\nJuste pour le référencement"
+        },
+        {
+          "id": "ex-c29ec084-4e90-497f-8de4-37bb04499989",
+          "nom": "Exercice 1",
+          "date": "2026-11-22",
+          "difficulte": "Moyen",
+          "theme": "Analyse",
+          "tempsMinutes": null,
+          "aRevoir": false,
+          "commentaire": ""
         }
       ],
       "avancement": "complet",
