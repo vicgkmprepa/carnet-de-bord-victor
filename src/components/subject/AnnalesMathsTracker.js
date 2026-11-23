@@ -8,7 +8,6 @@ import { FicheRevisionModal } from "./FicheRevisionModal.js";
 import { mondayOf, dayKeyOf } from "../../lib/scheduleUtils.js";
 import { itemLabel, MATHS_THEMES } from "../../lib/subjectMapping.js";
 import { formatDateFr } from "../../lib/dateUtils.js";
-import { formatDuration } from "../../lib/scheduleUtils.js";
 import { exercicesARevoir, derniereDateAnnale } from "../../lib/annalesMaths.js";
 
 const CATEGORIES = ["Maths I", "Maths II", "EDHEC", "EM", "Écricome"];
@@ -528,7 +527,7 @@ export function AnnalesMathsTracker() {
                 const nbARevoir = exercicesARevoir(a.exercices).length;
                 const avancement = a.avancement || "";
                 const derniereDate = derniereDateAnnale(a);
-                const tempsTotal = a.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
+                const nbTentatives = a.tentativesBlanches.length;
                 return html`
                   <li key=${a.id}>
                     <div class=${`w-full flex items-center gap-2 py-2 px-2.5 rounded-xl border transition-colors ${AVANCEMENT_CARD_STYLE[avancement]}`}>
@@ -546,16 +545,13 @@ export function AnnalesMathsTracker() {
                       >
                         <span class=${`text-sm truncate flex items-center gap-1.5 ${avancement === "complet" ? "font-medium text-emerald-800" : "text-slate-700"}`}>
                           ${avancement === "complet" && html`<span title="Tous les exercices faits au moins une fois">✅</span>`}
-                          ${a.tentativesBlanches.length > 0 &&
-                          html`<span title=${`Faite en blanche ${a.tentativesBlanches.length} fois`}>⏱️</span>`}
                           ${a.nom}
                         </span>
                         <span class="flex items-center gap-1.5 shrink-0 text-xs text-slate-400 flex-wrap justify-end">
                           ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
                           <span>${a.exercices.length} exo${a.exercices.length > 1 ? "s" : ""}</span>
-                          ${tempsTotal > 0 && html`<span class="text-slate-400">· ⏳ ${formatDuration(tempsTotal)}</span>`}
+                          ${nbTentatives > 0 && html`<span class="text-slate-400" title="Nombre de fois faite en conditions d'examen">· ⏱️ ${nbTentatives} tentative${nbTentatives > 1 ? "s" : ""}</span>`}
                           ${derniereDate && html`<span class="text-slate-400">· ${formatDateFr(derniereDate)}</span>`}
-                          ${a.noteGlobale != null && html`<span class="px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold">${a.noteGlobale}/20</span>`}
                           ${nbARevoir > 0 && html`<span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
                       </button>
@@ -574,7 +570,6 @@ export function AnnalesMathsTracker() {
         getSeancesForDate=${getSeancesForDate}
         onClose=${() => setOpenId(null)}
         onRename=${(nouveauNom) => updateAnnale(annaleOuverte.id, { nom: nouveauNom })}
-        onUpdateGlobal=${(patch) => updateAnnale(annaleOuverte.id, patch)}
         onDeleteAnnale=${() => {
           deleteAnnale(annaleOuverte.id);
           setOpenId(null);

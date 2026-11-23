@@ -77,12 +77,15 @@ function normalize(d) {
     notes_bce_reference: d.notes_bce_reference || [],
     notes_cibles_personnalisees: d.notes_cibles_personnalisees || {},
     annales_maths: (d.annales_maths || []).map((a) => {
-      const { blanche, ...rest } = { exercices: [], avancement: "", noteGlobale: null, commentaireGlobal: "", ...a };
+      const { blanche, ...rest } = { exercices: [], avancement: "", ...a };
       // Migration de l'ancien indicateur booléen "blanche" (sans date connue) vers
       // l'historique daté — on garde une trace plutôt que de la perdre silencieusement.
-      const tentativesBlanches =
+      // Chaque tentative reçoit ses défauts note/tempsMinutes (ajoutés après coup :
+      // note et temps passé se notent désormais par tentative, pas par exercice).
+      const tentativesBlanches = (
         a.tentativesBlanches ||
-        (blanche ? [{ id: makeId("tb"), date: null, commentaire: "Migré depuis l'ancien indicateur (date exacte inconnue)" }] : []);
+        (blanche ? [{ id: makeId("tb"), date: null, commentaire: "Migré depuis l'ancien indicateur (date exacte inconnue)" }] : [])
+      ).map((t) => ({ note: null, tempsMinutes: null, ...t }));
       return { ...rest, tentativesBlanches };
     }),
   };
@@ -783,7 +786,13 @@ export function DataProvider({ children }) {
   // correspond à l'une de ces tentatives est automatiquement badgé "Annale
   // blanche du …" dans AnnaleDetailModal, sans marquage manuel.
   const addTentativeBlanche = (annaleId, tentative) => {
-    const t = { id: makeId("tb"), date: tentative.date, commentaire: tentative.commentaire || "" };
+    const t = {
+      id: makeId("tb"),
+      date: tentative.date,
+      commentaire: tentative.commentaire || "",
+      note: tentative.note ?? null,
+      tempsMinutes: tentative.tempsMinutes ?? null,
+    };
     setData((d) => ({
       ...d,
       annales_maths: d.annales_maths.map((a) =>

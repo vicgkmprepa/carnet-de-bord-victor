@@ -15483,6 +15483,8 @@
       "categorie": "EM",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-f95ebc9f-eb6e-4e16-8805-d616879f6ef7",
           "date": "2026-11-18",
           "commentaire": "NUL"
@@ -15582,6 +15584,8 @@
       "categorie": "Maths I",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-0b8ae497-ab9b-4db1-be91-70fd3c02aa77",
           "date": "2026-08-23",
           "commentaire": ""
@@ -15649,6 +15653,8 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
+          "note": 12.5,
+          "tempsMinutes": 210,
           "id": "tb-c787183f-979e-4a41-8444-c0e98e58e422",
           "date": "2026-10-22",
           "commentaire": ""
@@ -15726,6 +15732,8 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-b44b96dc-cb54-4bdb-b642-1053f19c9508",
           "date": "2026-11-11",
           "commentaire": ""
@@ -15773,6 +15781,8 @@
       "categorie": "EM",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-a766c8b8-cdf4-42ed-8ce5-a64d89fc695c",
           "date": "2026-08-28",
           "commentaire": "En 3h."
@@ -15840,6 +15850,8 @@
       "categorie": "Écricome",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-12b55ac2-c78e-4e83-b3e2-0fcebf5ba6ef",
           "date": "2026-10-29",
           "commentaire": ""
@@ -15938,6 +15950,8 @@
       "categorie": "EM",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-3e5ea1cb-1b30-45a7-8efb-a4927c7a9109",
           "date": "2026-10-26",
           "commentaire": ""
@@ -15995,6 +16009,8 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-686ba533-cb43-43d2-821b-42fce0685791",
           "date": "2026-09-11",
           "commentaire": ""
@@ -16165,11 +16181,15 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-08871e99-7ab0-4044-ae00-e0d8c14b68c7",
           "date": "2026-09-22",
           "commentaire": ""
         },
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-84fa60fc-5c17-486d-a314-7deea16db829",
           "date": "2026-11-23",
           "commentaire": ""
@@ -16207,6 +16227,8 @@
       "categorie": "Maths I",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-1592f8e7-937e-44f6-8e83-e7e7383aa7ff",
           "date": "2026-10-02",
           "commentaire": "3h30 pas du tout le temps de finir. Difficulté mi-figue, mi-raisin."
@@ -16254,6 +16276,8 @@
       "categorie": "EM",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-876d00b1-fc09-4034-96de-40f022452ee8",
           "date": "2026-10-24",
           "commentaire": ""
@@ -16311,6 +16335,8 @@
       "categorie": "EDHEC",
       "tentativesBlanches": [
         {
+          "note": null,
+          "tempsMinutes": null,
           "id": "tb-13c9e9f3-a9b9-4091-ae2c-def2d2e7faa0",
           "date": "2026-11-15",
           "commentaire": ""

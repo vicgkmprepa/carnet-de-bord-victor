@@ -19,7 +19,6 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
   const [date, setDate] = useState(initial?.date || todayStr());
   const [difficulte, setDifficulte] = useState(initial?.difficulte || "Moyen");
   const [theme, setTheme] = useState(initial?.theme || "");
-  const [tempsMinutes, setTempsMinutes] = useState(initial?.tempsMinutes != null ? String(initial.tempsMinutes) : "");
   const [aRevoir, setARevoir] = useState(initial?.aRevoir || false);
   const [commentaire, setCommentaire] = useState(initial?.commentaire || "");
   const [attachKey, setAttachKey] = useState("");
@@ -32,13 +31,15 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
     const nomFinal = nom.trim();
     const cible = seancesDuJour.find((s) => s.key === attachKey);
     if (cible) cible.attach(`Annale : ${annaleNom} — ${nomFinal}`);
-    const temps = tempsMinutes.trim() === "" ? null : Math.max(0, Math.round(Number(tempsMinutes)));
     onSubmit({
       nom: nomFinal,
       date,
       difficulte,
       theme,
-      tempsMinutes: Number.isFinite(temps) ? temps : null,
+      // Le temps passé se note désormais au niveau de la tentative (annale
+      // blanche) plutôt qu'exercice par exercice — on garde juste l'éventuelle
+      // ancienne valeur telle quelle si l'exercice en avait une.
+      tempsMinutes: initial?.tempsMinutes ?? null,
       aRevoir,
       commentaire: commentaire.trim(),
     });
@@ -71,24 +72,14 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
           ${DIFFICULTES.map((d) => html`<option value=${d}>${d}</option>`)}
         </select>
       </div>
-      <div class="grid grid-cols-2 gap-2 mb-2">
-        <select
-          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm text-slate-600"
-          value=${theme}
-          onChange=${(e) => setTheme(e.target.value)}
-        >
-          <option value="">Thème (obligatoire)</option>
-          ${MATHS_THEMES.filter((t) => t !== "Annale").map((t) => html`<option value=${t}>${t}</option>`)}
-        </select>
-        <input
-          type="number"
-          min="0"
-          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-          placeholder="Temps passé (min)"
-          value=${tempsMinutes}
-          onInput=${(e) => setTempsMinutes(e.target.value)}
-        />
-      </div>
+      <select
+        class="w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm text-slate-600 mb-2"
+        value=${theme}
+        onChange=${(e) => setTheme(e.target.value)}
+      >
+        <option value="">Thème (obligatoire)</option>
+        ${MATHS_THEMES.filter((t) => t !== "Annale").map((t) => html`<option value=${t}>${t}</option>`)}
+      </select>
       ${seancesDuJour.length > 0 &&
       html`
         <select
@@ -127,6 +118,76 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
   `;
 }
 
+// Formulaire compact (ajout ou édition) d'une tentative en conditions d'examen :
+// date, note sur 20 (si la copie a été corrigée) et temps passé, qui vivent au
+// niveau de LA TENTATIVE — c'est l'unité pertinente pour le temps (une annale
+// entière chronométrée), contrairement au temps par exercice qui n'apportait
+// rien de plus.
+function TentativeForm({ initial, onSubmit, onCancel, onDelete }) {
+  const [date, setDate] = useState(initial?.date || todayStr());
+  const [note, setNote] = useState(initial?.note != null ? String(initial.note) : "");
+  const [tempsMinutes, setTempsMinutes] = useState(initial?.tempsMinutes != null ? String(initial.tempsMinutes) : "");
+  const [commentaire, setCommentaire] = useState(initial?.commentaire || "");
+
+  const handleSubmit = () => {
+    const n = note.trim() === "" ? null : Number(note.replace(",", "."));
+    const t = tempsMinutes.trim() === "" ? null : Math.max(0, Math.round(Number(tempsMinutes)));
+    onSubmit({
+      date: date || null,
+      note: Number.isFinite(n) ? n : null,
+      tempsMinutes: Number.isFinite(t) ? t : null,
+      commentaire: commentaire.trim(),
+    });
+  };
+
+  return html`
+    <div class="border border-slate-200 rounded-xl p-3 bg-slate-50 mb-3">
+      <div class="grid grid-cols-3 gap-2 mb-2">
+        <input
+          type="date"
+          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
+          value=${date}
+          onChange=${(e) => setDate(e.target.value)}
+        />
+        <input
+          type="number"
+          min="0"
+          max="20"
+          step="0.5"
+          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
+          placeholder="Note /20"
+          value=${note}
+          onInput=${(e) => setNote(e.target.value)}
+        />
+        <input
+          type="number"
+          min="0"
+          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
+          placeholder="Temps (min)"
+          value=${tempsMinutes}
+          onInput=${(e) => setTempsMinutes(e.target.value)}
+        />
+      </div>
+      <textarea
+        class="w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm resize-none"
+        rows="2"
+        placeholder="Commentaire discret sur cette tentative (optionnel)…"
+        value=${commentaire}
+        onInput=${(e) => setCommentaire(e.target.value)}
+      ></textarea>
+      <div class="flex items-center justify-between mt-2">
+        ${onDelete ? html`<button class="text-xs text-red-500 hover:text-red-700" onClick=${onDelete}>Supprimer</button>` : html`<span></span>`}
+        <div class="flex gap-2">
+          <button class="px-3 py-1 rounded-lg text-xs text-slate-600 hover:bg-slate-100" onClick=${onCancel}>Annuler</button>
+          <button class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${handleSubmit}>
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 // Regroupe le journal par nom d'exercice (insensible à la casse/espaces) — permet
 // de lire toutes les tentatives d'un même exercice les unes à la suite pour voir
 // l'évolution, plutôt que la liste chronologique unique où elles peuvent être
@@ -146,6 +207,30 @@ function groupByNom(exercices) {
     .sort((a, b) => b.attempts[0].date.localeCompare(a.attempts[0].date));
 }
 
+// Regroupe les exercices par tentative en blanche (même date qu'une tentative
+// enregistrée) — c'est la distinction qui compte réellement dans une annale :
+// quels exercices ont été faits dans le cadre d'une vraie mise en conditions
+// d'examen, et lesquels ont été repris isolément à un autre moment.
+function groupBySeance(exercices, tentativesBlanches) {
+  const parDate = new Map();
+  for (const t of tentativesBlanches) if (t.date) parDate.set(t.date, t);
+  const groupes = new Map();
+  const horsSeance = [];
+  for (const ex of exercices) {
+    const t = parDate.get(ex.date);
+    if (t) {
+      if (!groupes.has(t.id)) groupes.set(t.id, { tentative: t, items: [] });
+      groupes.get(t.id).items.push(ex);
+    } else {
+      horsSeance.push(ex);
+    }
+  }
+  return {
+    seances: Array.from(groupes.values()).sort((a, b) => (b.tentative.date || "").localeCompare(a.tentative.date || "")),
+    horsSeance,
+  };
+}
+
 // Page de détail d'une annale : journal des exercices travaillés dedans. Un même
 // exercice peut être retravaillé et logué plusieurs fois à des dates différentes
 // — volontairement pas de déduplication, chaque tentative garde sa propre ligne
@@ -156,7 +241,6 @@ export function AnnaleDetailModal({
   onClose,
   onDeleteAnnale,
   onRename,
-  onUpdateGlobal,
   onAddExercice,
   onUpdateExercice,
   onDeleteExercice,
@@ -173,25 +257,7 @@ export function AnnaleDetailModal({
   const [attachOpenId, setAttachOpenId] = useState(null);
   const [attachChoice, setAttachChoice] = useState("");
   const [showBlancheForm, setShowBlancheForm] = useState(false);
-  const [blancheDate, setBlancheDate] = useState(todayStr());
-  const [blancheCommentaire, setBlancheCommentaire] = useState("");
   const [tentativeOpenId, setTentativeOpenId] = useState(null);
-  const [tentativeEditDate, setTentativeEditDate] = useState("");
-  const [tentativeEditCommentaire, setTentativeEditCommentaire] = useState("");
-  const [showNoteForm, setShowNoteForm] = useState(false);
-  const [noteDraft, setNoteDraft] = useState(annale.noteGlobale != null ? String(annale.noteGlobale) : "");
-  const [commentaireGlobalDraft, setCommentaireGlobalDraft] = useState(annale.commentaireGlobal || "");
-
-  const tempsTotal = annale.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
-
-  const saveNoteGlobale = () => {
-    const n = noteDraft.trim() === "" ? null : Number(noteDraft.replace(",", "."));
-    onUpdateGlobal({
-      noteGlobale: Number.isFinite(n) ? n : null,
-      commentaireGlobal: commentaireGlobalDraft.trim(),
-    });
-    setShowNoteForm(false);
-  };
 
   const exercices = [...annale.exercices]
     .filter((ex) => !filtreTheme || ex.theme === filtreTheme)
@@ -204,21 +270,6 @@ export function AnnaleDetailModal({
   const idsARevoirEffectif = new Set(exosARevoir.map((ex) => ex.id));
   const nbARevoir = exosARevoir.length;
   const tentatives = [...annale.tentativesBlanches].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-
-  const toggleTentative = (t) => {
-    if (tentativeOpenId === t.id) {
-      setTentativeOpenId(null);
-      return;
-    }
-    setTentativeOpenId(t.id);
-    setTentativeEditDate(t.date || "");
-    setTentativeEditCommentaire(t.commentaire || "");
-  };
-
-  const saveTentative = () => {
-    onUpdateTentativeBlanche(tentativeOpenId, { date: tentativeEditDate || null, commentaire: tentativeEditCommentaire.trim() });
-    setTentativeOpenId(null);
-  };
 
   const saveNom = () => {
     if (nomDraft.trim()) onRename(nomDraft.trim());
@@ -240,6 +291,8 @@ export function AnnaleDetailModal({
     setAttachOpenId(null);
   };
 
+  // Ligne compacte (une seule ligne, commentaire replié en dessous seulement
+  // s'il y en a un) — plus de "kilomètres" de contenu par exercice.
   const renderRow = (ex, tentativePrecedente) => {
     if (editingId === ex.id) {
       return html`
@@ -258,39 +311,15 @@ export function AnnaleDetailModal({
       `;
     }
     const seancesDuJour = getSeancesForDate ? getSeancesForDate(ex.date) : [];
-    // Badge automatique : aucun marquage manuel — si la date de l'exercice
-    // correspond à une tentative en blanche enregistrée pour cette annale, on le
-    // signale directement (l'exercice a forcément été fait dans ce cadre-là).
-    const tentativeMatch = annale.tentativesBlanches.find((t) => t.date && t.date === ex.date);
     return html`
-      <li key=${ex.id} class="border border-slate-100 rounded-xl p-3">
-        <div class="flex items-start justify-between gap-2">
-          <div class="min-w-0">
-            <p class="text-sm font-semibold text-slate-800 flex items-center gap-1.5 flex-wrap">
-              ${ex.nom}
-              ${idsARevoirEffectif.has(ex.id) && html`<span class="text-amber-500" title="À revoir">🔖</span>`}
-              ${ex.theme &&
-              html`
-                <span class="inline-flex items-center gap-1 text-xs font-normal text-slate-500 shrink-0">
-                  <span class="inline-block h-2 w-2 rounded-full shrink-0" style=${{ backgroundColor: MATHS_THEME_COLORS[ex.theme] }}></span>
-                  ${ex.theme}
-                </span>
-              `}
-              ${tentativeMatch &&
-              html`
-                <span
-                  class="inline-flex items-center gap-1 text-[11px] font-normal text-indigo-600 shrink-0"
-                  title=${tentativeMatch.commentaire || ""}
-                >
-                  ⏱️ Annale blanche du ${formatDateFr(tentativeMatch.date)}
-                </span>
-              `}
-            </p>
-            <p class="text-xs text-slate-400">
-              ${formatDateFr(ex.date)}${ex.tempsMinutes ? ` · ${formatDuration(ex.tempsMinutes)}` : ""}
-            </p>
-          </div>
-          <div class="flex items-center gap-2 shrink-0">
+      <li key=${ex.id} class="border-l-2 pl-2 py-1" style=${{ borderColor: MATHS_THEME_COLORS[ex.theme] || "#e2e8f0" }}>
+        <div class="flex items-center justify-between gap-2">
+          <div class="min-w-0 flex items-center gap-1.5 flex-wrap">
+            <span class="text-sm text-slate-800 font-medium">${ex.nom}</span>
+            ${idsARevoirEffectif.has(ex.id) && html`<span class="text-amber-500 text-xs" title="À revoir">🔖</span>`}
+            <span class=${`px-1.5 py-0 rounded-full text-[11px] font-medium ${DIFFICULTE_COLORS[ex.difficulte] || "bg-slate-100 text-slate-600"}`}>
+              ${ex.difficulte}
+            </span>
             ${tentativePrecedente &&
             (() => {
               const curIdx = DIFFICULTES.indexOf(ex.difficulte);
@@ -303,19 +332,19 @@ export function AnnaleDetailModal({
                 </span>
               `;
             })()}
-            <span class=${`px-2 py-0.5 rounded-full text-xs font-medium ${DIFFICULTE_COLORS[ex.difficulte] || "bg-slate-100 text-slate-600"}`}>
-              ${ex.difficulte}
-            </span>
+            <span class="text-xs text-slate-400">${formatDateFr(ex.date)}</span>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
             ${seancesDuJour.length > 0 &&
             html`<button class="text-slate-400 hover:text-slate-700 text-xs" title="Rattacher à une séance" onClick=${() => toggleAttach(ex)}>🔗</button>`}
-            <button class="text-slate-400 hover:text-slate-700 text-xs" onClick=${() => setEditingId(ex.id)}>Modifier</button>
+            <button class="text-slate-400 hover:text-slate-700 text-xs" onClick=${() => setEditingId(ex.id)}>✎</button>
             <button class="text-slate-300 hover:text-red-500 text-sm leading-none" onClick=${() => onDeleteExercice(ex.id)}>✕</button>
           </div>
         </div>
-        ${ex.commentaire && html`<p class="text-sm text-slate-600 mt-2">${ex.commentaire}</p>`}
+        ${ex.commentaire && html`<p class="text-xs text-slate-500 mt-0.5">${ex.commentaire}</p>`}
         ${attachOpenId === ex.id &&
         html`
-          <div class="flex items-center gap-2 mt-2 pt-2 border-t border-slate-100">
+          <div class="flex items-center gap-2 mt-1.5 pt-1.5 border-t border-slate-100">
             <select
               class="flex-1 border border-slate-300 rounded-lg px-2 py-1 text-xs text-slate-600"
               value=${attachChoice}
@@ -336,6 +365,8 @@ export function AnnaleDetailModal({
       </li>
     `;
   };
+
+  const { seances, horsSeance } = groupBySeance(exercices, annale.tentativesBlanches);
 
   return html`
     <div class="fixed inset-0 bg-slate-900/40 flex items-center justify-center z-50 p-4" onClick=${onClose}>
@@ -363,80 +394,9 @@ export function AnnaleDetailModal({
               `}
           <button class="text-slate-400 hover:text-slate-700 text-lg leading-none shrink-0" onClick=${onClose}>✕</button>
         </div>
-        <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
-          <p class="text-xs text-slate-500">
-            ${annale.categorie} · ${annale.exercices.length} exercice${annale.exercices.length > 1 ? "s" : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}${tempsTotal > 0 ? ` · ⏳ ${formatDuration(tempsTotal)} au total` : ""}
-          </p>
-          <div class="flex items-center gap-1.5 shrink-0">
-            ${annale.noteGlobale != null &&
-            html`
-              <span
-                class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-600 text-white"
-                title=${annale.commentaireGlobal || "Note de la copie"}
-              >
-                📝 ${annale.noteGlobale}/20
-              </span>
-            `}
-            <button
-              class="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border text-slate-400 border-slate-200 hover:bg-slate-50"
-              onClick=${() => setShowNoteForm((v) => !v)}
-              title="Noter la copie si elle a été faite et corrigée dans son ensemble, avec un commentaire général"
-            >
-              📝 ${annale.noteGlobale != null ? "Modifier la note" : "Noter la copie"}
-            </button>
-            <button
-              class="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border text-slate-400 border-slate-200 hover:bg-slate-50"
-              onClick=${() => {
-                setShowBlancheForm((v) => !v);
-                setBlancheDate(todayStr());
-                setBlancheCommentaire("");
-              }}
-              title="Enregistrer une fois où l'annale a été faite en conditions d'examen (temps limité, en une fois)"
-            >
-              ⏱️ + Annale blanche
-            </button>
-          </div>
-        </div>
-
-        ${showNoteForm &&
-        html`
-          <div class="border border-indigo-200 rounded-xl p-3 mb-3 bg-indigo-50/40">
-            <label class="text-xs font-medium text-slate-600 block mb-1">
-              Note de la copie (sur 20, si elle a été faite et corrigée dans son ensemble)
-              <input
-                type="number"
-                min="0"
-                max="20"
-                step="0.5"
-                class="mt-1 w-28 border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-                placeholder="Ex : 14"
-                value=${noteDraft}
-                autoFocus
-                onInput=${(e) => setNoteDraft(e.target.value)}
-              />
-            </label>
-            <label class="text-xs font-medium text-slate-600 block mt-2 mb-1">
-              Commentaire général sur la copie (optionnel)
-              <textarea
-                class="mt-1 w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm resize-none"
-                rows="2"
-                placeholder="Ex : manque de rigueur sur la partie 2, bonne gestion du temps…"
-                value=${commentaireGlobalDraft}
-                onInput=${(e) => setCommentaireGlobalDraft(e.target.value)}
-              ></textarea>
-            </label>
-            <div class="flex justify-end gap-2 mt-2">
-              <button class="px-3 py-1 rounded-lg text-xs text-slate-600 hover:bg-slate-100" onClick=${() => setShowNoteForm(false)}>Annuler</button>
-              <button class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${saveNoteGlobale}>
-                Enregistrer
-              </button>
-            </div>
-          </div>
-        `}
-
-        ${!showNoteForm &&
-        annale.commentaireGlobal &&
-        html`<p class="mb-3 text-xs text-slate-500 italic px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-100">💬 ${annale.commentaireGlobal}</p>`}
+        <p class="text-xs text-slate-500 mb-3">
+          ${annale.categorie} · ${annale.exercices.length} exercice${annale.exercices.length > 1 ? "s" : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
+        </p>
 
         ${exosARevoir.length > 0 &&
         html`
@@ -445,95 +405,72 @@ export function AnnaleDetailModal({
           </div>
         `}
 
-        ${tentatives.length > 0 &&
-        html`
-          <div class="flex items-center gap-1.5 flex-wrap mb-2">
-            ${tentatives.map(
-              (t) => html`
-                <button
-                  key=${t.id}
-                  class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
-                  onClick=${() => toggleTentative(t)}
-                >
-                  ⏱️ ${t.date ? formatDateFr(t.date) : "date inconnue"}
-                </button>
-              `
-            )}
+        <div class="mb-3">
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <p class="text-xs font-medium text-slate-500">⏱️ Tentatives en conditions d'examen (historique des notes)</p>
+            <button
+              class="shrink-0 text-xs font-medium text-indigo-600 hover:text-indigo-800"
+              onClick=${() => setShowBlancheForm((v) => !v)}
+            >
+              + Ajouter
+            </button>
           </div>
-        `}
-
-        ${tentativeOpenId &&
-        html`
-          <div class="border border-slate-200 rounded-xl p-3 bg-slate-50 mb-3">
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <input
-                type="date"
-                class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
-                value=${tentativeEditDate}
-                onChange=${(e) => setTentativeEditDate(e.target.value)}
-              />
-              <button
-                class="text-xs text-red-500 hover:text-red-700"
-                onClick=${() => {
+          ${tentatives.length === 0 && !showBlancheForm && html`<p class="text-xs text-slate-400 italic">Aucune tentative enregistrée.</p>`}
+          ${tentatives.length > 0 &&
+          html`
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${tentatives.map(
+                (t) => html`
+                  <button
+                    key=${t.id}
+                    class=${`px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                      t.note != null ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
+                    }`}
+                    title=${t.commentaire || ""}
+                    onClick=${() => setTentativeOpenId(tentativeOpenId === t.id ? null : t.id)}
+                  >
+                    ${t.date ? formatDateFr(t.date) : "date inconnue"}${t.note != null ? ` · ${t.note}/20` : ""}${t.tempsMinutes ? ` · ${formatDuration(t.tempsMinutes)}` : ""}
+                  </button>
+                `
+              )}
+            </div>
+          `}
+          ${tentativeOpenId &&
+          html`
+            <div class="mt-2">
+              <${TentativeForm}
+                initial=${tentatives.find((t) => t.id === tentativeOpenId)}
+                onSubmit=${(patch) => {
+                  onUpdateTentativeBlanche(tentativeOpenId, patch);
+                  setTentativeOpenId(null);
+                }}
+                onCancel=${() => setTentativeOpenId(null)}
+                onDelete=${() => {
                   onDeleteTentativeBlanche(tentativeOpenId);
                   setTentativeOpenId(null);
                 }}
-              >
-                Supprimer
-              </button>
+              />
             </div>
-            <textarea
-              class="w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm resize-none"
-              rows="2"
-              placeholder="Commentaire discret sur cette tentative (optionnel)…"
-              value=${tentativeEditCommentaire}
-              onInput=${(e) => setTentativeEditCommentaire(e.target.value)}
-            ></textarea>
-            <div class="flex justify-end gap-2 mt-2">
-              <button class="px-3 py-1 rounded-lg text-xs text-slate-600 hover:bg-slate-100" onClick=${() => setTentativeOpenId(null)}>Annuler</button>
-              <button class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${saveTentative}>
-                Enregistrer
-              </button>
-            </div>
-          </div>
-        `}
-
-        ${showBlancheForm &&
-        html`
-          <div class="border border-dashed border-slate-300 rounded-xl p-3 mb-3">
-            <input
-              type="date"
-              class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm mb-2"
-              value=${blancheDate}
-              onChange=${(e) => setBlancheDate(e.target.value)}
-            />
-            <textarea
-              class="w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm resize-none"
-              rows="2"
-              placeholder="Commentaire discret (optionnel)…"
-              value=${blancheCommentaire}
-              onInput=${(e) => setBlancheCommentaire(e.target.value)}
-            ></textarea>
-            <div class="flex justify-end gap-2 mt-2">
-              <button class="px-3 py-1 rounded-lg text-xs text-slate-600 hover:bg-slate-100" onClick=${() => setShowBlancheForm(false)}>Annuler</button>
-              <button
-                class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800"
-                onClick=${() => {
-                  onAddTentativeBlanche({ date: blancheDate || null, commentaire: blancheCommentaire.trim() });
+          `}
+          ${showBlancheForm &&
+          html`
+            <div class="mt-2">
+              <${TentativeForm}
+                onSubmit=${(t) => {
+                  onAddTentativeBlanche(t);
                   setShowBlancheForm(false);
                 }}
-              >
-                Enregistrer
-              </button>
+                onCancel=${() => setShowBlancheForm(false)}
+              />
             </div>
-          </div>
-        `}
+          `}
+        </div>
 
         ${showForm
           ? html`<div class="mb-4"><${ExerciceForm} annaleNom=${annale.nom} getSeancesForDate=${getSeancesForDate} onSubmit=${(ex) => { onAddExercice(ex); setShowForm(false); }} onCancel=${() => setShowForm(false)} /></div>`
           : html`
               <button
-                class="w-full mb-4 px-3 py-2 rounded-lg text-sm font-medium border border-dashed border-slate-300 text-slate-500 hover:bg-slate-50"
+                class="w-full mb-3 px-3 py-2 rounded-lg text-sm font-medium border border-dashed border-slate-300 text-slate-500 hover:bg-slate-50"
                 onClick=${() => setShowForm(true)}
               >
                 + Ajouter un exercice travaillé
@@ -542,30 +479,43 @@ export function AnnaleDetailModal({
 
         ${(exercices.length > 1 || themesPresents.length > 0) &&
         html`
-          <div class="flex items-center gap-2 mb-2 flex-wrap">
+          <div class="flex items-center gap-1 mb-2 flex-wrap">
             ${exercices.length > 1 &&
             html`
               <button
-                class=${`px-2.5 py-1 rounded-lg text-xs font-medium border ${
+                class=${`px-2 py-0.5 rounded-full text-[11px] font-medium border ${
                   grouped ? "bg-slate-900 text-white border-slate-900" : "text-slate-500 border-slate-200 hover:bg-slate-50"
                 }`}
                 onClick=${() => setGrouped((v) => !v)}
               >
-                Regrouper par exercice
+                Vue par exercice
               </button>
             `}
             ${themesPresents.length > 0 &&
             html`
-              <select
-                class="border border-slate-200 rounded-lg px-2 py-1 text-xs text-slate-500 bg-white"
-                value=${filtreTheme}
-                onChange=${(e) => setFiltreTheme(e.target.value)}
-                title="Filtrer les exercices par thème"
+              <button
+                class=${`px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                  !filtreTheme ? "bg-slate-900 text-white border-slate-900" : "text-slate-500 border-slate-200 hover:bg-slate-50"
+                }`}
+                onClick=${() => setFiltreTheme("")}
               >
-                <option value="">Tous les thèmes</option>
-                ${themesPresents.map((t) => html`<option value=${t}>${t}</option>`)}
-              </select>
+                Tous
+              </button>
             `}
+            ${themesPresents.map(
+              (t) => html`
+                <button
+                  class=${`flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                    filtreTheme === t ? "text-white border-transparent" : "text-slate-500 border-slate-200 hover:bg-slate-50"
+                  }`}
+                  style=${filtreTheme === t ? { backgroundColor: MATHS_THEME_COLORS[t] } : {}}
+                  onClick=${() => setFiltreTheme(t)}
+                >
+                  <span class="inline-block h-1.5 w-1.5 rounded-full shrink-0" style=${{ backgroundColor: filtreTheme === t ? "white" : MATHS_THEME_COLORS[t] }}></span>
+                  ${t}
+                </button>
+              `
+            )}
           </div>
         `}
 
@@ -577,16 +527,36 @@ export function AnnaleDetailModal({
                 ${groupByNom(exercices).map(
                   (g) => html`
                     <div key=${g.nom}>
-                      <p class="text-xs font-medium text-slate-500 mb-1.5">
+                      <p class="text-xs font-medium text-slate-500 mb-1">
                         ${g.nom} · ${g.attempts.length} tentative${g.attempts.length > 1 ? "s" : ""}
                       </p>
-                      <ul class="space-y-2">${g.attempts.map((ex, i) => renderRow(ex, g.attempts[i + 1]))}</ul>
+                      <ul class="space-y-0.5">${g.attempts.map((ex, i) => renderRow(ex, g.attempts[i + 1]))}</ul>
                     </div>
                   `
                 )}
               </div>
             `
-          : html`<ul class="space-y-2">${exercices.map((ex) => renderRow(ex))}</ul>`}
+          : html`
+              <div class="space-y-3">
+                ${seances.map(
+                  (g) => html`
+                    <div key=${g.tentative.id} class="border border-indigo-100 bg-indigo-50/30 rounded-xl p-2">
+                      <p class="text-[11px] font-medium text-indigo-700 mb-1">
+                        ⏱️ Faite en conditions d'examen le ${g.tentative.date ? formatDateFr(g.tentative.date) : "date inconnue"}${g.tentative.note != null ? ` · ${g.tentative.note}/20` : ""} — ${g.items.length} exo${g.items.length > 1 ? "s" : ""}
+                      </p>
+                      <ul class="space-y-0.5">${g.items.map((ex) => renderRow(ex))}</ul>
+                    </div>
+                  `
+                )}
+                ${horsSeance.length > 0 &&
+                html`
+                  <div key="hors-seance">
+                    ${seances.length > 0 && html`<p class="text-[11px] font-medium text-slate-400 mb-1">Travaillés isolément (hors mise en conditions)</p>`}
+                    <ul class="space-y-0.5">${horsSeance.map((ex) => renderRow(ex))}</ul>
+                  </div>
+                `}
+              </div>
+            `}
 
         <div class="mt-5 pt-3 border-t border-slate-100">
           <button
