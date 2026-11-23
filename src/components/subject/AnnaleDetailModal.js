@@ -156,6 +156,7 @@ export function AnnaleDetailModal({
   onClose,
   onDeleteAnnale,
   onRename,
+  onUpdateGlobal,
   onAddExercice,
   onUpdateExercice,
   onDeleteExercice,
@@ -177,6 +178,20 @@ export function AnnaleDetailModal({
   const [tentativeOpenId, setTentativeOpenId] = useState(null);
   const [tentativeEditDate, setTentativeEditDate] = useState("");
   const [tentativeEditCommentaire, setTentativeEditCommentaire] = useState("");
+  const [showNoteForm, setShowNoteForm] = useState(false);
+  const [noteDraft, setNoteDraft] = useState(annale.noteGlobale != null ? String(annale.noteGlobale) : "");
+  const [commentaireGlobalDraft, setCommentaireGlobalDraft] = useState(annale.commentaireGlobal || "");
+
+  const tempsTotal = annale.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
+
+  const saveNoteGlobale = () => {
+    const n = noteDraft.trim() === "" ? null : Number(noteDraft.replace(",", "."));
+    onUpdateGlobal({
+      noteGlobale: Number.isFinite(n) ? n : null,
+      commentaireGlobal: commentaireGlobalDraft.trim(),
+    });
+    setShowNoteForm(false);
+  };
 
   const exercices = [...annale.exercices]
     .filter((ex) => !filtreTheme || ex.theme === filtreTheme)
@@ -348,22 +363,80 @@ export function AnnaleDetailModal({
               `}
           <button class="text-slate-400 hover:text-slate-700 text-lg leading-none shrink-0" onClick=${onClose}>✕</button>
         </div>
-        <div class="flex items-center justify-between gap-2 mb-2">
+        <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
           <p class="text-xs text-slate-500">
-            ${annale.categorie} · ${annale.exercices.length} exercice${annale.exercices.length > 1 ? "s" : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
+            ${annale.categorie} · ${annale.exercices.length} exercice${annale.exercices.length > 1 ? "s" : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}${tempsTotal > 0 ? ` · ⏳ ${formatDuration(tempsTotal)} au total` : ""}
           </p>
-          <button
-            class="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border text-slate-400 border-slate-200 hover:bg-slate-50"
-            onClick=${() => {
-              setShowBlancheForm((v) => !v);
-              setBlancheDate(todayStr());
-              setBlancheCommentaire("");
-            }}
-            title="Enregistrer une fois où l'annale a été faite en conditions d'examen (temps limité, en une fois)"
-          >
-            ⏱️ + Annale blanche
-          </button>
+          <div class="flex items-center gap-1.5 shrink-0">
+            ${annale.noteGlobale != null &&
+            html`
+              <span
+                class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-600 text-white"
+                title=${annale.commentaireGlobal || "Note de la copie"}
+              >
+                📝 ${annale.noteGlobale}/20
+              </span>
+            `}
+            <button
+              class="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border text-slate-400 border-slate-200 hover:bg-slate-50"
+              onClick=${() => setShowNoteForm((v) => !v)}
+              title="Noter la copie si elle a été faite et corrigée dans son ensemble, avec un commentaire général"
+            >
+              📝 ${annale.noteGlobale != null ? "Modifier la note" : "Noter la copie"}
+            </button>
+            <button
+              class="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border text-slate-400 border-slate-200 hover:bg-slate-50"
+              onClick=${() => {
+                setShowBlancheForm((v) => !v);
+                setBlancheDate(todayStr());
+                setBlancheCommentaire("");
+              }}
+              title="Enregistrer une fois où l'annale a été faite en conditions d'examen (temps limité, en une fois)"
+            >
+              ⏱️ + Annale blanche
+            </button>
+          </div>
         </div>
+
+        ${showNoteForm &&
+        html`
+          <div class="border border-indigo-200 rounded-xl p-3 mb-3 bg-indigo-50/40">
+            <label class="text-xs font-medium text-slate-600 block mb-1">
+              Note de la copie (sur 20, si elle a été faite et corrigée dans son ensemble)
+              <input
+                type="number"
+                min="0"
+                max="20"
+                step="0.5"
+                class="mt-1 w-28 border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
+                placeholder="Ex : 14"
+                value=${noteDraft}
+                autoFocus
+                onInput=${(e) => setNoteDraft(e.target.value)}
+              />
+            </label>
+            <label class="text-xs font-medium text-slate-600 block mt-2 mb-1">
+              Commentaire général sur la copie (optionnel)
+              <textarea
+                class="mt-1 w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm resize-none"
+                rows="2"
+                placeholder="Ex : manque de rigueur sur la partie 2, bonne gestion du temps…"
+                value=${commentaireGlobalDraft}
+                onInput=${(e) => setCommentaireGlobalDraft(e.target.value)}
+              ></textarea>
+            </label>
+            <div class="flex justify-end gap-2 mt-2">
+              <button class="px-3 py-1 rounded-lg text-xs text-slate-600 hover:bg-slate-100" onClick=${() => setShowNoteForm(false)}>Annuler</button>
+              <button class="px-3 py-1 rounded-lg text-xs font-medium text-white bg-slate-900 hover:bg-slate-800" onClick=${saveNoteGlobale}>
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        `}
+
+        ${!showNoteForm &&
+        annale.commentaireGlobal &&
+        html`<p class="mb-3 text-xs text-slate-500 italic px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-100">💬 ${annale.commentaireGlobal}</p>`}
 
         ${exosARevoir.length > 0 &&
         html`

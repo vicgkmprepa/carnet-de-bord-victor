@@ -8,6 +8,7 @@ import { FicheRevisionModal } from "./FicheRevisionModal.js";
 import { mondayOf, dayKeyOf } from "../../lib/scheduleUtils.js";
 import { itemLabel, MATHS_THEMES } from "../../lib/subjectMapping.js";
 import { formatDateFr } from "../../lib/dateUtils.js";
+import { formatDuration } from "../../lib/scheduleUtils.js";
 import { exercicesARevoir, derniereDateAnnale } from "../../lib/annalesMaths.js";
 
 const CATEGORIES = ["Maths I", "Maths II", "EDHEC", "EM", "Écricome"];
@@ -27,6 +28,14 @@ const AVANCEMENT_TITRE = {
   "": "Aucun exercice marqué comme fait — cliquer pour indiquer que quelques exos sont faits",
   partiel: "Quelques exercices faits — cliquer pour indiquer que tous les exos sont faits au moins une fois",
   complet: "Tous les exercices faits au moins une fois — cliquer pour réinitialiser",
+};
+// Encadré de chaque annale dans le répertoire : la bordure (et le fond, pour
+// "complet") reprend la couleur de l'avancement, pour repérer d'un coup d'œil
+// les annales entièrement faites sans avoir à regarder le petit rond.
+const AVANCEMENT_CARD_STYLE = {
+  "": "border-slate-200 hover:border-slate-300",
+  partiel: "border-amber-300 bg-amber-50/40 hover:border-amber-400",
+  complet: "border-emerald-300 bg-emerald-50/60 hover:border-emerald-400",
 };
 
 // Seuils (en jours) au-delà desquels on considère un exercice "à revoir" comme
@@ -514,16 +523,17 @@ export function AnnalesMathsTracker() {
               : "Aucune annale dans cette catégorie pour l'instant."}
           />`
         : html`
-            <ul class="divide-y divide-slate-100 max-h-64 overflow-y-auto overflow-x-hidden">
+            <ul class="space-y-1.5 max-h-72 overflow-y-auto overflow-x-hidden pr-0.5">
               ${annales.map((a) => {
                 const nbARevoir = exercicesARevoir(a.exercices).length;
                 const avancement = a.avancement || "";
                 const derniereDate = derniereDateAnnale(a);
+                const tempsTotal = a.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
                 return html`
                   <li key=${a.id}>
-                    <div class="w-full flex items-center gap-2 py-2 px-2 -mx-2 rounded-lg hover:bg-slate-50">
+                    <div class=${`w-full flex items-center gap-2 py-2 px-2.5 rounded-xl border transition-colors ${AVANCEMENT_CARD_STYLE[avancement]}`}>
                       <button
-                        class=${`shrink-0 h-2.5 w-2.5 rounded-full border transition-colors ${AVANCEMENT_STYLE[avancement]}`}
+                        class=${`shrink-0 h-3 w-3 rounded-full border-2 transition-colors ${AVANCEMENT_STYLE[avancement]}`}
                         onClick=${(e) => {
                           e.stopPropagation();
                           updateAnnale(a.id, { avancement: AVANCEMENT_SUIVANT[avancement] });
@@ -534,15 +544,18 @@ export function AnnalesMathsTracker() {
                         class="flex-1 min-w-0 flex items-center justify-between gap-3 text-left"
                         onClick=${() => setOpenId(a.id)}
                       >
-                        <span class="text-sm text-slate-700 truncate flex items-center gap-1.5">
+                        <span class=${`text-sm truncate flex items-center gap-1.5 ${avancement === "complet" ? "font-medium text-emerald-800" : "text-slate-700"}`}>
+                          ${avancement === "complet" && html`<span title="Tous les exercices faits au moins une fois">✅</span>`}
                           ${a.tentativesBlanches.length > 0 &&
                           html`<span title=${`Faite en blanche ${a.tentativesBlanches.length} fois`}>⏱️</span>`}
                           ${a.nom}
                         </span>
-                        <span class="flex items-center gap-2 shrink-0 text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5 shrink-0 text-xs text-slate-400 flex-wrap justify-end">
                           ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
                           <span>${a.exercices.length} exo${a.exercices.length > 1 ? "s" : ""}</span>
+                          ${tempsTotal > 0 && html`<span class="text-slate-400">· ⏳ ${formatDuration(tempsTotal)}</span>`}
                           ${derniereDate && html`<span class="text-slate-400">· ${formatDateFr(derniereDate)}</span>`}
+                          ${a.noteGlobale != null && html`<span class="px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold">${a.noteGlobale}/20</span>`}
                           ${nbARevoir > 0 && html`<span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
                       </button>
@@ -561,6 +574,7 @@ export function AnnalesMathsTracker() {
         getSeancesForDate=${getSeancesForDate}
         onClose=${() => setOpenId(null)}
         onRename=${(nouveauNom) => updateAnnale(annaleOuverte.id, { nom: nouveauNom })}
+        onUpdateGlobal=${(patch) => updateAnnale(annaleOuverte.id, patch)}
         onDeleteAnnale=${() => {
           deleteAnnale(annaleOuverte.id);
           setOpenId(null);

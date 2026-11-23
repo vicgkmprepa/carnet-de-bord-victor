@@ -15435,6 +15435,8 @@
         }
       ],
       "avancement": "partiel",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-fd4bceea-d5eb-477c-8211-983f380bf1c6",
       "nom": "EDHEC 2012 ECE",
       "categorie": "EDHEC",
@@ -15474,6 +15476,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-7a8b4d80-7e40-4198-81bc-5e517f0462b3",
       "nom": "EML 2022 ECE",
       "categorie": "EM",
@@ -15509,6 +15513,8 @@
         }
       ],
       "avancement": "partiel",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-e19d1861-2007-45d7-b5d2-dfaa9f880167",
       "nom": "EDHEC 2017 ECE",
       "categorie": "EDHEC",
@@ -15538,6 +15544,8 @@
         }
       ],
       "avancement": "partiel",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-cff06390-9382-4b95-9e7a-ced17b726e2f",
       "nom": "EDHEC 2019 ECE",
       "categorie": "EDHEC",
@@ -15567,6 +15575,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-3f436491-ebc4-494d-a421-70ecefaff420",
       "nom": "HEC 2017 ECE",
       "categorie": "Maths I",
@@ -15632,6 +15642,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": 14.5,
+      "commentaireGlobal": "Test commentaire global",
       "id": "am-b886d614-4431-461f-b467-8233f843169e",
       "nom": "EDHEC 2026 ECE",
       "categorie": "EDHEC",
@@ -15707,6 +15719,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-2ff6ff1e-bfff-4602-a159-1e8ae2ee6161",
       "nom": "EDHEC 2025 ECE",
       "categorie": "EDHEC",
@@ -15752,6 +15766,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-96b6b9f5-a3d7-4ec2-95a5-7afc34941bbf",
       "nom": "EML 2018 ECE",
       "categorie": "EM",
@@ -15817,6 +15833,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-2299d9b8-972e-49eb-8066-b476f04c73fb",
       "nom": "ECRICOME 2025 ECE",
       "categorie": "Écricome",
@@ -15862,6 +15880,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-0825507a-2e2c-42d7-bbd3-5dcd19d1c41d",
       "nom": "EML 2025 ECE",
       "categorie": "EM",
@@ -15911,6 +15931,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-5f6f5a9f-510e-45bc-a690-64132b37ccfd",
       "nom": "EML 2024 ECE",
       "categorie": "EM",
@@ -15966,6 +15988,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-afdfcc1d-7983-468e-8643-47bb6304e645",
       "nom": "EDHEC 2022 ECE",
       "categorie": "EDHEC",
@@ -15991,6 +16015,8 @@
         }
       ],
       "avancement": "partiel",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-ab56794a-ca2c-474d-9b00-a692c333cfd0",
       "nom": "EML 2021 ECE",
       "categorie": "EM",
@@ -16010,6 +16036,8 @@
         }
       ],
       "avancement": "partiel",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-25bc1247-657f-4d55-a34e-6acaa086c857",
       "nom": "EML 2020 ECE",
       "categorie": "EM",
@@ -16029,6 +16057,8 @@
         }
       ],
       "avancement": "partiel",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-b2b61505-320b-4ef4-b8bb-5e592242476d",
       "nom": "EML 2026 ECE",
       "categorie": "EM",
@@ -16128,6 +16158,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-a49adb88-d42b-4fe7-8855-7e45151b6f5b",
       "nom": "EDHEC 2024 ECE",
       "categorie": "EDHEC",
@@ -16168,6 +16200,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-f439e068-b8eb-4488-8e81-b700b840de48",
       "nom": "HEC 2019 ECE",
       "categorie": "Maths I",
@@ -16213,6 +16247,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-410af45d-53f1-4b47-9b5b-60c469b65dc6",
       "nom": "EM 2023 ECE",
       "categorie": "EM",
@@ -16268,6 +16304,8 @@
         }
       ],
       "avancement": "complet",
+      "noteGlobale": null,
+      "commentaireGlobal": "",
       "id": "am-c20ff292-654e-447d-88df-d705e4743bfc",
       "nom": "EDHEC 2023 ECE",
       "categorie": "EDHEC",

@@ -77,7 +77,7 @@ function normalize(d) {
     notes_bce_reference: d.notes_bce_reference || [],
     notes_cibles_personnalisees: d.notes_cibles_personnalisees || {},
     annales_maths: (d.annales_maths || []).map((a) => {
-      const { blanche, ...rest } = { exercices: [], avancement: "", ...a };
+      const { blanche, ...rest } = { exercices: [], avancement: "", noteGlobale: null, commentaireGlobal: "", ...a };
       // Migration de l'ancien indicateur booléen "blanche" (sans date connue) vers
       // l'historique daté — on garde une trace plutôt que de la perdre silencieusement.
       const tentativesBlanches =
