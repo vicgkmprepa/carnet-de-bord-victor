@@ -518,7 +518,8 @@
       "matiere": "HGG",
       "titre": "MàJ Afrique !!",
       "deadline": "2026-11-21",
-      "statut": "à faire"
+      "statut": "fait",
+      "faitLe": "2026-11-23"
     },
     {
       "devoir": true,
@@ -526,7 +527,8 @@
       "matiere": "HGG",
       "titre": "Ce soir fichage // Maj Afrique",
       "deadline": "2026-11-19",
-      "statut": "à faire"
+      "statut": "fait",
+      "faitLe": "2026-11-23"
     }
   ],
   "emploi_du_temps": {
