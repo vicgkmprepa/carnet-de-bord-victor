@@ -19,6 +19,7 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
   const [date, setDate] = useState(initial?.date || todayStr());
   const [difficulte, setDifficulte] = useState(initial?.difficulte || "Moyen");
   const [theme, setTheme] = useState(initial?.theme || "");
+  const [tempsMinutes, setTempsMinutes] = useState(initial?.tempsMinutes != null ? String(initial.tempsMinutes) : "");
   const [aRevoir, setARevoir] = useState(initial?.aRevoir || false);
   const [commentaire, setCommentaire] = useState(initial?.commentaire || "");
   const [attachKey, setAttachKey] = useState("");
@@ -31,15 +32,13 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
     const nomFinal = nom.trim();
     const cible = seancesDuJour.find((s) => s.key === attachKey);
     if (cible) cible.attach(`Annale : ${annaleNom} — ${nomFinal}`);
+    const temps = tempsMinutes.trim() === "" ? null : Math.max(0, Math.round(Number(tempsMinutes)));
     onSubmit({
       nom: nomFinal,
       date,
       difficulte,
       theme,
-      // Le temps passé se note désormais au niveau de la tentative (annale
-      // blanche) plutôt qu'exercice par exercice — on garde juste l'éventuelle
-      // ancienne valeur telle quelle si l'exercice en avait une.
-      tempsMinutes: initial?.tempsMinutes ?? null,
+      tempsMinutes: Number.isFinite(temps) ? temps : null,
       aRevoir,
       commentaire: commentaire.trim(),
     });
@@ -72,14 +71,24 @@ function ExerciceForm({ initial, annaleNom, getSeancesForDate, onSubmit, onCance
           ${DIFFICULTES.map((d) => html`<option value=${d}>${d}</option>`)}
         </select>
       </div>
-      <select
-        class="w-full border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm text-slate-600 mb-2"
-        value=${theme}
-        onChange=${(e) => setTheme(e.target.value)}
-      >
-        <option value="">Thème (obligatoire)</option>
-        ${MATHS_THEMES.filter((t) => t !== "Annale").map((t) => html`<option value=${t}>${t}</option>`)}
-      </select>
+      <div class="grid grid-cols-2 gap-2 mb-2">
+        <select
+          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm text-slate-600"
+          value=${theme}
+          onChange=${(e) => setTheme(e.target.value)}
+        >
+          <option value="">Thème (obligatoire)</option>
+          ${MATHS_THEMES.filter((t) => t !== "Annale").map((t) => html`<option value=${t}>${t}</option>`)}
+        </select>
+        <input
+          type="number"
+          min="0"
+          class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-sm"
+          placeholder="Temps passé (min)"
+          value=${tempsMinutes}
+          onInput=${(e) => setTempsMinutes(e.target.value)}
+        />
+      </div>
       ${seancesDuJour.length > 0 &&
       html`
         <select
@@ -270,6 +279,10 @@ export function AnnaleDetailModal({
   const idsARevoirEffectif = new Set(exosARevoir.map((ex) => ex.id));
   const nbARevoir = exosARevoir.length;
   const tentatives = [...annale.tentativesBlanches].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  // Calculé automatiquement par somme des temps saisis exercice par exercice —
+  // jamais ressaisi à la main.
+  const tempsTotal = annale.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
+  const derniereNote = tentatives.find((t) => t.note != null);
 
   const saveNom = () => {
     if (nomDraft.trim()) onRename(nomDraft.trim());
@@ -332,7 +345,7 @@ export function AnnaleDetailModal({
                 </span>
               `;
             })()}
-            <span class="text-xs text-slate-400">${formatDateFr(ex.date)}</span>
+            <span class="text-xs text-slate-400">${formatDateFr(ex.date)}${ex.tempsMinutes ? ` · ${formatDuration(ex.tempsMinutes)}` : ""}</span>
           </div>
           <div class="flex items-center gap-1.5 shrink-0">
             ${seancesDuJour.length > 0 &&
@@ -394,9 +407,17 @@ export function AnnaleDetailModal({
               `}
           <button class="text-slate-400 hover:text-slate-700 text-lg leading-none shrink-0" onClick=${onClose}>✕</button>
         </div>
-        <p class="text-xs text-slate-500 mb-3">
-          ${annale.categorie}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
-        </p>
+        <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+          <p class="text-xs text-slate-500">
+            ${annale.categorie}${tempsTotal > 0 ? ` · ⏳ ${formatDuration(tempsTotal)} au total` : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
+          </p>
+          ${derniereNote &&
+          html`
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-600 text-white" title=${`Dernière note enregistrée (${formatDateFr(derniereNote.date)})`}>
+              📝 ${derniereNote.note}/20
+            </span>
+          `}
+        </div>
 
         ${exosARevoir.length > 0 &&
         html`

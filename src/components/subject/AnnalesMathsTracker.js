@@ -5,7 +5,7 @@ import { Card } from "../common/Card.js";
 import { EmptyState } from "../common/EmptyState.js";
 import { AnnaleDetailModal } from "./AnnaleDetailModal.js";
 import { FicheRevisionModal } from "./FicheRevisionModal.js";
-import { mondayOf, dayKeyOf } from "../../lib/scheduleUtils.js";
+import { mondayOf, dayKeyOf, formatDuration } from "../../lib/scheduleUtils.js";
 import { itemLabel, MATHS_THEMES } from "../../lib/subjectMapping.js";
 import { formatDateFr } from "../../lib/dateUtils.js";
 import { exercicesARevoir, derniereDateAnnale } from "../../lib/annalesMaths.js";
@@ -528,6 +528,14 @@ export function AnnalesMathsTracker() {
                 const avancement = a.avancement || "";
                 const derniereDate = derniereDateAnnale(a);
                 const nbTentatives = a.tentativesBlanches.length;
+                // Calculé automatiquement (somme des temps saisis exercice par
+                // exercice), jamais ressaisi à la main.
+                const tempsTotal = a.exercices.reduce((acc, ex) => acc + (ex.tempsMinutes || 0), 0);
+                // Note la plus récente parmi les tentatives — rattachée directement
+                // à la ligne de l'annale plutôt que reléguée dans son détail.
+                const derniereNote = [...a.tentativesBlanches]
+                  .sort((x, y) => (y.date || "").localeCompare(x.date || ""))
+                  .find((t) => t.note != null);
                 return html`
                   <li key=${a.id}>
                     <div class=${`w-full flex items-center gap-2 py-2 px-2.5 rounded-xl border transition-colors ${AVANCEMENT_CARD_STYLE[avancement]}`}>
@@ -549,8 +557,10 @@ export function AnnalesMathsTracker() {
                         </span>
                         <span class="flex items-center gap-1.5 shrink-0 text-xs text-slate-400 flex-wrap justify-end">
                           ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
+                          ${tempsTotal > 0 && html`<span class="text-slate-400">⏳ ${formatDuration(tempsTotal)}</span>`}
                           ${nbTentatives > 0 && html`<span class="text-slate-400" title="Nombre de fois faite en conditions d'examen">⏱️ ${nbTentatives} tentative${nbTentatives > 1 ? "s" : ""}</span>`}
                           ${derniereDate && html`<span class="text-slate-400">${formatDateFr(derniereDate)}</span>`}
+                          ${derniereNote != null && html`<span class="px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold" title="Dernière note enregistrée">${derniereNote.note}/20</span>`}
                           ${nbARevoir > 0 && html`<span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
                       </button>
