@@ -555,13 +555,22 @@ export function AnnalesMathsTracker() {
                           ${avancement === "complet" && html`<span title="Tous les exercices faits au moins une fois">✅</span>`}
                           ${a.nom}
                         </span>
-                        <span class="flex items-center gap-1.5 shrink-0 text-xs text-slate-400 flex-wrap justify-end">
-                          ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
-                          ${tempsTotal > 0 && html`<span class="text-slate-400">⏳ ${formatDuration(tempsTotal)}</span>`}
-                          ${nbTentatives > 0 && html`<span class="text-slate-400" title="Nombre de fois faite en conditions d'examen">⏱️ ${nbTentatives} tentative${nbTentatives > 1 ? "s" : ""}</span>`}
-                          ${derniereDate && html`<span class="text-slate-400">${formatDateFr(derniereDate)}</span>`}
-                          ${derniereNote != null && html`<span class="px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold" title="Dernière note enregistrée">${derniereNote.note}/20</span>`}
-                          ${nbARevoir > 0 && html`<span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
+                        <span class="flex items-center gap-2.5 shrink-0 text-xs text-slate-400">
+                          <span
+                            class="grid items-center gap-x-2 tabular-nums"
+                            style=${{ gridTemplateColumns: `${active === TOUT ? "4rem " : ""}3.5rem 2.25rem 5.5rem 3rem` }}
+                          >
+                            ${active === TOUT && html`<span class="truncate text-right">${a.categorie}</span>`}
+                            <span class="text-right">${tempsTotal > 0 ? `⏳ ${formatDuration(tempsTotal)}` : ""}</span>
+                            <span class="text-right" title="Nombre de fois faite en conditions d'examen">${nbTentatives > 0 ? `⏱️ ${nbTentatives}` : ""}</span>
+                            <span class="text-right">${derniereDate ? formatDateFr(derniereDate) : ""}</span>
+                            <span class="text-right">
+                              ${derniereNote != null &&
+                              html`<span class="px-1.5 py-0.5 rounded-full bg-indigo-600 text-white font-semibold" title="Dernière note enregistrée">${derniereNote.note}/20</span>`}
+                            </span>
+                          </span>
+                          ${nbARevoir > 0 &&
+                          html`<span class="shrink-0 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
                       </button>
                     </div>
