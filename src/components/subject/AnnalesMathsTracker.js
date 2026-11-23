@@ -549,9 +549,8 @@ export function AnnalesMathsTracker() {
                         </span>
                         <span class="flex items-center gap-1.5 shrink-0 text-xs text-slate-400 flex-wrap justify-end">
                           ${active === TOUT && html`<span class="text-slate-400">${a.categorie}</span>`}
-                          <span>${a.exercices.length} exo${a.exercices.length > 1 ? "s" : ""}</span>
-                          ${nbTentatives > 0 && html`<span class="text-slate-400" title="Nombre de fois faite en conditions d'examen">· ⏱️ ${nbTentatives} tentative${nbTentatives > 1 ? "s" : ""}</span>`}
-                          ${derniereDate && html`<span class="text-slate-400">· ${formatDateFr(derniereDate)}</span>`}
+                          ${nbTentatives > 0 && html`<span class="text-slate-400" title="Nombre de fois faite en conditions d'examen">⏱️ ${nbTentatives} tentative${nbTentatives > 1 ? "s" : ""}</span>`}
+                          ${derniereDate && html`<span class="text-slate-400">${formatDateFr(derniereDate)}</span>`}
                           ${nbARevoir > 0 && html`<span class="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">${nbARevoir} à revoir</span>`}
                         </span>
                       </button>

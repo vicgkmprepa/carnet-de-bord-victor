@@ -395,7 +395,7 @@ export function AnnaleDetailModal({
           <button class="text-slate-400 hover:text-slate-700 text-lg leading-none shrink-0" onClick=${onClose}>✕</button>
         </div>
         <p class="text-xs text-slate-500 mb-3">
-          ${annale.categorie} · ${annale.exercices.length} exercice${annale.exercices.length > 1 ? "s" : ""}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
+          ${annale.categorie}${nbARevoir > 0 ? ` · ${nbARevoir} à revoir` : ""}
         </p>
 
         ${exosARevoir.length > 0 &&
@@ -542,7 +542,7 @@ export function AnnaleDetailModal({
                   (g) => html`
                     <div key=${g.tentative.id} class="border border-indigo-100 bg-indigo-50/30 rounded-xl p-2">
                       <p class="text-[11px] font-medium text-indigo-700 mb-1">
-                        ⏱️ Faite en conditions d'examen le ${g.tentative.date ? formatDateFr(g.tentative.date) : "date inconnue"}${g.tentative.note != null ? ` · ${g.tentative.note}/20` : ""} — ${g.items.length} exo${g.items.length > 1 ? "s" : ""}
+                        ⏱️ Faite en conditions d'examen le ${g.tentative.date ? formatDateFr(g.tentative.date) : "date inconnue"}${g.tentative.note != null ? ` · ${g.tentative.note}/20` : ""}
                       </p>
                       <ul class="space-y-0.5">${g.items.map((ex) => renderRow(ex))}</ul>
                     </div>
