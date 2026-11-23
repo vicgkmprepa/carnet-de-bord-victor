@@ -1546,11 +1546,6 @@
       "remarque": ""
     },
     {
-      "id": "suj-033dbd41-7459-42b4-917d-aa4aca3c048a",
-      "sujet": "L'individu contre l'humanité",
-      "date": "2026-11-22",
-      "theme": "",
-      "remarque": "",
       "statut": "vu_dst",
       "correction": "",
       "typeCorrection": "",
@@ -1574,7 +1569,12 @@
           "type": "Rédaction complète",
           "note": ""
         }
-      ]
+      ],
+      "id": "suj-033dbd41-7459-42b4-917d-aa4aca3c048a",
+      "sujet": "L'individu contre l'humanité",
+      "date": "2026-11-22",
+      "theme": "",
+      "remarque": ""
     }
   ],
   "epreuves_cb": [
@@ -13309,7 +13309,7 @@
       "contenu": "Correction DS (1h15) + TLDR Nexs (0h15)"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13318,7 +13318,8 @@
       "debut": "07:00",
       "fin": "08:05",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": "Apprentissage EDC Afrique (RDC, Éthiopien Airlines, Maroc et présence militaire chinoise) (0h40) + 10x10"
     },
     {
       "statut": "planifie",
