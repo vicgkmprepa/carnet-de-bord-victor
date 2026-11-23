@@ -13717,7 +13717,8 @@
       "debut": "20:00",
       "fin": "21:30",
       "matiere": "CG",
-      "titre": "CG"
+      "titre": "CG",
+      "contenu": "Gros apprentissage"
     },
     {
       "statut": "planifie",
