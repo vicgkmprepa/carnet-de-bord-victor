@@ -14699,6 +14699,17 @@
       "matiere": "CG",
       "titre": "",
       "contenu": "PRÉPARATION DST :\n- rappel de tous les auteurs (20 minutes)\n- rappel des 3 thèmes (15 minutes)\n- rappel de la méthodologie (10) et reprise copies (15) (25 minutes)"
+    },
+    {
+      "id": "sp-1b18aaf8-73dc-447e-96c4-073f97fa0b03",
+      "date": "2026-11-23",
+      "debut": "17:45",
+      "fin": "19:00",
+      "matiere": "Maths",
+      "titre": "Correction du DST du dimanche",
+      "theme": "Annale",
+      "statut": "planifie",
+      "estCours": false
     }
   ],
   "geopolitique_revisions": [
