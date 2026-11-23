@@ -13355,8 +13355,8 @@
       "devoirIds": [],
       "id": "sp-3ae88359-a230-4c9e-a52b-24bcbf26a9ce",
       "date": "2026-11-23",
-      "debut": "19:00",
-      "fin": "20:15",
+      "debut": "19:15",
+      "fin": "20:30",
       "matiere": "CG",
       "titre": "",
       "contenu": "15 min regarder les retours du test et les apprendre\n10 min : rapport de jury\n50 minutes : correction du DST"
@@ -14701,15 +14701,16 @@
       "contenu": "PRÉPARATION DST :\n- rappel de tous les auteurs (20 minutes)\n- rappel des 3 thèmes (15 minutes)\n- rappel de la méthodologie (10) et reprise copies (15) (25 minutes)"
     },
     {
+      "statut": "realise",
+      "theme": "Annale",
+      "estCours": false,
+      "devoirIds": [],
       "id": "sp-1b18aaf8-73dc-447e-96c4-073f97fa0b03",
       "date": "2026-11-23",
       "debut": "17:45",
       "fin": "19:00",
       "matiere": "Maths",
       "titre": "Correction du DST du dimanche",
-      "theme": "Annale",
-      "statut": "realise",
-      "estCours": false,
       "contenu": ""
     }
   ],
