@@ -16112,9 +16112,9 @@
           "date": "2026-11-22",
           "difficulte": "Difficile",
           "theme": "Analyse",
-          "tempsMinutes": null,
+          "tempsMinutes": 45,
           "aRevoir": false,
-          "commentaire": ""
+          "commentaire": "Complètement raté"
         },
         {
           "id": "ex-94fb1287-34bb-4afe-b23c-0820264541f1",
