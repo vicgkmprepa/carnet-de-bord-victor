@@ -14708,8 +14708,9 @@
       "matiere": "Maths",
       "titre": "Correction du DST du dimanche",
       "theme": "Annale",
-      "statut": "planifie",
-      "estCours": false
+      "statut": "realise",
+      "estCours": false,
+      "contenu": ""
     }
   ],
   "geopolitique_revisions": [
