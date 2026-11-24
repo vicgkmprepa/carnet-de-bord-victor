@@ -529,6 +529,14 @@
       "deadline": "2026-11-19",
       "statut": "fait",
       "faitLe": "2026-11-23"
+    },
+    {
+      "id": "t-0c232c9f-a2bd-41f1-9786-f61c22f0a4e9",
+      "matiere": "Général",
+      "titre": "OBJECTIF AVOIR TERMINÉ LES ANKIS FIN DE SEMAINE",
+      "deadline": "2026-11-29",
+      "statut": "à faire",
+      "devoir": true
     }
   ],
   "emploi_du_temps": {
