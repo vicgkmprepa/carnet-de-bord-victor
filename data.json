@@ -471,15 +471,6 @@
       "faitLe": "2026-11-03"
     },
     {
-      "devoir": false,
-      "id": "t-1ae3acfb-731a-467d-a048-4654c22606b5",
-      "matiere": "Espagnol",
-      "titre": "Corriger ma copie de la BCE",
-      "deadline": "2026-11-06",
-      "statut": "fait",
-      "faitLe": "2026-11-24"
-    },
-    {
       "devoir": true,
       "id": "t-b9e471a8-1c8c-4185-b58e-4f6735ab4b81",
       "matiere": "Maths",
@@ -531,12 +522,12 @@
       "faitLe": "2026-11-23"
     },
     {
+      "devoir": true,
       "id": "t-0c232c9f-a2bd-41f1-9786-f61c22f0a4e9",
       "matiere": "Général",
       "titre": "OBJECTIF AVOIR TERMINÉ LES ANKIS FIN DE SEMAINE",
       "deadline": "2026-11-29",
-      "statut": "à faire",
-      "devoir": true
+      "statut": "à faire"
     }
   ],
   "emploi_du_temps": {
