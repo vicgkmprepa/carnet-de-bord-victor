@@ -13487,7 +13487,7 @@
       "contenu": "25 min : révisions 4 auteurs (Freud/Hugo/Chaplin/Morin)\n15 minutes : apprentissage d'un thème annexe\n20 minutes : 8x8"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13496,7 +13496,8 @@
       "debut": "17:40",
       "fin": "18:40",
       "matiere": "Anglais",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
