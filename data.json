@@ -727,7 +727,7 @@
       "heure": "15:10",
       "salle": "A123",
       "colleur": "D. Hayes",
-      "note": null,
+      "note": 10,
       "retour": "",
       "axes_amelioration": ""
     },
