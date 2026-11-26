@@ -13526,7 +13526,7 @@
       "contenu": "8x8 - 25 min : apprentissage B4 - 8x8"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13535,7 +13535,8 @@
       "debut": "14:00",
       "fin": "14:50",
       "matiere": "HGG",
-      "titre": "Fichage"
+      "titre": "Fichage",
+      "contenu": ""
     },
     {
       "statut": "realise",
