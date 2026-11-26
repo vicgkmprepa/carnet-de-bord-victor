@@ -13513,7 +13513,7 @@
       "contenu": "M2 2026\n\nLe sujet ayant été trop complexe, nous procédons à sa correction à partir de 22h30 après avoir lu la copie à 18/20."
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
