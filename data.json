@@ -13641,7 +13641,7 @@
       "contenu": "15 minutes de cours d'Algèbre\n30 minutes Python\nReste Equations différentielles"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
