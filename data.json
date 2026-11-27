@@ -13709,8 +13709,8 @@
       "devoirIds": [],
       "id": "sp-1fd3ce52-2614-44c7-8c94-d1b56af06e21",
       "date": "2026-11-29",
-      "debut": "14:30",
-      "fin": "18:30",
+      "debut": "10:00",
+      "fin": "14:00",
       "matiere": "HGG",
       "titre": ""
     },
@@ -13721,8 +13721,8 @@
       "devoirIds": [],
       "id": "sp-036586c3-a598-46a6-b9b9-fdde029efd05",
       "date": "2026-11-29",
-      "debut": "19:30",
-      "fin": "23:00",
+      "debut": "15:30",
+      "fin": "19:00",
       "matiere": "Maths",
       "titre": "",
       "contenu": "EM 2025"
@@ -13747,8 +13747,8 @@
       "devoirIds": [],
       "id": "sp-86acd7bf-5e67-4596-b961-a3da22680cfb",
       "date": "2026-11-29",
-      "debut": "11:30",
-      "fin": "13:00",
+      "debut": "10:00",
+      "fin": "11:30",
       "matiere": "Anglais",
       "titre": ""
     },
