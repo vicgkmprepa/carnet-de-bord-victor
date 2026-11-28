@@ -13667,7 +13667,7 @@
       "contenu": ""
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "Probabilités",
       "estCours": false,
       "devoirIds": [],
@@ -13676,7 +13676,8 @@
       "debut": "13:00",
       "fin": "15:00",
       "matiere": "Maths",
-      "titre": "Devoirs pour Joulak"
+      "titre": "Devoirs pour Joulak",
+      "contenu": "visio joujou"
     },
     {
       "statut": "planifie",
