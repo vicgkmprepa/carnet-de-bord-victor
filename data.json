@@ -13654,7 +13654,7 @@
       "contenu": "40 min : apprentissage B5/B6/B4\n20 min : mise en commun "
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13663,7 +13663,8 @@
       "debut": "08:00",
       "fin": "12:00",
       "matiere": "Espagnol",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
