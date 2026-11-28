@@ -13680,7 +13680,7 @@
       "contenu": "visio joujou"
     },
     {
-      "statut": "planifie",
+      "statut": "realise",
       "theme": "",
       "estCours": false,
       "devoirIds": [],
@@ -13689,7 +13689,8 @@
       "debut": "15:00",
       "fin": "16:30",
       "matiere": "HGG",
-      "titre": ""
+      "titre": "",
+      "contenu": ""
     },
     {
       "statut": "planifie",
